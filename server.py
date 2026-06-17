@@ -73,7 +73,8 @@ def md_to_html(md_text):
         elif line.startswith('- ') or line.startswith('* '):
             html.append(f'<li>{line[2:]}</li>')
         elif re.match(r'^\d+\. ', line):
-            html.append(f'<li>{re.sub(r"^\d+\. ", "", line)}</li>')
+            item = re.sub(r'^\d+\. ', '', line)
+            html.append(f'<li>{item}</li>')
         # 引用
         elif line.startswith('> '):
             html.append(f'<blockquote>{line[2:]}</blockquote>')

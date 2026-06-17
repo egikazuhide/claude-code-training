@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>収録用モックアップ画面 一覧</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .header{background:linear-gradient(135deg,#1e293b,#0f172a);border-bottom:1px solid #334155;padding:32px 24px;text-align:center}
+  .header h1{font-size:26px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+  .header p{color:#94a3b8;font-size:14px}
+  .header a.back{display:inline-block;margin-top:14px;color:#38bdf8;text-decoration:none;font-size:13px}
+  .container{max-width:900px;margin:0 auto;padding:24px}
+  .part-section{margin-bottom:24px;border-radius:12px;overflow:hidden;border:1px solid #334155}
+  .part-header{display:flex;align-items:center;gap:12px;padding:14px 20px}
+  .part-label{font-size:12px;font-weight:700;background:rgba(255,255,255,0.2);border-radius:4px;padding:2px 8px;color:#fff}
+  .part-title{font-size:16px;font-weight:600;color:#fff;flex:1}
+  .episode-list{background:#1e293b}
+  .episode-card{display:flex;align-items:center;gap:16px;padding:14px 20px;text-decoration:none;color:inherit;border-top:1px solid #334155;transition:background 0.15s}
+  .episode-card:hover{background:#273548}
+  .ep-num{font-size:12px;font-weight:600;color:#64748b;min-width:50px}
+  .ep-body{flex:1}
+  .ep-title{font-size:14px;font-weight:500;color:#e2e8f0;margin-bottom:4px}
+  .ep-goal{font-size:12px;color:#64748b}
+  .ep-type{font-size:11px;color:#38bdf8;font-weight:600;white-space:nowrap;background:#0f172a;border-radius:4px;padding:3px 8px}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🖥️ 収録用モックアップ画面 一覧</h1>
+  <p>各回のClaude Codeアプリ操作画面・概念図を収録時に表示するための画面</p>
+  <a class="back" href="../index.html">← スクリプト一覧に戻る</a>
+</div>
+<div class="container" id="container"></div>
+<script src="data.js"></script>
+<script>
+const PART_COLORS = {
+  Part1: "#3B82F6", Part2: "#8B5CF6", Part3: "#10B981", Part4: "#F59E0B",
+  Part5: "#06B6D4", Part6: "#EC4899", Part7: "#EF4444", Part8: "#6366F1", Part9: "#64748B",
+};
+const PART_TITLES = {
+  Part1: "Claude Codeを知る", Part2: "指示を出す力をつける", Part3: "文書・レポートを作る",
+  Part4: "スクリプトで作業を自動化する", Part5: "Webページを作る", Part6: "アプリを設計する",
+  Part7: "アプリを作る", Part8: "アプリを仕上げる・配布する", Part9: "フォローアップ",
+};
+
+const nums = Object.keys(EPISODES).sort();
+const parts = {};
+nums.forEach(n => {
+  const d = EPISODES[n];
+  parts[d.part] = parts[d.part] || [];
+  parts[d.part].push({ num: n, ...d });
+});
+
+let html = '';
+Object.keys(parts).forEach(part => {
+  const color = PART_COLORS[part] || '#6B7280';
+  let items = '';
+  parts[part].forEach(ep => {
+    const href = ep.special ? ep.special : `claude-app.html?ep=${ep.num}`;
+    const typeLabel = ep.special ? '概念図' : 'アプリ画面';
+    items += `<a href="${href}" class="episode-card">
+      <div class="ep-num">第${ep.num}回</div>
+      <div class="ep-body">
+        <div class="ep-title">${ep.title}</div>
+        <div class="ep-goal">🎯 ${ep.goal}</div>
+      </div>
+      <div class="ep-type">${typeLabel}</div>
+    </a>`;
+  });
+  html += `<div class="part-section">
+    <div class="part-header" style="background:${color}">
+      <span class="part-label">${part}</span>
+      <span class="part-title">${PART_TITLES[part]}</span>
+    </div>
+    <div class="episode-list">${items}</div>
+  </div>`;
+});
+document.getElementById('container').innerHTML = html;
+</script>
+</body>
+</html>

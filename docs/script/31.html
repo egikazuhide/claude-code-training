@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第31回 | エラーが出たときの対処法：エラー文をそのまま渡して直す</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#6366F1;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第31回 / Part8</span>
+  <span class="title">エラーが出たときの対処法：エラー文をそのまま渡して直す</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>エラーに遭遇しても自力でClaude Codeに修正させられる</span></div>
+  <div class="meta-item">🎬 収録：<span>エラー発生から修正完了まで画面収録</span></div>
+</div>
+<div class="nav"><a href="30.html" class="nav-btn">← 第30回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="32.html" class="nav-btn">第32回 →</a></div>
+<div class="container"><h1>第19回｜エラーが出たときの対処法：エラー文をそのまま渡して直す</h1>
+<br>
+<p><strong>尺：10分 / Part5</strong></p>
+<p><strong>ゴール：エラーに遭遇しても自力でClaude Codeに修正させられる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>エラーを恐れない：エラーは情報</th><th>2分</th></tr>
+<tr><th>本編②</th><th>エラーの種類と読み方</th><th>3分</th></tr>
+<tr><th>本編③</th><th>実演：エラーをClaude Codeに渡して直す</th><th>3分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「アプリを作っていると必ずエラーが出ます。初心者の方がClaude Codeを使うとき、エラーが出るたびにどう対処すればいいかわからず止まってしまうことがよくあります。</p>
+<br>
+<p>この動画を見ると、エラーが出ても怖くなくなります。エラーへの対処法はシンプルで、エラーのメッセージをそのままClaude Codeに渡すだけです。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：エラーを恐れない】（約2分）</h3>
+<br>
+<p>「エラーは失敗ではありません。『ここが問題ですよ』というシステムからのメッセージです。</p>
+<br>
+<p>プロのエンジニアでも毎日エラーと向き合っています。エラーが出ることは当たり前のことで、問題はエラーを解決できるかどうかです。</p>
+<br>
+<hr>
+<br>
+<p>Claude Codeが登場する前は、エラーが出たら自分でエラーの意味を調べて、解決策を考えて、コードを修正するという工程が必要でした。これが初心者には難しかった。</p>
+<br>
+<p>Claude Codeがあれば、エラーのメッセージをそのままコピーして貼り付けるだけで、原因と解決策を説明してくれて、修正まで行ってくれます。</p>
+<br>
+<p>エラーが出たら『チャンス』だと思ってください。修正方法を学べる機会です。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：エラーの種類と読み方】（約3分）</h3>
+<br>
+<p>「エラーには様々な種類がありますが、よく見るパターンを3つ覚えておきましょう。</p>
+<br>
+<hr>
+<br>
+<p><strong>パターン1：モジュールが見つからないエラー</strong></p>
+<br>
+<p>『ModuleNotFoundError: No module named ○○』</p>
+<br>
+<p>日本語訳：『○○というモジュール（ライブラリ）が見つかりません』</p>
+<br>
+<p>原因：必要なライブラリがインストールされていない</p>
+<br>
+<p>対処法：『このエラーが出ました。解決してください』とClaude Codeに渡す</p>
+<br>
+<hr>
+<br>
+<p><strong>パターン2：ファイルが見つからないエラー</strong></p>
+<br>
+<p>『FileNotFoundError: No such file or directory: ○○』</p>
+<br>
+<p>日本語訳：『○○というファイルやフォルダが存在しません』</p>
+<br>
+<p>原因：指定したパスにファイルがない。パスの記述ミスが多い。</p>
+<br>
+<hr>
+<br>
+<p><strong>パターン3：構文エラー</strong></p>
+<br>
+<p>『SyntaxError: invalid syntax』</p>
+<br>
+<p>日本語訳：『プログラムの書き方が間違っています』</p>
+<br>
+<p>原因：コードの書き方に誤りがある。Claude Codeが生成したコードでは稀だが起きることがある。</p>
+<br>
+<hr>
+<br>
+<p>エラーを見たとき読む必要があるのは最後の数行だけです。Pythonのエラーメッセージは上から下に向かってエラーの経路が書かれていて、最後の行が実際のエラー内容です。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：実演：エラーをClaude Codeに渡して直す】（約3分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>実際にエラーが出ている状況を作ります。</p>
+<br>
+<p>わざとエラーが出るような状況を再現します。requirements.txtからライブラリを一つ削除して、アプリを起動します。</p>
+<br>
+<p>出力ログエリアに赤い文字でエラーメッセージが表示されました。</p>
+<br>
+<hr>
+<br>
+<p>このエラーメッセージをすべて選択してコピーします。Ctrl+A（Mac:Command+A）で全選択してCtrl+C（Mac:Command+C）でコピーします。</p>
+<br>
+<p>チャット欄に貼り付けて、一言添えます。</p>
+<br>
+<p>『以下のエラーが出ました。原因を教えてそのまま修正してください。</p>
+<br>
+<p>（エラーメッセージを貼り付け）』</p>
+<br>
+<hr>
+<br>
+<p>Claude Codeがエラーの原因を説明して修正してくれます。ライブラリが不足していたためインストールを行ってくれます。</p>
+<br>
+<p>修正後にもう一度アプリを起動して、エラーが解消されたことを確認します。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>エラーは失敗ではなく『ここが問題ですよ』というメッセージ</li>
+<li>対処法はシンプル：エラーメッセージをそのままClaude Codeに渡す</li>
+<li>最後の数行が実際のエラー内容</li>
+<br>
+<p>次回は実際の動画で通しテストをします。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] manual_creator プロジェクトを開く（アプリ実装済み）</li>
+<li>[ ] わざとエラーを起こすためのサンプルコード（または実際に発生したエラー）を用意</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>「今日はエラーが出たときの対処法を学びます」と話す</li>
+<br>
+<p>#### 【本編①：エラーを恐れない】（1:00〜3:00）</p>
+<li>「エラーはバグを教えてくれるメッセージです」と口頭で説明</li>
+<li>「エラー文をそのままClaude Codeに渡せば直してくれます」と伝える</li>
+<br>
+<p>#### 【本編②：エラーの種類と読み方】（3:00〜6:00）</p>
+<li>ターミナルにエラーを出す（意図的にpython main_broken.pyを実行）</li>
+<li>「Traceback」「TypeError」などエラーの各部分を指差しながら「ここがエラー内容です」と説明</li>
+<br>
+<p>#### 【本編③：実演 エラーをClaude Codeに渡して直す】（6:00〜9:00）</p>
+<li>エラー文をコピー（Cmd+C / Ctrl+C）</li>
+<li>チャット欄に「以下のエラーが出ました。直してください。[貼り付け]」と入力</li>
+<li>承認で Yes → コードが修正される</li>
+<li>再実行 → エラーが消えることを確認・映す</li>
+<br>
+<p>#### 【クロージング】（9:00〜10:00）</p>
+<li>「エラーが出ても落ち着いてClaude Codeに渡しましょう」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>エラー文が長い場合は全文コピーすること（一部だけ渡すと正確に直らない）</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="30.html" class="nav-btn">← 第30回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="32.html" class="nav-btn">第32回 →</a></div>
+</body></html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第05回 | ファイルを渡して読み込ませる・複数ファイルの扱い方</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#8B5CF6;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第05回 / Part2</span>
+  <span class="title">ファイルを渡して読み込ませる・複数ファイルの扱い方</span>
+  <span class="min">⏱ 8分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>ファイルをClaude Codeに渡して内容を元に指示できる</span></div>
+  <div class="meta-item">🎬 収録：<span>ドラッグ&ドロップ操作を画面収録</span></div>
+</div>
+<div class="nav"><a href="04.html" class="nav-btn">← 第04回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="06.html" class="nav-btn">第06回 →</a></div>
+<div class="container"><h1>第05回｜ファイルを渡して読み込ませる・複数ファイルの扱い方</h1>
+<br>
+<p><strong>尺：8分 / Part2</strong></p>
+<p><strong>ゴール：ファイルをClaude Codeに渡して内容を元に指示できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>ファイルを渡す3つの方法</th><th>2分</th></tr>
+<tr><th>本編②</th><th>ドラッグ&ドロップで渡す実演</th><th>2分</th></tr>
+<tr><th>本編③</th><th>複数ファイルの扱い方</th><th>2分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回は伝わる指示文の作り方を学びました。今回は『ファイルを渡す方法』を学びます。</p>
+<br>
+<p>実際の業務では、既存のExcelや画像、テキストファイルをClaude Codeに渡して、それをもとに作業してもらうことが多くあります。この動画を見終わったら、手元のファイルをClaude Codeに渡して指示できるようになります。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：ファイルを渡す3つの方法】（約2分）</h3>
+<br>
+<p>「ファイルをClaude Codeに渡す方法は主に3つあります。</p>
+<br>
+<hr>
+<br>
+<p><strong>方法1：ドラッグ&ドロップ</strong></p>
+<br>
+<p>チャット欄にファイルをそのままドラッグして落とします。最も直感的で簡単な方法です。画像・テキスト・PDF・Excelなど多くの形式に対応しています。</p>
+<br>
+<hr>
+<br>
+<p><strong>方法2：ファイルパスを指示に書く</strong></p>
+<br>
+<p>チャット欄に『デスクトップにある data.csv を読み込んで』のようにファイルの場所を指示文に書く方法です。プロジェクトフォルダ内のファイルを指定するときに使います。</p>
+<br>
+<hr>
+<br>
+<p><strong>方法3：プロジェクトとして開く</strong></p>
+<br>
+<p>フォルダ全体をClaude Codeのプロジェクトとして開く方法です。フォルダ内のすべてのファイルにClaude Codeがアクセスできるようになります。後の動画で詳しく扱います。</p>
+<br>
+<p>今回はまず最もよく使う方法1のドラッグ&ドロップを実演します。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：ドラッグ&ドロップの実演】（約2分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>デスクトップに『sample.txt』というテキストファイルを用意してあります。</p>
+<br>
+<p>このファイルをチャット欄にドラッグ&ドロップします。チャット欄にファイル名が表示されたのがわかりますか？これでファイルが読み込まれた状態です。</p>
+<br>
+<p>続けて指示を入力します。</p>
+<br>
+<p>『このファイルの内容を3行で要約してください』</p>
+<br>
+<p>Enterで送信すると、Claude Codeがファイルの内容を読んで要約してくれます。</p>
+<br>
+<hr>
+<br>
+<p>画像ファイルでも同じです。スクリーンショットや写真をドラッグ&ドロップすると、Claude Codeが画像を見て説明したり、内容について回答したりできます。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：複数ファイルの扱い方】（約2分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>複数のファイルを同時に渡すこともできます。</p>
+<br>
+<p>Shiftキーを押しながら複数のファイルを選択してから、まとめてチャット欄にドラッグ&ドロップします。すると複数のファイル名が表示されます。</p>
+<br>
+<hr>
+<br>
+<p>注意点が2つあります。</p>
+<br>
+<p>1つ目は、ファイルのサイズが大きすぎると読み込めないことがあります。目安として1ファイル10MB以内を推奨します。</p>
+<br>
+<p>2つ目は、Claude Codeが一度に処理できる情報量には限りがあります。大量のファイルを一度に渡すより、必要なファイルだけを厳選して渡すほうが精度が上がります。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>ファイルを渡す方法は3つ：ドラッグ&ドロップ・パス指定・プロジェクトで開く</li>
+<li>最も簡単なのはドラッグ&ドロップ</li>
+<li>大量ファイルより必要なものを厳選して渡す</li>
+<br>
+<p>次回は、会話を続けながらアウトプットを育てる方法を学びます。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] Claude Codeを起動し、空のプロジェクトを開いておく</li>
+<li>[ ] テスト用ファイル（sample.txt, data.csv）をデスクトップに用意</li>
+<li>[ ] Finderウィンドウを開いておく</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>Claude Codeとデスクトップのファイルを両方映す</li>
+<li>「ファイルを渡す3つの方法を学びます」と話す</li>
+<br>
+<p>#### 【本編①：方法1 ドラッグ&ドロップ】（1:00〜3:00）</p>
+<li>Finderでsample.txtを表示</li>
+<li>sample.txtをClaude Codeのチャット欄にドラッグ&ドロップ → ファイルが添付される様子を映す</li>
+<li>「このままチャットに入力できます」と説明</li>
+<li>「このファイルの内容を要約してください」と入力してEnter</li>
+<br>
+<p>#### 【本編②：方法2 パスを貼り付け】（3:00〜5:30）</p>
+<li>Finderでdata.csvを右クリック → 「パスをコピー」</li>
+<li>Claude Codeのチャット欄に「このファイルを処理してください：[貼り付けたパス]」と入力</li>
+<li>Enterを押して結果を見せる</li>
+<br>
+<p>#### 【本編③：方法3 プロジェクトフォルダに置く】（5:30〜7:30）</p>
+<li>Finderでファイルをプロジェクトフォルダにコピー</li>
+<li>Claude Codeのサイドバーにファイルが現れることを確認</li>
+<li>「ファイル名を指定するだけで参照できます」と説明し「sample.txtを読んで内容を確認してください」と入力</li>
+<br>
+<p>#### 【クロージング】（7:30〜8:00）</p>
+<li>3つの方法をまとめて「状況に応じて使い分けてください」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>ドラッグ&ドロップの瞬間はゆっくり行い、はっきり映すこと</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="04.html" class="nav-btn">← 第04回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="06.html" class="nav-btn">第06回 →</a></div>
+</body></html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code研修動画 スクリプト一覧</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .header{background:linear-gradient(135deg,#1e293b,#0f172a);border-bottom:1px solid #334155;padding:32px 24px;text-align:center}
+  .header h1{font-size:28px;font-weight:700;color:#f1f5f9;margin-bottom:8px}
+  .header p{color:#94a3b8;font-size:14px}
+  .stats{display:flex;gap:24px;justify-content:center;margin-top:16px}
+  .stat{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:12px 20px;text-align:center}
+  .stat-num{font-size:24px;font-weight:700;color:#38bdf8}
+  .stat-label{font-size:12px;color:#64748b;margin-top:2px}
+  .container{max-width:900px;margin:0 auto;padding:24px}
+  .part-section{margin-bottom:24px;border-radius:12px;overflow:hidden;border:1px solid #334155}
+  .part-header{display:flex;align-items:center;gap:12px;padding:14px 20px}
+  .part-label{font-size:12px;font-weight:700;background:rgba(255,255,255,0.2);border-radius:4px;padding:2px 8px;color:#fff}
+  .part-title{font-size:16px;font-weight:600;color:#fff;flex:1}
+  .part-count{font-size:12px;color:rgba(255,255,255,0.7)}
+  .episode-list{background:#1e293b}
+  .episode-card{display:flex;align-items:center;gap:16px;padding:14px 20px;text-decoration:none;color:inherit;border-top:1px solid #334155;transition:background 0.15s}
+  .episode-card:hover{background:#273548}
+  .ep-num{font-size:12px;font-weight:600;color:#64748b;min-width:50px}
+  .ep-body{flex:1}
+  .ep-title{font-size:14px;font-weight:500;color:#e2e8f0;margin-bottom:4px}
+  .ep-goal{font-size:12px;color:#64748b}
+  .ep-min{font-size:12px;color:#38bdf8;font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>📹 Claude Code研修動画 スクリプト一覧</h1>
+  <p>プログラミング未経験からデスクトップアプリ作成まで</p>
+  <p style="margin-top:10px"><a href="screens/index.html" style="color:#38bdf8;text-decoration:none;font-size:13px">🖥️ 収録用モックアップ画面 一覧を見る →</a></p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">34</div><div class="stat-label">動画本数</div></div>
+    <div class="stat"><div class="stat-num">338</div><div class="stat-label">合計尺（分）</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-label">Parts</div></div>
+  </div>
+</div>
+<div class="container">
+        <div class="part-section">
+          <div class="part-header" style="background:#3B82F6">
+            <span class="part-label">Part1</span>
+            <span class="part-title">Claude Codeを知る</span>
+            <span class="part-count">3本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/01.html" class="episode-card">
+              <div class="ep-num">第01回</div>
+              <div class="ep-body">
+                <div class="ep-title">Claude Codeとは？ChatGPT・Copilotと何が違うか</div>
+                <div class="ep-goal">🎯 Claude Codeがどんなツールで何ができるか人に説明できる</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a>
+            <a href="script/02.html" class="episode-card">
+              <div class="ep-num">第02回</div>
+              <div class="ep-body">
+                <div class="ep-title">デスクトップアプリのインストールとログイン</div>
+                <div class="ep-goal">🎯 自分のPCでClaude Codeが起動できる状態になる</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a>
+            <a href="script/03.html" class="episode-card">
+              <div class="ep-num">第03回</div>
+              <div class="ep-body">
+                <div class="ep-title">画面の構成・承認ボタン・指示の送り方を理解する</div>
+                <div class="ep-goal">🎯 画面の各エリアの役割を把握し最初の指示を送れる</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#8B5CF6">
+            <span class="part-label">Part2</span>
+            <span class="part-title">指示を出す力をつける</span>
+            <span class="part-count">5本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/04.html" class="episode-card">
+              <div class="ep-num">第04回</div>
+              <div class="ep-body">
+                <div class="ep-title">良い指示・悪い指示：伝わる言葉の作り方</div>
+                <div class="ep-goal">🎯 曖昧な指示を具体的に書き直せる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/05.html" class="episode-card">
+              <div class="ep-num">第05回</div>
+              <div class="ep-body">
+                <div class="ep-title">ファイルを渡して読み込ませる・複数ファイルの扱い方</div>
+                <div class="ep-goal">🎯 ファイルをClaude Codeに渡して内容を元に指示できる</div>
+              </div>
+              <div class="ep-min">8分</div>
+            </a>
+            <a href="script/06.html" class="episode-card">
+              <div class="ep-num">第06回</div>
+              <div class="ep-body">
+                <div class="ep-title">会話を続けながら修正する：一発完成を目指さない進め方</div>
+                <div class="ep-goal">🎯 複数回のやり取りでアウトプットを改善できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a>
+            <a href="script/07.html" class="episode-card">
+              <div class="ep-num">第07回</div>
+              <div class="ep-body">
+                <div class="ep-title">Gitの役割と基本：セーブデータとして使いこなす</div>
+                <div class="ep-goal">🎯 変更を保存・確認・元に戻す操作ができる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/08.html" class="episode-card">
+              <div class="ep-num">第08回</div>
+              <div class="ep-body">
+                <div class="ep-title">CLAUDE.mdの作り方：AIにプロジェクトの前提を覚えさせる</div>
+                <div class="ep-goal">🎯 CLAUDE.mdを作成してプロジェクト設定をAIに読ませられる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#10B981">
+            <span class="part-label">Part3</span>
+            <span class="part-title">文書・レポートを作る</span>
+            <span class="part-count">4本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/09.html" class="episode-card">
+              <div class="ep-num">第09回</div>
+              <div class="ep-body">
+                <div class="ep-title">Wordファイル（.docx）を生成する：議事録・報告書・マニュアル</div>
+                <div class="ep-goal">🎯 指示だけで書式つきWordファイルを出力できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/10.html" class="episode-card">
+              <div class="ep-num">第10回</div>
+              <div class="ep-body">
+                <div class="ep-title">Excelファイル（.xlsx）を生成する：表・集計・グラフ付き資料</div>
+                <div class="ep-goal">🎯 データを渡して整形されたExcelファイルを出力できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/11.html" class="episode-card">
+              <div class="ep-num">第11回</div>
+              <div class="ep-body">
+                <div class="ep-title">PDFを生成する：見栄えを整えた配布資料を作る</div>
+                <div class="ep-goal">🎯 完成度の高いPDFを指示だけで作れる</div>
+              </div>
+              <div class="ep-min">8分</div>
+            </a>
+            <a href="script/12.html" class="episode-card">
+              <div class="ep-num">第12回</div>
+              <div class="ep-body">
+                <div class="ep-title">既存ファイルを読み込んで内容を要約・変換・加工する</div>
+                <div class="ep-goal">🎯 手元のファイルをClaude Codeに渡して別形式に変換できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#F59E0B">
+            <span class="part-label">Part4</span>
+            <span class="part-title">スクリプトで作業を自動化する</span>
+            <span class="part-count">4本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/13.html" class="episode-card">
+              <div class="ep-num">第13回</div>
+              <div class="ep-body">
+                <div class="ep-title">スクリプトとは何か：「命令書」を作って繰り返し作業をなくす</div>
+                <div class="ep-goal">🎯 スクリプトの概念を理解し使い道を説明できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a>
+            <a href="script/14.html" class="episode-card">
+              <div class="ep-num">第14回</div>
+              <div class="ep-body">
+                <div class="ep-title">ファイルの一括リネーム・整理スクリプトを作る</div>
+                <div class="ep-goal">🎯 フォルダ内のファイルをルール通りに自動整理できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/15.html" class="episode-card">
+              <div class="ep-num">第15回</div>
+              <div class="ep-body">
+                <div class="ep-title">CSVデータの集計・加工スクリプトを作る</div>
+                <div class="ep-goal">🎯 データファイルを読み込んで集計結果を出力できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/16.html" class="episode-card">
+              <div class="ep-num">第16回</div>
+              <div class="ep-body">
+                <div class="ep-title">スクリプトをダブルクリックで実行できるようにする</div>
+                <div class="ep-goal">🎯 作ったスクリプトをコマンドなしで手軽に使える</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#06B6D4">
+            <span class="part-label">Part5</span>
+            <span class="part-title">Webページを作る</span>
+            <span class="part-count">4本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/17.html" class="episode-card">
+              <div class="ep-num">第17回</div>
+              <div class="ep-body">
+                <div class="ep-title">HTMLファイルを生成する：ブラウザで開けるページを作る</div>
+                <div class="ep-goal">🎯 ブラウザで表示できる簡単なページを出力できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a>
+            <a href="script/18.html" class="episode-card">
+              <div class="ep-num">第18回</div>
+              <div class="ep-body">
+                <div class="ep-title">見栄えのするランディングページを作る</div>
+                <div class="ep-goal">🎯 デザインの整ったWebページを指示だけで作れる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/19.html" class="episode-card">
+              <div class="ep-num">第19回</div>
+              <div class="ep-body">
+                <div class="ep-title">社内向け静的サイトをフォルダごと生成する</div>
+                <div class="ep-goal">🎯 複数ページのWebサイトをまとめて生成できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a>
+            <a href="script/20.html" class="episode-card">
+              <div class="ep-num">第20回</div>
+              <div class="ep-body">
+                <div class="ep-title">生成したWebページをローカルで確認・修正する</div>
+                <div class="ep-goal">🎯 ブラウザで見ながらデザインを調整できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#EC4899">
+            <span class="part-label">Part6</span>
+            <span class="part-title">アプリを設計する</span>
+            <span class="part-count">4本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/21.html" class="episode-card">
+              <div class="ep-num">第21回</div>
+              <div class="ep-body">
+                <div class="ep-title">今回作るアプリの全体像：動画→画像つきマニュアル生成の仕組み</div>
+                <div class="ep-goal">🎯 アプリの完成形と処理の流れを図で説明できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/22.html" class="episode-card">
+              <div class="ep-num">第22回</div>
+              <div class="ep-body">
+                <div class="ep-title">アプリの設計をClaude Codeと一緒に言語化する</div>
+                <div class="ep-goal">🎯 「何が必要か」をリストアップした設計メモを作れる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a>
+            <a href="script/23.html" class="episode-card">
+              <div class="ep-num">第23回</div>
+              <div class="ep-body">
+                <div class="ep-title">動画から画像を切り出す仕組みを理解する（ffmpeg入門）</div>
+                <div class="ep-goal">🎯 ffmpegが何者かを理解しClaude Codeに導入させられる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a>
+            <a href="script/24.html" class="episode-card">
+              <div class="ep-num">第24回</div>
+              <div class="ep-body">
+                <div class="ep-title">AIに画像を渡して説明文を生成させる仕組みを理解する</div>
+                <div class="ep-goal">🎯 画像→テキスト生成の処理フローを説明できる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#EF4444">
+            <span class="part-label">Part7</span>
+            <span class="part-title">アプリを作る</span>
+            <span class="part-count">6本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/25.html" class="episode-card">
+              <div class="ep-num">第25回</div>
+              <div class="ep-body">
+                <div class="ep-title">プロジェクト作成：フォルダ構成と土台コードを作ってもらう</div>
+                <div class="ep-goal">🎯 アプリのフォルダ構成が生成されエディタで確認できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/26.html" class="episode-card">
+              <div class="ep-num">第26回</div>
+              <div class="ep-body">
+                <div class="ep-title">ファイルをドロップして読み込む画面を作る</div>
+                <div class="ep-goal">🎯 動画ファイルをアプリにドラッグ&ドロップして読み込める</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a>
+            <a href="script/27.html" class="episode-card">
+              <div class="ep-num">第27回</div>
+              <div class="ep-body">
+                <div class="ep-title">動画から画像を切り出し・AIで説明文を生成する</div>
+                <div class="ep-goal">🎯 動画を入力するとステップごとの画像と説明文が生成される</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a>
+            <a href="script/28.html" class="episode-card">
+              <div class="ep-num">第28回</div>
+              <div class="ep-body">
+                <div class="ep-title">画像と説明文をステップ形式に並べて表示する</div>
+                <div class="ep-goal">🎯 画像と説明文がStep1・Step2・Step3と順番に並んで見える</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/29.html" class="episode-card">
+              <div class="ep-num">第29回</div>
+              <div class="ep-body">
+                <div class="ep-title">編集・削除・並び替え機能を追加する</div>
+                <div class="ep-goal">🎯 生成されたステップを自由に整理・修正できる</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a>
+            <a href="script/30.html" class="episode-card">
+              <div class="ep-num">第30回</div>
+              <div class="ep-body">
+                <div class="ep-title">Word・PDF出力機能を追加して完成させる</div>
+                <div class="ep-goal">🎯 マニュアルをファイルとして保存・配布できる</div>
+              </div>
+              <div class="ep-min">12分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#6366F1">
+            <span class="part-label">Part8</span>
+            <span class="part-title">アプリを仕上げる・配布する</span>
+            <span class="part-count">3本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/31.html" class="episode-card">
+              <div class="ep-num">第31回</div>
+              <div class="ep-body">
+                <div class="ep-title">エラーが出たときの対処法：エラー文をそのまま渡して直す</div>
+                <div class="ep-goal">🎯 エラーに遭遇しても自力でClaude Codeに修正させられる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/32.html" class="episode-card">
+              <div class="ep-num">第32回</div>
+              <div class="ep-body">
+                <div class="ep-title">実際の動画で通しテストをして動作確認する</div>
+                <div class="ep-goal">🎯 手元の動画を使ってマニュアルが生成されることを確認できる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a>
+            <a href="script/33.html" class="episode-card">
+              <div class="ep-num">第33回</div>
+              <div class="ep-body">
+                <div class="ep-title">他のPCでも動く形にパッケージ化して配布する</div>
+                <div class="ep-goal">🎯 同僚や家族のPCにインストールできる配布ファイルを作れる</div>
+              </div>
+              <div class="ep-min">10分</div>
+            </a></div>
+        </div>
+        <div class="part-section">
+          <div class="part-header" style="background:#64748B">
+            <span class="part-label">Part9</span>
+            <span class="part-title">フォローアップ</span>
+            <span class="part-count">1本</span>
+          </div>
+          <div class="episode-list">
+            <a href="script/34.html" class="episode-card">
+              <div class="ep-num">第34回</div>
+              <div class="ep-body">
+                <div class="ep-title">次のアプリへ：学んだことを活かしたアイデアの広げ方と今後のロードマップ</div>
+                <div class="ep-goal">🎯 次に作りたいものの設計メモをClaude Codeと作れる</div>
+              </div>
+              <div class="ep-min">9分</div>
+            </a></div>
+        </div></div>
+</body></html>

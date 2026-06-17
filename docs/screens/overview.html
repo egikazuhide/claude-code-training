@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第21回 | 今回作るアプリの全体像</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="nav-top" id="navTop"></div>
+<div class="window">
+  <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">manual_creator - アプリ全体像</span></div>
+  <div class="diagram-wrap">
+
+    <div class="section-title">完成イメージ：「マニュアル自動生成アプリ」</div>
+    <p style="text-align:center;color:#6B6A66;font-size:13px;max-width:560px;margin:0 auto 20px">
+      操作を録画した動画ファイルを読み込ませるだけで、画像つきの手順マニュアル（Word / PDF）を自動で作成するデスクトップアプリ
+    </p>
+
+    <div class="flow-row">
+      <div class="flow-box"><span class="ic">🎬</span><div class="t">動画ファイル</div><div class="d">操作を録画した.mp4</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box"><span class="ic">🖼️</span><div class="t">画像を切り出し</div><div class="d">ffmpegで一定間隔ごとに静止画を抽出</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box"><span class="ic">🤖</span><div class="t">AIが説明文を生成</div><div class="d">Claude APIが各画像の操作内容を文章化</div></div>
+    </div>
+    <div class="flow-row">
+      <div class="flow-box"><span class="ic">📋</span><div class="t">プレビュー画面</div><div class="d">Step1, 2, 3...と並べて表示<br>編集・削除・並び替え</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box"><span class="ic">📄</span><div class="t">Word / PDF 出力</div><div class="d">画像つき手順マニュアルとして保存</div></div>
+    </div>
+
+    <div class="section-title">この先のPartで学ぶこと</div>
+    <div class="steps-list">
+      <div class="step"><div class="num">1</div><div class="body"><div class="t">アプリを設計する（Part6）</div><div class="d">設計メモの作成・ffmpeg入門・AI画像認識の仕組みを理解する</div></div></div>
+      <div class="step"><div class="num">2</div><div class="body"><div class="t">アプリを作る（Part7）</div><div class="d">プロジェクト作成 → ドロップ画面 → 画像切り出し・AI説明文生成 → プレビュー → 編集機能 → 出力機能</div></div></div>
+      <div class="step"><div class="num">3</div><div class="body"><div class="t">仕上げる・配布する（Part8）</div><div class="d">エラー対処・通しテスト・パッケージ化して他のPCでも使えるようにする</div></div></div>
+    </div>
+
+  </div>
+</div>
+<script src="data.js"></script>
+<script>
+  const ep = "21";
+  const data = EPISODES[ep];
+  const nums = Object.keys(EPISODES).sort();
+  const idx = nums.indexOf(ep);
+  const prev = nums[idx-1], next = nums[idx+1];
+  const linkFor = (n) => EPISODES[n].special ? EPISODES[n].special : `claude-app.html?ep=${n}`;
+  document.getElementById('navTop').innerHTML =
+    `<a href="${linkFor(prev)}">← 第${prev}回</a><a href="index.html">📋 一覧</a><a href="${linkFor(next)}">第${next}回 →</a>` +
+    `<span class="ep">第${ep}回</span><span>${data.title}</span><span class="goal">🎯 ${data.goal}</span>`;
+</script>
+</body>
+</html>
