@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第02回 | デスクトップアプリのインストールとログイン</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .steps-list { padding-top: 10px; }
+  .browser-body.center { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; }
+  .download-btn { background:#C15F3C; color:#fff; border-radius:8px; padding:12px 28px; font-weight:700; font-size:14px; display:inline-block; }
+  .dmg-icon { font-size:48px; }
+  .dialog-card {
+    background:#fff; border:1px solid #E5E4DD; border-radius:10px; padding:18px 22px; max-width:380px;
+    box-shadow:0 6px 24px rgba(0,0,0,.08); text-align:left;
+  }
+  .dialog-card .title { font-weight:700; margin-bottom:8px; }
+  .dialog-card .desc { font-size:13px; color:#6B6A66; margin-bottom:14px; line-height:1.6; }
+  .dialog-buttons { display:flex; justify-content:flex-end; gap:8px; }
+  .dialog-buttons button { border:none; border-radius:6px; padding:6px 16px; font-size:13px; cursor:pointer; }
+  .login-box { background:#fff; border:1px solid #E5E4DD; border-radius:10px; padding:24px 30px; max-width:320px; }
+  .login-box input { width:100%; border:1px solid #E5E4DD; border-radius:6px; padding:8px 10px; margin:6px 0 12px; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="nav-top" id="navTop"></div>
+<div class="window">
+  <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">claude.ai</span></div>
+  <div class="browser-bar"><div class="url">🔒 claude.ai/download</div></div>
+  <div class="browser-body">
+
+    <div class="section-title">Step 1：claude.ai からダウンロード</div>
+    <div class="browser-body center" style="padding:10px 0 30px">
+      <div style="font-size:22px;font-weight:700">Claude Code デスクトップアプリ</div>
+      <div style="color:#6B6A66;font-size:13px">あなたのPCでファイルを作成・編集・実行できるAIエージェント</div>
+      <div class="download-btn">⬇ Mac用をダウンロード</div>
+      <div style="font-size:12px;color:#9C9A93">Windows版・Linux版もこちらから選択できます</div>
+    </div>
+
+    <div class="section-title">Step 2：インストーラーを開く</div>
+    <div class="browser-body center" style="padding:10px 0 30px">
+      <div class="dmg-icon">💿</div>
+      <div style="font-weight:700">Claude.dmg</div>
+      <div style="font-size:13px;color:#6B6A66">ダウンロードフォルダ内の Claude.dmg をダブルクリック</div>
+      <div class="tool-card" style="max-width:320px"><span class="icon">📦</span><span>アプリケーションフォルダにドラッグ&ドロップしてインストール</span></div>
+    </div>
+
+    <div class="section-title">Step 3：初回起動時の警告に対応</div>
+    <div class="browser-body center" style="padding:10px 0 30px">
+      <div class="dialog-card">
+        <div class="title">"Claude" は、Appleが悪意のあるソフトウェアを<br>チェックできないため使用できません</div>
+        <div class="desc">このアプリはインターネットからダウンロードされました。本当に開く場合は、システム設定の「プライバシーとセキュリティ」から「このまま開く」を選択してください。</div>
+        <div class="dialog-buttons">
+          <button style="background:#F0EFE9;color:#4A4943">OK</button>
+          <button style="background:#C15F3C;color:#fff;font-weight:600">このまま開く</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Step 4：ログイン</div>
+    <div class="browser-body center" style="padding:10px 0 10px">
+      <div class="login-box">
+        <div style="font-weight:700;margin-bottom:10px;text-align:center">Claude にログイン</div>
+        <label style="font-size:12px;color:#6B6A66">メールアドレス</label>
+        <input type="text" placeholder="you@example.com" disabled>
+        <div class="download-btn" style="text-align:center;width:100%;border-radius:6px;padding:9px">続ける</div>
+        <div style="font-size:11px;color:#9C9A93;margin-top:10px;text-align:center">アカウントが無い場合は新規登録してください</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="data.js"></script>
+<script>
+  const ep = "02";
+  const data = EPISODES[ep];
+  const nums = Object.keys(EPISODES).sort();
+  const idx = nums.indexOf(ep);
+  const prev = nums[idx-1], next = nums[idx+1];
+  const linkFor = (n) => EPISODES[n].special ? EPISODES[n].special : `claude-app.html?ep=${n}`;
+  document.getElementById('navTop').innerHTML =
+    `<a href="${linkFor(prev)}">← 第${prev}回</a><a href="index.html">📋 一覧</a><a href="${linkFor(next)}">第${next}回 →</a>` +
+    `<span class="ep">第${ep}回</span><span>${data.title}</span><span class="goal">🎯 ${data.goal}</span>`;
+</script>
+</body>
+</html>

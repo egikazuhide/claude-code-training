@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第26回 | ファイルをドロップして読み込む画面を作る</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#EF4444;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第26回 / Part7</span>
+  <span class="title">ファイルをドロップして読み込む画面を作る</span>
+  <span class="min">⏱ 12分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>動画ファイルをアプリにドラッグ&ドロップして読み込める</span></div>
+  <div class="meta-item">🎬 収録：<span>実装から動作確認まで画面収録</span></div>
+</div>
+<div class="nav"><a href="25.html" class="nav-btn">← 第25回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="27.html" class="nav-btn">第27回 →</a></div>
+<div class="container"><h1>第14回｜ファイルをドロップして読み込む画面を作る</h1>
+<br>
+<p><strong>尺：12分 / Part4</strong></p>
+<p><strong>ゴール：動画ファイルをアプリにドラッグ&ドロップして読み込める</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>実装する機能の説明</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演：ドロップ受け取り画面を作る</th><th>6分</th></tr>
+<tr><th>本編③</th><th>動作確認・細かい修正</th><th>2分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回プロジェクトの土台が完成しました。今回はアプリの最初の画面、動画ファイルをドロップして読み込む画面を作ります。</p>
+<br>
+<p>ユーザーが最初に触れる部分ですので、シンプルでわかりやすいデザインにします。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：実装する機能の説明】（約2分）</h3>
+<br>
+<p>「今回作る画面には3つの要素があります。</p>
+<br>
+<p><strong>要素1：ドロップゾーン</strong></p>
+<br>
+<p>画面中央に大きな領域を作ります。ここに動画ファイルをドラッグ&ドロップします。視覚的にわかりやすいよう、破線の枠と『ここに動画をドロップ』というテキストを表示します。</p>
+<br>
+<p><strong>要素2：ファイル確認エリア</strong></p>
+<br>
+<p>ドロップされたファイルのファイル名が表示されます。正しいファイルを読み込めたか確認できます。</p>
+<br>
+<p><strong>要素3：処理開始ボタン</strong></p>
+<br>
+<p>ファイルを確認したら、このボタンをクリックして処理を開始します。ファイルが読み込まれていない状態ではグレーアウトして押せない状態にします。</p>
+<br>
+<p>この3つをClaude Codeに作ってもらいます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：ドロップ受け取り画面を作る】（約6分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>チャット欄に以下の指示を入力します。</p>
+<br>
+<p>『src/main.pyに以下の画面を実装してください。</p>
+<br>
+<p>・画面タイトル：マニュアル自動生成アプリ</p>
+<p>・中央に大きなドロップゾーン（破線の枠・背景は薄いグレー）</p>
+<p>・ドロップゾーン内に「ここに動画ファイルをドロップしてください」というテキスト</p>
+<p>・ドロップしたファイルのパスを画面に表示する</p>
+<p>・「処理開始」ボタン（ファイルがドロップされていない場合はグレーアウト）</p>
+<p>・ウィンドウサイズは800×600ピクセル</p>
+<br>
+<p>ファイル形式の制限：mp4、mov、avi、mkv のみ受け付ける。それ以外のファイルがドロップされた場合はエラーメッセージを表示する』</p>
+<br>
+<hr>
+<br>
+<p>承認ダイアログが出たら『Yes』をクリックします。</p>
+<br>
+<p>処理が完了したらアプリを起動してもらいます。</p>
+<br>
+<p>『アプリを起動して動作確認してください』</p>
+<br>
+<p>画面が表示されました。実際に動画ファイルをドロップしてみます。</p>
+<br>
+<p>ファイル名が表示され、「処理開始」ボタンが青くなりました。</p>
+<br>
+<hr>
+<br>
+<p>次に、対応していないファイルをドロップした場合のテストをします。テキストファイルをドロップすると、エラーメッセージが表示されました。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：細かい修正】（約2分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>動いていますが、ドロップゾーンのフォントが小さいので修正します。</p>
+<br>
+<p>『ドロップゾーン内のテキストのフォントサイズを16ptに拡大してください。またドロップゾーンの枠を点線から破線に変更してください』</p>
+<br>
+<p>修正が完了したら見た目が改善されました。</p>
+<br>
+<hr>
+<br>
+<p>修正のたびにGitでコミットします。</p>
+<br>
+<p>『今の状態をGitで保存してください。「ファイルドロップ画面の実装完了」というメッセージでコミットしてください』</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>ドロップゾーン・ファイル確認エリア・処理開始ボタンの3要素を作った</li>
+<li>指示文で画面の仕様を細かく伝えることが重要</li>
+<li>修正のたびにGitでコミットする習慣をつける</li>
+<br>
+<p>次回は動画から画像を切り出す処理を実装します。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] manual_creator プロジェクトを開く（フォルダ構成生成済み）</li>
+<li>[ ] 動画ファイル（test.mp4）をデスクトップに用意</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>「今日はファイルをドロップして読み込む画面を実装します」と話す</li>
+<br>
+<p>#### 【本編①：実装する機能の説明】（1:00〜3:00）</p>
+<li>「ファイルをウィンドウにドロップすると自動的に読み込まれます」と口頭で説明</li>
+<br>
+<p>#### 【本編②：実演 ドロップ受け取り画面を作る】（3:00〜9:00）</p>
+<li>チャット欄に「main.pyにtkinterを使ったGUIを実装してください。動画ファイルをドラッグ&ドロップすると『読み込み完了：ファイル名』と表示されるものです」と入力</li>
+<li>承認で Yes → main.pyが更新される</li>
+<li>「python main.py」を実行 → ウィンドウが開く様子を映す</li>
+<li>デスクトップのtest.mp4をウィンドウにドラッグ&ドロップ → 「読み込み完了」が表示される</li>
+<br>
+<p>#### 【本編③：細かい修正】（9:00〜11:00）</p>
+<li>「ウィンドウのタイトルを『マニュアル自動生成』に変えてください」と追加指示</li>
+<li>修正後に再実行して確認</li>
+<br>
+<p>#### 【クロージング】（11:00〜12:00）</p>
+<li>「次回は画像切り出し・AI説明文生成を実装します」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>ドラッグ&ドロップの瞬間はゆっくりはっきり映すこと</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="25.html" class="nav-btn">← 第25回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="27.html" class="nav-btn">第27回 →</a></div>
+</body></html>

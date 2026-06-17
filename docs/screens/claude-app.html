@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claude Code 収録用モックアップ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="nav-top" id="navTop"></div>
+<div class="window">
+  <div class="titlebar">
+    <div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+    <span class="name" id="projName">Claude Code</span>
+    <span class="branch" id="branchName"></span>
+  </div>
+  <div class="app-body">
+    <div class="sidebar">
+      <div class="proj-name" id="sidebarProj">PROJECT</div>
+      <div class="file-tree" id="fileTree"></div>
+    </div>
+    <div class="main">
+      <div class="chat" id="chat"></div>
+      <div class="input-bar">
+        <div class="input-box">
+          <span id="inputPlaceholder">Claude Codeに指示を送る...</span>
+          <span class="send">➤</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="data.js"></script>
+<script>
+const params = new URLSearchParams(location.search);
+const ep = (params.get('ep') || '01').padStart(2, '0');
+const data = EPISODES[ep];
+
+const ICONS = { dir: '📁', file: '📄', py: '🐍', md: '📝', json: '🧾', img: '🖼️', csv: '📊', html: '🌐', txt: '📄' };
+
+function iconFor(item) {
+  if (item.type === 'dir') return ICONS.dir;
+  const ext = (item.name.split('.').pop() || '').toLowerCase();
+  return ICONS[ext] || ICONS.file;
+}
+
+function render() {
+  if (!data) {
+    document.getElementById('chat').innerHTML = '<p style="color:#9C9A93">第' + ep + '回のデータが見つかりません。</p>';
+    return;
+  }
+  if (data.special) {
+    location.replace(data.special);
+    return;
+  }
+  document.title = '第' + ep + '回 | ' + data.title;
+  document.getElementById('projName').textContent = data.project || 'manual_creator';
+  document.getElementById('branchName').textContent = data.branch || '';
+  document.getElementById('sidebarProj').textContent = data.project || 'PROJECT';
+  document.getElementById('inputPlaceholder').textContent = data.placeholder || 'Claude Codeに指示を送る...';
+
+  // ナビバー
+  const nums = Object.keys(EPISODES).sort();
+  const idx = nums.indexOf(ep);
+  const prev = idx > 0 ? nums[idx-1] : null;
+  const next = idx < nums.length-1 ? nums[idx+1] : null;
+  const linkFor = (n) => EPISODES[n].special ? EPISODES[n].special : `claude-app.html?ep=${n}`;
+  let nav = '';
+  if (prev) nav += `<a href="${linkFor(prev)}">← 第${prev}回</a>`;
+  nav += `<a href="index.html">📋 一覧</a>`;
+  if (next) nav += `<a href="${linkFor(next)}">第${next}回 →</a>`;
+  nav += `<span class="ep">第${ep}回</span><span>${data.title}</span><span class="goal">🎯 ${data.goal || ''}</span>`;
+  document.getElementById('navTop').innerHTML = nav;
+
+  // ファイルツリー
+  const tree = document.getElementById('fileTree');
+  tree.innerHTML = '';
+  (data.fileTree || []).forEach(item => {
+    const div = document.createElement('div');
+    div.className = `file-item ${item.type === 'dir' ? 'dir' : ''} indent${item.indent || 0} ${item.status || ''}`;
+    div.innerHTML = `<span class="icon">${iconFor(item)}</span><span>${item.name}</span>`;
+    tree.appendChild(div);
+  });
+
+  // チャット
+  const chat = document.getElementById('chat');
+  chat.innerHTML = '';
+  (data.messages || []).forEach(m => {
+    const wrap = document.createElement('div');
+    if (m.role === 'user') {
+      wrap.className = 'msg msg-user';
+      wrap.innerHTML = `<div class="msg-label">あなた</div><div class="bubble">${escapeHtml(m.text)}</div>`;
+    } else if (m.role === 'assistant') {
+      wrap.className = 'msg msg-assistant';
+      wrap.innerHTML = `<div class="msg-label">Claude Code</div><div class="bubble">${escapeHtml(m.text)}</div>`;
+    } else if (m.role === 'tool') {
+      wrap.className = 'msg msg-assistant';
+      wrap.innerHTML = `<div class="tool-card"><span class="icon">${m.icon || '🛠️'}</span><span><span class="label">${m.label}</span> ${m.text || ''}</span></div>`;
+    } else if (m.role === 'approval') {
+      wrap.className = 'msg msg-assistant';
+      wrap.innerHTML = `<div class="approval-card">
+          <div class="q">${escapeHtml(m.question)}</div>
+          ${m.code ? `<pre>${escapeHtml(m.code)}</pre>` : ''}
+          <div class="approval-buttons">
+            <button class="btn-yes">Yes</button>
+            <button class="btn-yes-always">Yes, allow all edits during this session</button>
+            <button class="btn-no">No, and tell Claude what to do differently</button>
+          </div>
+        </div>`;
+    }
+    chat.appendChild(wrap);
+  });
+}
+
+function escapeHtml(s) {
+  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+}
+
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第17回 | HTMLファイルを生成する：ブラウザで開けるページを作る</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#06B6D4;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第17回 / Part5</span>
+  <span class="title">HTMLファイルを生成する：ブラウザで開けるページを作る</span>
+  <span class="min">⏱ 9分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>ブラウザで表示できる簡単なページを出力できる</span></div>
+  <div class="meta-item">🎬 収録：<span>HTML生成からブラウザ確認まで画面収録</span></div>
+</div>
+<div class="nav"><a href="16.html" class="nav-btn">← 第16回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="18.html" class="nav-btn">第18回 →</a></div>
+<div class="container"><h1>第29回｜HTMLファイルを生成する：ブラウザで開けるページを作る</h1>
+<br>
+<p><strong>尺：9分 / Part8</strong></p>
+<p><strong>ゴール：ブラウザで表示できる簡単なページを出力できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>このPartの目的・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>HTMLとは何か・なぜ使うか</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演：シンプルなHTMLページを作る</th><th>5分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「Part8ではWebページの作成を学びます。</p>
+<br>
+<p>Webページといっても、インターネットに公開するものではなく、自分のパソコンのブラウザで開けるHTMLファイルを作ります。</p>
+<br>
+<p>社内資料・報告書・リンク集・マニュアルなど、ブラウザで表示できる形式は使える場面が多いです。今回はHTMLの基礎と簡単なページ作成を学びます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：HTMLとは何か】（約2分）</h3>
+<br>
+<p>「HTMLとはWebページを作るための言語です。</p>
+<br>
+<p>ChromeやSafariでWebサイトを表示するとき、その裏でHTMLファイルが読み込まれています。普段見ているWebページはすべてHTMLで作られています。</p>
+<br>
+<hr>
+<br>
+<p>HTMLファイルの特徴は、ブラウザさえあればどんな環境でも開けることです。</p>
+<br>
+<li>Windowsでもで開ける</li>
+<li>Macでも開ける</li>
+<li>インターネット接続不要でローカルで開ける</li>
+<li>スマートフォンでも開ける</li>
+<br>
+<hr>
+<br>
+<p>HTMLを使う場面としては、会社の社内リンク集、商品カタログ、操作マニュアルのWeb版などがあります。</p>
+<br>
+<p>Claude CodeはHTMLファイルを非常に得意としています。デザイン指示を伝えれば、見栄えの良いページを一瞬で作ってくれます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：シンプルなHTMLページを作る】（約5分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>チャット欄に入力します。</p>
+<br>
+<p>『以下の内容のHTMLページを作成してください。</p>
+<br>
+<p>内容：社内リンク集ページ</p>
+<p>ファイル名：links.html</p>
+<br>
+<p>掲載するリンク：</p>
+<p>・社内ポータル（http://portal.example.com）</p>
+<p>・勤怠管理システム（http://kintai.example.com）</p>
+<p>・経費申請フォーム（http://expense.example.com）</p>
+<p>・社内チャット（http://chat.example.com）</p>
+<br>
+<p>デザイン：</p>
+<p>・背景は白</p>
+<p>・タイトルは「社内リンク集」と大きく表示</p>
+<p>・各リンクはカード形式で表示（アイコン・リンク名・説明文）</p>
+<p>・カードはホバーしたとき少し浮き上がるアニメーション</p>
+<p>・スマートフォンでも見やすいレスポンシブデザイン』</p>
+<br>
+<hr>
+<br>
+<p>処理が完了したらlinks.htmlをブラウザで開きます。</p>
+<br>
+<p>きれいなリンク集ページが完成しました。カードを触るとアニメーションも動いています。</p>
+<br>
+<hr>
+<br>
+<p>コードを少し確認してみましょう。ファイルツリーからlinks.htmlをクリックすると、HTMLコードが表示されます。HTMLタグという記号がたくさん書かれています。これが全部覚える必要はありません。</p>
+<br>
+<p>内容を変えたいときはClaude Codeに指示するだけで修正してくれます。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>HTMLはブラウザで開けるWebページを作る言語</li>
+<li>どんな環境でも開けるので配布・共有に便利</li>
+<li>デザイン指示を伝えれば見栄えの良いページが作れる</li>
+<br>
+<p>次回はランディングページのような完成度の高いページを作ります。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] Claude Codeを起動し空のプロジェクトを開く</li>
+<li>[ ] ブラウザ（Chrome/Safari）を起動しておく</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>「今日はブラウザで開けるHTMLファイルを作ります」と話す</li>
+<br>
+<p>#### 【本編①：HTMLとは何か】（1:00〜3:00）</p>
+<li>口頭で「HTMLはブラウザが読む設計図です」と説明</li>
+<li>「特別なソフトがなくてもどのPCでも開けます」と強調</li>
+<br>
+<p>#### 【本編②：実演 シンプルなHTMLページを作る】（3:00〜8:00）</p>
+<li>チャット欄に「シンプルな自己紹介ページのHTMLファイルを作ってください。名前・趣味・連絡先を記載。スタイルも少し付けてください」と入力</li>
+<li>承認で Yes → index.htmlが生成される</li>
+<li>index.htmlをブラウザでダブルクリックして開く → 画面を映す</li>
+<li>「デザインをもう少しカラフルにしてください」と追加指示</li>
+<li>修正後に再度ブラウザでリロード → 変化を確認</li>
+<br>
+<p>#### 【クロージング】（8:00〜9:00）</p>
+<li>「次回はランディングページを作ります」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>ブラウザで開いた時のビフォー・アフターをはっきり見せること</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="16.html" class="nav-btn">← 第16回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="18.html" class="nav-btn">第18回 →</a></div>
+</body></html>

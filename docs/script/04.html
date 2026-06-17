@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第04回 | 良い指示・悪い指示：伝わる言葉の作り方</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#8B5CF6;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第04回 / Part2</span>
+  <span class="title">良い指示・悪い指示：伝わる言葉の作り方</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>曖昧な指示を具体的に書き直せる</span></div>
+  <div class="meta-item">🎬 収録：<span>Claude Code画面を映しながら実演</span></div>
+</div>
+<div class="nav"><a href="03.html" class="nav-btn">← 第03回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="05.html" class="nav-btn">第05回 →</a></div>
+<div class="container"><h1>第04回｜良い指示・悪い指示：伝わる言葉の作り方</h1>
+<br>
+<p><strong>尺：10分 / Part2</strong></p>
+<p><strong>ゴール：曖昧な指示を具体的に書き直せる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>悪い指示の典型パターン</th><th>3分</th></tr>
+<tr><th>本編②</th><th>良い指示に変換する3つのコツ</th><th>4分</th></tr>
+<tr><th>本編③</th><th>実演：悪い指示→良い指示に変換</th><th>1分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回は画面の見方と承認ボタンの使い方を学びました。今回は『指示の出し方』について詳しく学びます。</p>
+<br>
+<p>Claude Codeはとても賢いAIですが、指示が曖昧だと意図しないものができてしまいます。逆に言えば、指示の出し方さえ身につければ、ほぼ思い通りのものが作れるようになります。</p>
+<br>
+<p>この動画のゴールは、曖昧な指示を具体的に書き直せるようになることです。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：悪い指示の典型パターン】（約3分）</h3>
+<br>
+<p>「まず、よくある『悪い指示』のパターンを見ていきましょう。</p>
+<br>
+<hr>
+<br>
+<p><strong>パターン1：短すぎる</strong></p>
+<br>
+<p>『アプリを作って』</p>
+<br>
+<p>これだけではClaude Codeは何を作ればいいかわかりません。どんなアプリなのか、何ができるのか、どんな見た目なのか、情報が何もありません。</p>
+<br>
+<hr>
+<br>
+<p><strong>パターン2：主語がない</strong></p>
+<br>
+<p>『データを整理して』</p>
+<br>
+<p>何のデータを？どこにあるデータを？どういう形に整理するの？が伝わっていません。</p>
+<br>
+<hr>
+<br>
+<p><strong>パターン3：要求が抽象的</strong></p>
+<br>
+<p>『いい感じにして』</p>
+<p>『かっこよくして』</p>
+<br>
+<p>『いい感じ』は人によって違います。Claude Codeは読心術が使えないので、あなたが思い描いている『いい感じ』を具体的な言葉にする必要があります。</p>
+<br>
+<hr>
+<br>
+<p>このような指示を出してしまうと、Claude Codeは自分なりに解釈して作ってしまいます。できあがったものが想像と違うことになります。それはClaude Codeのせいではなく、指示が不足していたためです。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：良い指示に変換する3つのコツ】（約4分）</h3>
+<br>
+<p>「では、良い指示に変換するための3つのコツを紹介します。</p>
+<br>
+<hr>
+<br>
+<p><strong>コツ1：5W1Hで考える</strong></p>
+<br>
+<p>What（何を）・Why（なぜ）・Who（誰が使う）・When（いつ使う）・Where（どこで使う）・How（どんな形で）</p>
+<br>
+<p>全部入れる必要はありませんが、少なくともWhatとHowは入れるよう意識しましょう。</p>
+<br>
+<p>悪い例：『アプリを作って』</p>
+<p>良い例：『社内スタッフが毎日使う勤怠管理アプリを作ってください。出勤・退勤のボタンがあり、日付と時刻が自動で記録されます』</p>
+<br>
+<hr>
+<br>
+<p><strong>コツ2：完成形を言葉で説明する</strong></p>
+<br>
+<p>使う人・使う場面・どんな見た目・どんな動きをするかを具体的に伝えます。</p>
+<br>
+<p>悪い例：『かっこよくして』</p>
+<p>良い例：『背景を白にして、ボタンは青色の角丸デザインにしてください。フォントは大きめで読みやすくしてください』</p>
+<br>
+<hr>
+<br>
+<p><strong>コツ3：一度に全部頼まない</strong></p>
+<br>
+<p>最初から完璧を求めて長い指示を一度に出すより、小さなステップに分けて指示を出すほうがうまくいきます。</p>
+<br>
+<p>悪い例：『データ管理ができてレポートも出せてメール送信もできるアプリを作って』</p>
+<p>良い例：まず『データを入力・保存できる画面を作って』→完成したら『次にレポートを出力できるボタンを追加して』と順番に進める</p>
+<br>
+<p>これは料理に例えると、一度に全部の工程を頼むのではなく、切る→炒める→味付けと順番に確認しながら進めるイメージです。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：実演】（約1分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>実際にやってみます。</p>
+<br>
+<p>悪い指示：『メモアプリを作って』</p>
+<br>
+<p>これを変換します。</p>
+<br>
+<p>良い指示：『テキストを入力して保存できるシンプルなメモアプリを作ってください。画面上部に入力欄、下部に保存されたメモの一覧が表示される構成です。メモは削除もできるようにしてください』</p>
+<br>
+<p>このように書くと、Claude Codeはあなたが想像しているものに近いものを作れます。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>短すぎる・主語がない・抽象的な指示は伝わらない</li>
+<li>5W1Hで考えて完成形を言葉で説明する</li>
+<li>一度に全部頼まず小さなステップに分ける</li>
+<br>
+<p>最初はうまくいかないこともありますが、修正しながら育てていく流れが自然です。それは次回の動画で詳しく説明します。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] Claude Codeを起動し、前回作ったhello.txtのプロジェクトを開いておく</li>
+<li>[ ] メモ帳・テキストエディタを開いておく（良い指示の例を準備）</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>Claude Codeを映しながら「良い指示と悪い指示の違いを学びます」と話す</li>
+<br>
+<p>#### 【本編①：悪い指示の例】（1:00〜4:00）</p>
+<li>チャット欄に「なんかいい感じのファイルを作って」と入力</li>
+<li>Enterを押して結果を見せる（Claude Codeが困惑する or 質問してくる）</li>
+<li>「あいまいな指示は伝わりにくいです」と解説</li>
+<br>
+<p>#### 【本編②：3つのパターン比較】（4:00〜8:00）</p>
+<li>「パターン1：目的を明確に」として「会議の議事録をmarkdown形式で作成してください」と入力 → 結果を見せる</li>
+<li>「パターン2：条件を付ける」として「sales.csvを読み込み、合計金額を計算してresult.txtに出力してください」と入力 → 結果を見せる</li>
+<li>「パターン3：例を示す」として入力例を見せる</li>
+<br>
+<p>#### 【本編③：3つのコツ】（8:00〜9:30）</p>
+<li>画面にテキストで3つのコツを表示しながら口頭で説明</li>
+<li>「ファイル名を明記」「形式を指定」「確認してほしいことを伝える」</li>
+<br>
+<p>#### 【クロージング】（9:30〜10:00）</p>
+<li>「次回はファイルを渡す方法を学びます」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>悪い指示の結果はカットせずそのまま見せることで視聴者の共感を得られる</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="03.html" class="nav-btn">← 第03回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="05.html" class="nav-btn">第05回 →</a></div>
+</body></html>

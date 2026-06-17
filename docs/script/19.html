@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第19回 | 社内向け静的サイトをフォルダごと生成する</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#06B6D4;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第19回 / Part5</span>
+  <span class="title">社内向け静的サイトをフォルダごと生成する</span>
+  <span class="min">⏱ 9分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>複数ページのWebサイトをまとめて生成できる</span></div>
+  <div class="meta-item">🎬 収録：<span>複数ページ生成から遷移確認まで画面収録</span></div>
+</div>
+<div class="nav"><a href="18.html" class="nav-btn">← 第18回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="20.html" class="nav-btn">第20回 →</a></div>
+<div class="container"><h1>第31回｜社内向け静的サイトをフォルダごと生成する</h1>
+<br>
+<p><strong>尺：9分 / Part8</strong></p>
+<p><strong>ゴール：複数ページのWebサイトをまとめて生成できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>複数ページサイトの構成</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演：社内マニュアルサイトを作る</th><th>5分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回は1ページのランディングページを作りました。今回は複数ページで構成された社内サイトを作ります。</p>
+<br>
+<p>社内のマニュアル・規程集・FAQ集などを1か所にまとめたサイトを作れます。インターネット接続不要でローカルに保存できるので、社内配布にも使えます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：複数ページサイトの構成】（約2分）</h3>
+<br>
+<p>「複数ページのWebサイトは、フォルダに複数のHTMLファイルを格納する形で作ります。</p>
+<br>
+<p>例えば社内マニュアルサイトなら以下の構成です。</p>
+<br>
+<pre><code>
+manual_site/
+├── index.html         ← トップページ
+├── basic/
+│   ├── login.html     ← ログイン手順
+│   └── menu.html      ← メニュー操作
+├── advanced/
+│   ├── report.html    ← レポート作成
+│   └── export.html    ← データ出力
+└── css/
+    └── style.css      ← 全ページ共通スタイル
+</code></pre>
+<br>
+<p>共通のナビゲーションメニューを作ることで、各ページを行き来できます。</p>
+<br>
+<p>Claude Codeにフォルダ構成と全ページのHTML生成を一度に頼めます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：社内マニュアルサイトを作る】（約5分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>チャット欄に入力します。</p>
+<br>
+<p>『以下の構成で社内システムのマニュアルサイトをHTMLで作成してください。</p>
+<br>
+<p>フォルダ名：manual_site</p>
+<br>
+<p>ページ構成：</p>
+<p>・index.html：トップページ（目次・各マニュアルへのリンク）</p>
+<p>・login.html：ログイン・ログアウト手順</p>
+<p>・basic.html：基本操作マニュアル</p>
+<p>・faq.html：よくある質問</p>
+<br>
+<p>共通仕様：</p>
+<p>・全ページ共通のヘッダー（サイトタイトル・ナビゲーション）</p>
+<p>・全ページ共通のフッター（作成日・問い合わせ先）</p>
+<p>・共通CSSファイル（style.css）を使用</p>
+<p>・左サイドバーにページ内目次を表示</p>
+<p>・スマートフォン対応</p>
+<br>
+<p>デザイン：</p>
+<p>・シンプルなビジネスサイトの雰囲気</p>
+<p>・メインカラー：濃紺（#1E3A5F）</p>
+<p>・背景：白</p>
+<br>
+<p>各ページのコンテンツは「サンプルテキスト」でOK』</p>
+<br>
+<hr>
+<br>
+<p>複数のファイルが生成されました。ファイルツリーを確認するとmanual_siteフォルダに構成通りにファイルが作られています。</p>
+<br>
+<p>index.htmlをブラウザで開きます。ヘッダー・ナビゲーション・フッターが統一されたサイトが表示されました。</p>
+<br>
+<p>ナビゲーションをクリックして各ページを確認します。全ページで同じデザインが維持されています。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>複数ページのサイトもフォルダ構成を指示するだけで生成できる</li>
+<li>共通ヘッダー・フッター・CSSを使って統一感を出す</li>
+<li>ローカルに保存して社内配布にも使える</li>
+<br>
+<p>次回はブラウザで見ながらデザインを調整する方法を学びます。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] 社内マニュアルのテキスト（3〜5ページ分）を用意</li>
+<li>[ ] Claude Codeを起動し空のプロジェクトを開く</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>「今日は複数ページのサイトを一気に生成します」と話す</li>
+<br>
+<p>#### 【本編①：複数ページサイトの構成】（1:00〜3:00）</p>
+<li>「index.html（トップ）・page1.html・page2.html という構成を作ります」と口頭で説明</li>
+<li>Claude Codeに「複数ページサイトの基本構成を教えてください」と入力して説明文を見せてもよい</li>
+<br>
+<p>#### 【本編②：実演 社内マニュアルサイトを作る】（3:00〜8:00）</p>
+<li>テキストファイルをドラッグ&ドロップ</li>
+<li>「このテキストをもとに、トップページ・業務マニュアル・FAQ の3ページからなる社内サイトを生成してください。ナビゲーションで各ページに遷移できるようにしてください」と入力</li>
+<li>承認で Yes → 複数のHTMLファイルが生成される</li>
+<li>サイドバーでフォルダ構成を確認・映す</li>
+<li>ブラウザでindex.htmlを開く → ナビゲーションをクリックしてページ移動を確認・映す</li>
+<br>
+<p>#### 【クロージング】（8:00〜9:00）</p>
+<li>「次回はブラウザで確認しながら修正する方法を学びます」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>ページ遷移の瞬間を確実に映すこと</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="18.html" class="nav-btn">← 第18回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="20.html" class="nav-btn">第20回 →</a></div>
+</body></html>

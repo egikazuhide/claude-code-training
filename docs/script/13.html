@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第13回 | スクリプトとは何か：「命令書」を作って繰り返し作業をなくす</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#F59E0B;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第13回 / Part4</span>
+  <span class="title">スクリプトとは何か：「命令書」を作って繰り返し作業をなくす</span>
+  <span class="min">⏱ 9分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>スクリプトの概念を理解し使い道を説明できる</span></div>
+  <div class="meta-item">🎬 収録：<span>Claude Code画面を映しながら音声解説</span></div>
+</div>
+<div class="nav"><a href="12.html" class="nav-btn">← 第12回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="14.html" class="nav-btn">第14回 →</a></div>
+<div class="container"><h1>第25回｜スクリプトとは何か：「命令書」を作って繰り返し作業をなくす</h1>
+<br>
+<p><strong>尺：9分 / Part7</strong></p>
+<p><strong>ゴール：スクリプトの概念を理解し使い道を説明できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>このPartの目的・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>スクリプトとは何か</th><th>3分</th></tr>
+<tr><th>本編②</th><th>スクリプトが役立つ場面</th><th>3分</th></tr>
+<tr><th>本編③</th><th>Claude Codeでスクリプトを作る流れ</th><th>1分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「Part7では『スクリプトによる自動化』を学びます。</p>
+<br>
+<p>スクリプトとは、一言でいうと『パソコンへの命令書』です。この命令書を一度作ると、同じ作業を何度でも自動的に実行できます。</p>
+<br>
+<p>この動画ではスクリプトの概念と使い道を理解します。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：スクリプトとは何か】（約3分）</h3>
+<br>
+<p>「スクリプトを身近な例で説明します。</p>
+<br>
+<p>毎朝会社に来て最初にやることを考えてみてください。</p>
+<br>
+<li>パソコンを起動する</li>
+<li>メールを確認する</li>
+<li>今日のスケジュールを確認する</li>
+<li>必要なフォルダを開く</li>
+<br>
+<p>これを毎朝手動でやっています。もしこの手順を紙に書いて渡せば、誰でも（あるいはロボットでも）同じ手順を実行できます。</p>
+<br>
+<hr>
+<br>
+<p>スクリプトはまさにその『手順書』です。ただし対象は人間ではなくパソコンです。</p>
+<br>
+<p>例えばこんな命令書（スクリプト）を作れます。</p>
+<br>
+<p>「Downloadsフォルダ内のファイルを確認して、拡張子に応じてフォルダに仕分けする。.jpg→Imagesフォルダ、.pdf→PDFsフォルダ、.docx→Documentsフォルダ」</p>
+<br>
+<p>このスクリプトを実行するとDownloadsフォルダが自動的に整理されます。毎日手動でやっていた整理作業が1秒で完了します。</p>
+<br>
+<hr>
+<br>
+<p>スクリプトはプログラミングの一種ですが、Claude Codeを使えばプログラミングの知識なしに作れます。やりたいことを日本語で説明するだけです。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：スクリプトが役立つ場面】（約3分）</h3>
+<br>
+<p>「スクリプトが特に役立つのは、『同じことを繰り返す作業』です。</p>
+<br>
+<hr>
+<br>
+<p><strong>場面1：ファイルの整理・リネーム</strong></p>
+<br>
+<p>毎月ファイル名を変更する作業、フォルダを整理する作業を自動化できます。</p>
+<br>
+<p><strong>場面2：データの集計・処理</strong></p>
+<br>
+<p>毎日・毎週届くCSVデータを処理して集計する作業を自動化できます。</p>
+<br>
+<p><strong>場面3：バックアップ</strong></p>
+<br>
+<p>指定したフォルダを別の場所にコピーするバックアップ作業を自動化できます。</p>
+<br>
+<p><strong>場面4：定型メール・通知</strong></p>
+<br>
+<p>特定の条件が満たされたときに通知を出す処理を自動化できます。</p>
+<br>
+<hr>
+<br>
+<p>共通点は『手順が決まっている繰り返し作業』です。毎回判断が必要な作業より、毎回同じ手順でできる作業の方がスクリプトに向いています。</p>
+<br>
+<p>あなたの日常業務を振り返って、毎週・毎日同じことをしている作業がないか考えてみてください。そこにスクリプト化のチャンスがあります。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：スクリプトを作る流れ】（約1分）</h3>
+<br>
+<p>「Claude Codeでスクリプトを作る流れはシンプルです。</p>
+<br>
+<li>やりたいことを日本語で説明する</li>
+<li>スクリプトファイルが生成される</li>
+<li>テストして動作確認する</li>
+<li>ダブルクリックで実行できる形にする</li>
+<br>
+<p>次回から実際に2種類のスクリプトを作ります。」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>スクリプトとはパソコンへの命令書</li>
+<li>一度作ると同じ作業を自動で何度でも実行できる</li>
+<li>向いているのは『手順が決まっている繰り返し作業』</li>
+<br>
+<p>次回はファイルの一括リネーム・整理スクリプトを実際に作ります。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備</h3>
+<li>[ ] Claude Codeを起動し空のプロジェクトを用意</li>
+<li>[ ] 「毎日行っている手作業」の例（ファイルのリネームなど）を頭の中で準備</li>
+<br>
+<h3>🎬 収録手順</h3>
+<br>
+<p>#### 【オープニング】（0:00〜1:00）</p>
+<li>「スクリプトとは何かを学びます」と話す</li>
+<br>
+<p>#### 【本編①：スクリプトとは何か】（1:00〜4:00）</p>
+<li>「スクリプト＝手順書・命令書です」と口頭で説明</li>
+<li>Claude Codeに「スクリプトとは何かを初心者向けに100字で説明してください」と入力</li>
+<li>返ってきた説明を読み上げながら解説</li>
+<br>
+<p>#### 【本編②：スクリプトが役立つ場面】（4:00〜7:00）</p>
+<li>「毎日やっているこんな作業は自動化できます」として3つの例を口頭で紹介</li>
+<li>ファイルのリネーム・CSVの集計・メール送信などを例示</li>
+<br>
+<p>#### 【本編③：スクリプトを作る流れ】（7:00〜8:30）</p>
+<li>「①やりたいことを決める → ②Claude Codeに指示する → ③実行する」という流れを口頭で説明</li>
+<li>「次回から実際に作ります」と予告</li>
+<br>
+<p>#### 【クロージング】（8:30〜9:00）</p>
+<li>「次回はファイルの一括リネームスクリプトを作ります」と締める</li>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>概念説明回なので画面操作は少なめ。スライドまたは箇条書きメモを画面に表示して説明するとよい</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="12.html" class="nav-btn">← 第12回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="14.html" class="nav-btn">第14回 →</a></div>
+</body></html>

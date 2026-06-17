@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第01回 | Claude Codeとは？ChatGPT・Copilotと何が違うか</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { height: 100vh; }
+  .compare-wrap { flex-direction: column; }
+  @media (min-width: 900px) { .compare-wrap { flex-direction: row; } }
+  .feature-list { font-size: 12.5px; line-height: 2; padding: 14px 18px; color: #4A4943; }
+  .feature-list .x { color: #D9534F; }
+  .feature-list .o { color: #1F8B4C; }
+</style>
+</head>
+<body>
+<div class="nav-top" id="navTop"></div>
+<div class="compare-wrap">
+
+  <div class="compare-col">
+    <div class="compare-title">💬 ChatGPT（会話して答えをもらうAI）</div>
+    <div class="window">
+      <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">chatgpt.com</span></div>
+      <div class="browser-bar"><div class="url">🔒 chatgpt.com</div></div>
+      <div class="browser-body generic-chat">
+        <div class="msg msg-user"><div class="msg-label">あなた</div><div class="bubble">ToDoアプリを作って</div></div>
+        <div class="msg msg-assistant"><div class="msg-label">ChatGPT</div><div class="bubble">以下がToDoアプリのコード例です。
+<div class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;input id="task"&gt;
+  &lt;button onclick="add()"&gt;追加&lt;/button&gt;
+  &lt;ul id="list"&gt;&lt;/ul&gt;
+  &lt;script&gt;
+    function add(){ ... }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+このコードをコピーして、お使いのエディタに貼り付けて保存してください。</div></div>
+      </div>
+    </div>
+    <div class="feature-list">
+      <span class="o">◎</span> 会話・調べもの・文章作成が得意<br>
+      <span class="x">✕</span> パソコンのファイルを直接開けない<br>
+      <span class="x">✕</span> コードを貼り付け・保存するのは自分で行う
+    </div>
+  </div>
+
+  <div class="compare-col">
+    <div class="compare-title">⌨️ GitHub Copilot（コード作成を補助するAI）</div>
+    <div class="window">
+      <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">github.com/features/copilot</span></div>
+      <div class="browser-bar"><div class="url">🔒 github.com/features/copilot</div></div>
+      <div class="browser-body">
+        <div class="tool-card" style="margin-bottom:10px"><span class="icon">⌨️</span><span><span class="label">エディタ上で利用</span> コードの続きを予測して自動補完</span></div>
+        <div class="code-block">function calcTotal(items) {
+  let total = 0;
+  for (const item of items) {
+    total += item.price <span style="opacity:.4">// ← ここから先をCopilotが予測して薄く表示</span>
+<span style="color:#6A9955"> *  total += item.price * item.qty;
+ *  }
+ *  return total;
+ *}</span></div>
+      </div>
+    </div>
+    <div class="feature-list">
+      <span class="o">◎</span> 既にコードを書いている人の手を速くする<br>
+      <span class="x">✕</span> ゼロからアプリを作ってはくれない<br>
+      <span class="x">✕</span> プログラミング未経験者向けではない
+    </div>
+  </div>
+
+  <div class="compare-col">
+    <div class="compare-title">🤖 Claude Code（エージェント型AI）</div>
+    <div class="window">
+      <div class="titlebar">
+        <div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+        <span class="name">todo_app</span><span class="branch">main</span>
+      </div>
+      <div class="app-body">
+        <div class="sidebar" style="width:120px">
+          <div class="proj-name">PROJECT</div>
+          <div class="file-tree">
+            <div class="file-item dir">todo_app</div>
+            <div class="file-item indent1 new">index.html</div>
+            <div class="file-item indent1 new">style.css</div>
+            <div class="file-item indent1 new">app.js</div>
+          </div>
+        </div>
+        <div class="main">
+          <div class="chat" style="padding:14px 16px;gap:10px">
+            <div class="msg msg-user"><div class="msg-label">あなた</div><div class="bubble" style="padding:8px 14px;font-size:13px">ToDoアプリを作って</div></div>
+            <div class="tool-card" style="font-size:12px"><span class="icon">📝</span><span><span class="label">作成中</span> index.html / style.css / app.js</span></div>
+            <div class="approval-card" style="padding:8px 12px;font-size:12px">
+              <div class="q" style="margin-bottom:4px">このファイルを作成しますか？</div>
+              <div class="approval-buttons" style="margin-top:6px"><button class="btn-yes" style="padding:4px 10px;font-size:12px">Yes</button></div>
+            </div>
+            <div class="msg msg-assistant"><div class="msg-label">Claude Code</div><div class="bubble" style="padding:8px 14px;font-size:13px">ToDoアプリを作成しました。アプリを起動して動作確認もしておきます。</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feature-list">
+      <span class="o">◎</span> 指示するだけでファイルの作成・編集・実行までしてくれる<br>
+      <span class="o">◎</span> 変更前に必ず承認を求める安全設計<br>
+      <span class="o">◎</span> プログラミング未経験者でも成果物を作れる
+    </div>
+  </div>
+
+</div>
+<script src="data.js"></script>
+<script>
+  const ep = "01";
+  const data = EPISODES[ep];
+  const nums = Object.keys(EPISODES).sort();
+  const idx = nums.indexOf(ep);
+  const next = nums[idx+1];
+  const linkFor = (n) => EPISODES[n].special ? EPISODES[n].special : `claude-app.html?ep=${n}`;
+  document.getElementById('navTop').innerHTML =
+    `<a href="index.html">📋 一覧</a><a href="${linkFor(next)}">第${next}回 →</a>` +
+    `<span class="ep">第${ep}回</span><span>${data.title}</span><span class="goal">🎯 ${data.goal}</span>`;
+</script>
+</body>
+</html>
