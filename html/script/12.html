@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第12回 | 既存ファイルを読み込んで内容を要約・変換・加工する</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#10B981;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第12回 / Part3</span>
+  <span class="title">既存ファイルを読み込んで内容を要約・変換・加工する</span>
+  <span class="min">⏱ 9分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>手元のファイルをClaude Codeに渡して別形式に変換できる</span></div>
+  <div class="meta-item">🎬 収録：<span>変換・要約の実演を画面収録</span></div>
+</div>
+<div class="nav"><a href="11.html" class="nav-btn">← 第11回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="13.html" class="nav-btn">第13回 →</a></div>
+<div class="container"><h1>第24回｜既存ファイルを読み込んで内容を要約・変換・加工する</h1>
+<br>
+<p><strong>尺：9分 / Part6</strong></p>
+<p><strong>ゴール：手元のファイルをClaude Codeに渡して別形式に変換できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>ファイル変換・加工の活用場面</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演①：WordをExcelに変換する</th><th>3分</th></tr>
+<tr><th>本編③</th><th>実演②：長文テキストを要約する</th><th>2分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「これまでWord・Excel・PDFを新規作成する方法を学びました。今回は既存のファイルを読み込んで、変換・要約・加工する方法を学びます。</p>
+<br>
+<p>手元に蓄積されている資料を別の形式に変換したり、長い文書を要約したりする場面に役立ちます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：活用場面】（約2分）</h3>
+<br>
+<p>「ファイルの読み込みと変換が役立つ場面です。</p>
+<br>
+<p><strong>場面1：形式の変換</strong></p>
+<p>WordファイルをExcel表に変換する、または逆にExcelのデータをWordの報告書に変換するなど。</p>
+<br>
+<p><strong>場面2：要約</strong></p>
+<p>長い会議資料や論文を渡して、3行で要約してもらう。重要なポイントだけを抽出する。</p>
+<br>
+<p><strong>場面3：データ抽出・加工</strong></p>
+<p>PDFの表からデータを取り出してCSVに変換する。請求書のPDFから金額だけを抽出して集計する。</p>
+<br>
+<p><strong>場面4：体裁の統一</strong></p>
+<p>バラバラな書式で作られた複数のファイルを、統一されたフォーマットに整形する。</p>
+<br>
+<hr>
+<br>
+<p>注意点があります。PDFや画像から文字を読み取る場合、100%正確ではないことがあります。特に複雑なレイアウトのPDFは読み取りが難しい場合があります。重要なデータは必ず確認してください。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演①：WordをExcelに変換する】（約3分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>製品仕様書のWordファイルを用意しました。製品名・価格・仕様が表形式で書かれています。これをExcelの集計しやすい形式に変換します。</p>
+<br>
+<p>Wordファイルをドラッグ&ドロップして読み込み、指示を入力します。</p>
+<br>
+<p>『このWordファイルの表データをExcelに変換してください。</p>
+<br>
+<p>変換仕様：</p>
+<p>・各製品を1行に整理</p>
+<p>・列：製品ID、製品名、価格（数値のみ）、カテゴリ</p>
+<p>・価格列はExcelで計算できるよう数値形式にする</p>
+<p>・ファイル名：products.xlsx』</p>
+<br>
+<hr>
+<br>
+<p>変換が完了しました。Excelファイルを開くと、Wordの表がExcelの行・列に変換されています。価格が数値形式になっているのでSUM関数なども使えます。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：実演②：長文テキストを要約する】（約2分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>長い会議議事録のテキストファイルを用意しました。</p>
+<br>
+<p>ドロップして指示を入力します。</p>
+<br>
+<p>『このファイルの内容を以下の形式で要約してください。</p>
+<br>
+<p>・全体の要約：3行以内</p>
+<p>・決定事項：箇条書き</p>
+<p>・次回アクションアイテム：担当者と期限つきで箇条書き</p>
+<br>
+<p>結果をsummary.txtとして保存してください』</p>
+<br>
+<hr>
+<br>
+<p>要約が完了しました。長い議事録が3行の概要と箇条書きのアクションアイテムにまとめられています。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>ファイルを渡して変換・要約・加工ができる</li>
+<li>Word→Excel変換・長文要約・データ抽出など様々に使える</li>
+<li>PDFや複雑なレイアウトは読み取りが不完全な場合があるので確認必要</li>
+<br>
+<p>次回からPart7、スクリプトによる自動化を学びます。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>活用場面4シーンのスライド</th></tr>
+<tr><th>本編②</th><th>WordドロップしてExcel変換→ファイル確認の画面収録</th></tr>
+<tr><th>本編③</th><th>長文テキストドロップして要約→保存の画面収録</th></tr>
+</table>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="11.html" class="nav-btn">← 第11回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="13.html" class="nav-btn">第13回 →</a></div>
+</body></html>

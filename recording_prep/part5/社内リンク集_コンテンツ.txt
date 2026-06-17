@@ -1,0 +1,26 @@
+【第17回 HTMLリンク集ページ用コンテンツ】
+
+掲載するリンク：
+1. 社内ポータル
+   URL: http://portal.example.com
+   説明: 社内ニュース・掲示板・申請フォーム
+
+2. 勤怠管理システム
+   URL: http://kintai.example.com
+   説明: 出退勤・有給申請・残業申請
+
+3. 経費申請フォーム
+   URL: http://expense.example.com
+   説明: 交通費・接待費・備品購入の申請
+
+4. 社内チャット（Slack）
+   URL: http://chat.example.com
+   説明: チームコミュニケーション
+
+5. 人事システム
+   URL: http://hr.example.com
+   説明: 給与明細・源泉徴収票・各種証明書
+
+6. プロジェクト管理
+   URL: http://project.example.com
+   説明: タスク管理・進捗確認・工数入力

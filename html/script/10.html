@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第10回 | Excelファイル（.xlsx）を生成する：表・集計・グラフ付き資料</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#10B981;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第10回 / Part3</span>
+  <span class="title">Excelファイル（.xlsx）を生成する：表・集計・グラフ付き資料</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>データを渡して整形されたExcelファイルを出力できる</span></div>
+  <div class="meta-item">🎬 収録：<span>CSV渡しからExcel生成まで画面収録</span></div>
+</div>
+<div class="nav"><a href="09.html" class="nav-btn">← 第09回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="11.html" class="nav-btn">第11回 →</a></div>
+<div class="container"><h1>第22回｜Excelファイル（.xlsx）を生成する：表・集計・グラフ付き資料</h1>
+<br>
+<p><strong>尺：10分 / Part6</strong></p>
+<p><strong>ゴール：データを渡して整形されたExcelファイルを出力できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>Excel生成の活用場面</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演：CSVデータから集計Excelを作る</th><th>5分</th></tr>
+<tr><th>本編③</th><th>応用：グラフつきExcelを作る</th><th>1分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回はWordファイルの生成を学びました。今回はExcelファイルの生成を学びます。</p>
+<br>
+<p>Excelは表計算・データ管理・グラフ作成など様々な場面で使われます。Claude Codeを使えば、生のデータを渡すだけで整形・集計・グラフまで自動で作れます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：Excel生成の活用場面】（約2分）</h3>
+<br>
+<p>「Excelファイル生成が役立つ場面を3つ紹介します。</p>
+<br>
+<p><strong>場面1：売上データの集計表</strong></p>
+<br>
+<p>店舗ごと・月ごとの売上データを渡すと、集計表・合計・前月比などを自動計算して整形されたExcelを作ってくれます。</p>
+<br>
+<p><strong>場面2：勤怠・シフト表</strong></p>
+<br>
+<p>名前と出勤日のデータを渡すと、見やすいシフト表の形式に整形してくれます。</p>
+<br>
+<p><strong>場面3：アンケート集計</strong></p>
+<br>
+<p>アンケートの回答データを渡すと、選択肢ごとの集計表と割合を計算してグラフつきで出力できます。</p>
+<br>
+<hr>
+<br>
+<p>重要なのは、Claude Codeはデータを『整形』するのが得意だということです。バラバラな生データを渡して、見やすい表に変換してもらう使い方が最も効果的です。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：CSVデータから集計Excelを作る】（約5分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>サンプルのCSVデータを用意しました。5店舗・12か月分の売上データが入っています。</p>
+<br>
+<p>このCSVファイルをClaude Codeにドロップして、チャット欄に入力します。</p>
+<br>
+<p>『このCSVデータをもとに、以下の仕様のExcelファイルを作成してください。</p>
+<br>
+<p>ファイル名：売上集計_日付.xlsx</p>
+<br>
+<p>シート1：月別売上表</p>
+<p>・縦軸：店舗名、横軸：月（1月〜12月）</p>
+<p>・各セルに売上金額を表示（円単位・カンマ区切り）</p>
+<p>・最右列に各店舗の年間合計を表示</p>
+<p>・最下行に各月の全店舗合計を表示</p>
+<p>・合計行・合計列は背景色を薄い黄色にする</p>
+<br>
+<p>シート2：店舗別ランキング</p>
+<p>・年間売上の高い順に並べ替えたランキング表</p>
+<p>・1位・2位・3位に色をつける』</p>
+<br>
+<hr>
+<br>
+<p>処理が完了したらExcelファイルを開きます。</p>
+<br>
+<p>シート1を確認すると、きれいな集計表が完成しています。合計行・合計列も黄色でハイライトされています。</p>
+<br>
+<p>シート2のランキング表も確認します。年間売上順に並んでいて上位3店舗に色がついています。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：応用：グラフつきExcel】（約1分）</h3>
+<br>
+<p>「グラフを追加したい場合は指示を追加するだけです。</p>
+<br>
+<p>『シート3として、各店舗の年間売上を比較する棒グラフを追加してください』</p>
+<br>
+<p>このように指示するとグラフが追加されます。グラフの種類（棒・折れ線・円グラフ）も指定できます。」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>CSVやテキストデータを渡すだけで整形された集計Excelが作れる</li>
+<li>シートの構成・色・計算方法を指示に含めると精度が上がる</li>
+<li>グラフも指示を追加するだけで作れる</li>
+<br>
+<p>次回はPDFファイルの生成を学びます。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>活用場面3シーンのスライド</th></tr>
+<tr><th>本編②</th><th>CSVドロップ→指示→Excel生成→ファイル確認の画面収録</th></tr>
+<tr><th>本編③</th><th>グラフ追加の指示→確認の画面収録（短め）</th></tr>
+</table>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="09.html" class="nav-btn">← 第09回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="11.html" class="nav-btn">第11回 →</a></div>
+</body></html>

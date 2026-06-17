@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第22回 | アプリの設計をClaude Codeと一緒に言語化する</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#EC4899;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第22回 / Part6</span>
+  <span class="title">アプリの設計をClaude Codeと一緒に言語化する</span>
+  <span class="min">⏱ 9分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>「何が必要か」をリストアップした設計メモを作れる</span></div>
+  <div class="meta-item">🎬 収録：<span>Claude Codeとの設計会話を画面収録</span></div>
+</div>
+<div class="nav"><a href="21.html" class="nav-btn">← 第21回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="23.html" class="nav-btn">第23回 →</a></div>
+<div class="container"><h1>第10回｜アプリの設計をClaude Codeと一緒に言語化する</h1>
+<br>
+<p><strong>尺：9分 / Part3</strong></p>
+<p><strong>ゴール：「何が必要か」をリストアップした設計メモを作れる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>なぜ設計が必要か</th><th>2分</th></tr>
+<tr><th>本編②</th><th>設計メモの作り方</th><th>2分</th></tr>
+<tr><th>本編③</th><th>実演：Claude Codeと設計メモを作る</th><th>3分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回は作るアプリの全体像を理解しました。今回は実際にコードを書き始める前の準備として、アプリの設計をClaude Codeと一緒に言語化します。</p>
+<br>
+<p>設計というと難しそうに聞こえますが、要するに『何が必要か』をリストアップするだけです。この作業をしておくと、これからの作業がぐっとスムーズになります。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：なぜ設計が必要か】（約2分）</h3>
+<br>
+<p>「なぜ作り始める前に設計をするのか。</p>
+<br>
+<p>料理で例えてみましょう。初めて作る料理を作るとき、まずレシピを確認しますよね。材料を確認して、調理の手順を把握してから取り掛かります。</p>
+<br>
+<p>レシピなしでいきなり作り始めると、途中で材料が足りないことに気づいたり、工程の順番が間違っていたりします。</p>
+<br>
+<hr>
+<br>
+<p>アプリ開発も同じです。</p>
+<br>
+<p>設計なしでいきなり作り始めると、後から『この機能が抜けていた』『この順番でやると難しい』という問題が出てきます。</p>
+<br>
+<p>一方、設計メモがあると、Claude Codeへの指示が具体的になり、作業がスムーズに進みます。</p>
+<br>
+<p>設計メモは完璧である必要はありません。作りながら変えていけばいい。ただ、最初に全体像を把握しておくことが重要です。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：設計メモの作り方】（約2分）</h3>
+<br>
+<p>「設計メモには以下の項目を書きます。</p>
+<br>
+<hr>
+<br>
+<p><strong>①必要な画面の一覧</strong></p>
+<br>
+<p>アプリにどんな画面が必要かをリストアップします。</p>
+<br>
+<p>例：</p>
+<li>メイン画面（ファイルドロップ・処理開始）</li>
+<li>マニュアルプレビュー画面（ステップ一覧表示）</li>
+<li>設定画面（切り出し間隔・出力形式の設定）</li>
+<br>
+<hr>
+<br>
+<p><strong>②各画面に必要な機能</strong></p>
+<br>
+<p>各画面で何ができる必要があるかをリストアップします。</p>
+<br>
+<p>例（メイン画面）：</p>
+<li>動画ファイルをドロップして受け取れる</li>
+<li>処理の進捗をバーで表示する</li>
+<li>処理完了後にプレビュー画面に遷移する</li>
+<br>
+<hr>
+<br>
+<p><strong>③処理の順番（フロー）</strong></p>
+<br>
+<p>ユーザーがアプリを使う流れを書きます。</p>
+<br>
+<p>例：</p>
+<li>アプリを起動</li>
+<li>動画ファイルをドロップ</li>
+<li>処理中の表示</li>
+<li>マニュアルプレビュー表示</li>
+<li>編集して出力</li>
+<br>
+<hr>
+<br>
+<p>この3項目を書くだけで十分な設計メモになります。Claude Codeと会話しながら一緒に作れます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：実演：Claude Codeと設計メモを作る】（約3分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>チャット欄に次のように入力します。</p>
+<br>
+<p>『動画ファイルを読み込んで、画像つきのステップマニュアルを自動生成するデスクトップアプリを作りたいです。必要な画面・機能・処理の流れを設計メモとしてリストアップしてください』</p>
+<br>
+<hr>
+<br>
+<p>するとClaude Codeが設計メモの案を出してくれます。</p>
+<br>
+<p>出てきた案を見て、足りないものや変えたいところを追加の指示で修正します。</p>
+<br>
+<p>例：『設定画面に「切り出し間隔を秒単位で指定できる」機能を追加してください』</p>
+<br>
+<p>修正後、最終的な設計メモをファイルに保存してもらいます。</p>
+<br>
+<p>『この設計メモを DESIGN.md というファイルに保存してください』</p>
+<br>
+<p>これで設計メモが完成です。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>設計は料理のレシピ。作り始める前に全体像を把握する</li>
+<li>設計メモに書くのは3項目：画面・機能・フロー</li>
+<li>Claude Codeと会話しながら一緒に作れる</li>
+<br>
+<p>次回はffmpegについて理解します。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>料理とレシピの比喩スライド</th></tr>
+<tr><th>本編②</th><th>設計メモの3項目画面収録（記載例つき）</th></tr>
+<tr><th>本編③</th><th>Claude Codeと設計メモを作る・ファイル保存の画面収録</th></tr>
+</table>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="21.html" class="nav-btn">← 第21回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="23.html" class="nav-btn">第23回 →</a></div>
+</body></html>

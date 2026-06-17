@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第18回 | 見栄えのするランディングページを作る</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#06B6D4;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第18回 / Part5</span>
+  <span class="title">見栄えのするランディングページを作る</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>デザインの整ったWebページを指示だけで作れる</span></div>
+  <div class="meta-item">🎬 収録：<span>LP生成からブラウザ確認・修正まで画面収録</span></div>
+</div>
+<div class="nav"><a href="17.html" class="nav-btn">← 第17回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="19.html" class="nav-btn">第19回 →</a></div>
+<div class="container"><h1>第30回｜見栄えのするランディングページを作る</h1>
+<br>
+<p><strong>尺：10分 / Part8</strong></p>
+<p><strong>ゴール：デザインの整ったWebページを指示だけで作れる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>ランディングページとは</th><th>1分</th></tr>
+<tr><th>本編②</th><th>実演：商品・サービス紹介ページを作る</th><th>7分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回シンプルなHTMLページを作りました。今回は、より完成度の高いランディングページを作ります。</p>
+<br>
+<p>ランディングページとは、商品やサービスを紹介する1ページ完結のWebページです。会社のサービス紹介・イベント告知・商品紹介などに使えます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：ランディングページとは】（約1分）</h3>
+<br>
+<p>「ランディングページの構成要素を説明します。</p>
+<br>
+<p><strong>一般的な構成：</strong></p>
+<br>
+<li>ヒーローセクション（大きなキャッチコピー・イメージ）</li>
+<li>特徴・メリットの紹介</li>
+<li>使い方・フロー説明</li>
+<li>お客様の声（テスティモニアル）</li>
+<li>よくある質問</li>
+<li>お問い合わせ・CTA（行動促進）</li>
+<br>
+<p>これらのセクションをClaude Codeに指示すると、一気に作ってくれます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：商品・サービス紹介ページを作る】（約7分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>今回のアプリ（マニュアル自動生成アプリ）のランディングページを作ってみましょう。</p>
+<br>
+<p>チャット欄に入力します。</p>
+<br>
+<p>『「マニュアル自動生成アプリ」のランディングページをHTMLで作成してください。</p>
+<br>
+<p>ページ構成：</p>
+<p>① ヒーローセクション</p>
+<p>   キャッチコピー：「動画を渡すだけでマニュアルが完成」</p>
+<p>   サブコピー：「業務手順書作成の時間を90%削減」</p>
+<p>   CTAボタン：「無料でダウンロードする」（ボタンの動きはなくてOK）</p>
+<br>
+<p>② 3つの特徴</p>
+<p>   「5秒ごとに画像を自動切り出し」</p>
+<p>   「AIが操作説明文を自動生成」</p>
+<p>   「Word・PDFで即出力」</p>
+<p>   各特徴にアイコン（絵文字でOK）と短い説明文をつける</p>
+<br>
+<p>③ 使い方の流れ（3ステップ）</p>
+<p>   Step1：動画をドロップ</p>
+<p>   Step2：AIが自動処理</p>
+<p>   Step3：マニュアル完成・出力</p>
+<br>
+<p>④ FAQセクション（3つの質問と回答）</p>
+<br>
+<p>デザイン要件：</p>
+<p>・メインカラー：青（#3B82F6）</p>
+<p>・白背景・モダンでシンプルなデザイン</p>
+<p>・スマートフォン対応</p>
+<p>・ファイル名：landing.html』</p>
+<br>
+<hr>
+<br>
+<p>処理が完了したらブラウザで開きます。</p>
+<br>
+<p>プロが作ったような見栄えのあるランディングページが完成しました。スクロールしながら各セクションを確認します。</p>
+<br>
+<p>ヒーローセクション・特徴紹介・使い方の流れ・FAQが綺麗に並んでいます。</p>
+<br>
+<p>スマートフォンサイズで確認します。ブラウザの幅を狭くすると、1列レイアウトに切り替わります。</p>
+<br>
+<hr>
+<br>
+<p>一部修正をします。</p>
+<br>
+<p>『ヒーローセクションの背景に薄いグラデーション（白→薄い青）を追加してください』</p>
+<br>
+<p>修正が即座に反映されました。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>ランディングページはセクション構成を指示するだけで作れる</li>
+<li>デザイン要件（カラー・スタイル）を具体的に指示することが重要</li>
+<li>修正も一言指示で即座に反映できる</li>
+<br>
+<p>次回は複数ページの社内サイトを作ります。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>ランディングページの構成スライド</th></tr>
+<tr><th>本編②</th><th>指示→LP生成→ブラウザ確認→スマートフォン表示確認→一部修正の画面収録</th></tr>
+</table>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="17.html" class="nav-btn">← 第17回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="19.html" class="nav-btn">第19回 →</a></div>
+</body></html>

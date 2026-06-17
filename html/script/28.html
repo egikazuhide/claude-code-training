@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第28回 | 画像と説明文をステップ形式に並べて表示する</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#EF4444;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第28回 / Part7</span>
+  <span class="title">画像と説明文をステップ形式に並べて表示する</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>画像と説明文がStep1・Step2・Step3と順番に並んで見える</span></div>
+  <div class="meta-item">🎬 収録：<span>プレビュー画面実装を画面収録</span></div>
+</div>
+<div class="nav"><a href="27.html" class="nav-btn">← 第27回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="29.html" class="nav-btn">第29回 →</a></div>
+<div class="container"><h1>第16回｜画像と説明文をステップ形式に並べて表示する</h1>
+<br>
+<p><strong>尺：10分 / Part4</strong></p>
+<p><strong>ゴール：画像と説明文がステップ1・2・3と順番に並んで見える</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>プレビュー画面の仕様確認</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演：プレビュー画面を実装する</th><th>5分</th></tr>
+<tr><th>本編③</th><th>動作確認</th><th>1分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回で画像の切り出しとAI説明文の生成ができるようになりました。今回はその結果を画面に表示するプレビュー画面を作ります。</p>
+<br>
+<p>ユーザーが一番目にする重要な画面です。見やすく使いやすい表示にします。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：プレビュー画面の仕様確認】（約2分）</h3>
+<br>
+<p>「今回作るプレビュー画面の構成を確認します。</p>
+<br>
+<p>画面は2つのエリアに分かれます。</p>
+<br>
+<p><strong>左エリア：ステップ一覧パネル</strong></p>
+<br>
+<p>ステップ番号（Step 1、Step 2...）の一覧が縦に並びます。クリックすると右エリアの内容が切り替わります。</p>
+<br>
+<p><strong>右エリア：ステップ詳細パネル</strong></p>
+<br>
+<p>選択したステップの画像と説明文が大きく表示されます。上部に画像、下部に説明文テキストを表示します。</p>
+<br>
+<hr>
+<br>
+<p>この2エリア構成にすることで、ステップ数が多くなっても一覧で把握しやすくなります。左で全体を把握して、右で詳細を確認するイメージです。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：プレビュー画面を実装する】（約5分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>チャット欄に指示を入力します。</p>
+<br>
+<p>『src/main.py にマニュアルプレビュー画面を追加してください。</p>
+<br>
+<p>画面構成：</p>
+<p>・左エリア（幅200px）：ステップ一覧パネル。スクロール可能なリストでStep 1、Step 2...と表示。クリックで右エリアが切り替わる。</p>
+<p>・右エリア（残り幅）：ステップ詳細パネル。上部に画像（最大幅500px、縦横比を保って表示）、下部に説明文テキスト（編集可能なテキストボックス）</p>
+<br>
+<p>データの渡し方：</p>
+<p>steps というリストを受け取る。各要素は {image_path: 文字列, description: 文字列} の辞書形式。</p>
+<br>
+<p>追加ボタン：</p>
+<p>・右下に「Word出力」「PDF出力」ボタンを配置（次回実装予定なのでクリック時は「準備中」と表示でOK）』</p>
+<br>
+<hr>
+<br>
+<p>実装完了後、テストデータで動作確認します。</p>
+<br>
+<p>『テスト用のstepsデータを作ってプレビュー画面の動作確認をしてください。画像はtemp/フォルダにある切り出し画像を使ってください』</p>
+<br>
+<p>画面が表示されました。左側にStep一覧、右側に画像と説明文が表示されています。Step 2をクリックすると右側の表示が切り替わります。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：動作確認】（約1分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>一通り動いたことを確認したらGitでコミットします。</p>
+<br>
+<p>『今の変更をGitで保存してください。「プレビュー画面の実装完了」というメッセージでコミットしてください』</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>プレビュー画面は左ステップ一覧＋右詳細表示の2エリア構成</li>
+<li>画像と説明文のセットをステップ形式で表示できた</li>
+<li>説明文はテキストボックスにして後から編集できるようにしておく</li>
+<br>
+<p>次回は編集・削除・並び替え機能を追加します。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>プレビュー画面の2エリア構成画面収録（モックアップ）</th></tr>
+<tr><th>本編②</th><th>指示→実装→テストデータで動作確認の画面収録</th></tr>
+<tr><th>本編③</th><th>Gitコミットの画面収録</th></tr>
+</table>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="27.html" class="nav-btn">← 第27回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="29.html" class="nav-btn">第29回 →</a></div>
+</body></html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第02回 | デスクトップアプリのインストールとログイン</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#3B82F6;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第02回 / Part1</span>
+  <span class="title">デスクトップアプリのインストールとログイン</span>
+  <span class="min">⏱ 12分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>自分のPCでClaude Codeが起動できる状態になる</span></div>
+  <div class="meta-item">🎬 収録：<span>インストール操作を画面収録しながら解説</span></div>
+</div>
+<div class="nav"><a href="01.html" class="nav-btn">← 第01回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="03.html" class="nav-btn">第03回 →</a></div>
+<div class="container"><h1>第02回｜デスクトップアプリのインストールとログイン</h1>
+<br>
+<p><strong>尺：12分 / Part1</strong></p>
+<p><strong>ゴール：自分のPCでClaude Codeが起動できる状態になる</strong></p>
+<p><strong>収録スタイル：インストール操作を画面収録しながら解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>3種類のバージョンとデスクトップ版を使う理由</th><th>2分</th></tr>
+<tr><th>本編②</th><th>Macのインストール手順</th><th>3分</th></tr>
+<tr><th>本編③</th><th>Windowsのインストール手順</th><th>3分</th></tr>
+<tr><th>本編④</th><th>アカウント登録・ログイン・初期設定</th><th>2分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<p><em>【画面：claude.aiのトップページ】</em></p>
+<br>
+<p>「前回は、Claude Codeがエージェント型のAIツールであること、ChatGPTやCopilotとの違いをお伝えしました。</p>
+<br>
+<p>今回はいよいよ実際にClaude Codeをパソコンにインストールします。この動画を見終わったら、あなたのパソコンでClaude Codeが起動できている状態になります。</p>
+<br>
+<p>Macの方、Windowsの方、それぞれの手順を画面で見せながら進めますので、動画を止めながら一緒に作業してみてください。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：3種類のバージョンとデスクトップ版を使う理由】（約2分）</h3>
+<p><em>【画面：ブラウザでclaude.aiを開き、ページを見せながら説明】</em></p>
+<br>
+<p>「まず知っておきたいのが、Claude Codeには3つのバージョンがあるということです。</p>
+<br>
+<p><strong>1つ目はブラウザ版。</strong></p>
+<p>今見えているこのページがブラウザ版です。URLを開くだけですぐ使えますが、ファイルをプロジェクトとして管理する機能に制限があります。</p>
+<br>
+<p><strong>2つ目はCLI版。</strong></p>
+<p>CLIとはコマンドラインインターフェースの略で、黒い画面に文字を打ち込んで操作する形式です。エンジニア向けで、初心者にはハードルが高いです。</p>
+<br>
+<p><strong>3つ目がデスクトップアプリ版。</strong></p>
+<p>パソコンにインストールして使う形式です。この講座では全編このデスクトップ版のみを使います。</p>
+<br>
+<p>デスクトップ版を選ぶ理由は3つです。</p>
+<li>インストールするだけでAPIキーなどの細かい設定が不要</li>
+<li>画面を見ながら視覚的に操作できる</li>
+<li>ファイルをドラッグ&ドロップで渡せる</li>
+<br>
+<p>初心者の方には最もとっつきやすい形式です。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：Macのインストール手順】（約3分）</h3>
+<p><em>【画面：Macのデスクトップ。Windowsの方はこのブロックを飛ばしてください】</em></p>
+<br>
+<p>「ではMacの方から進めます。Windowsの方はこのブロックを飛ばして次のブロックから見てください。</p>
+<br>
+<p>まずブラウザを開いてください。URLバーに『claude.ai』と入力してEnterを押します。</p>
+<br>
+<p>Claudeのトップページが開きます。ページ内の『ダウンロード』リンクをクリックして、『Mac用をダウンロード』ボタンをクリックします。</p>
+<br>
+<p>ダウンロードが完了したら、ダウンロードフォルダを開いてください。『Claude.dmg』というファイルがあります。ダブルクリックして開きます。</p>
+<br>
+<p>インストーラーが起動してClaudeのアイコンが表示されます。アイコンをApplicationsフォルダにドラッグ&ドロップしてください。これでインストール完了です。</p>
+<br>
+<hr>
+<br>
+<p>ここで注意点があります。</p>
+<br>
+<p>はじめて起動しようとすると『このアプリはインターネットからダウンロードされました』という警告が表示されることがあります。これは正常です。『開く』ボタンをクリックして進んでください。</p>
+<br>
+<p>もし『開けません』と表示された場合は、システム設定を開いて、プライバシーとセキュリティから『このまま開く』を選べば起動できます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：Windowsのインストール手順】（約3分）</h3>
+<p><em>【画面：Windowsのデスクトップ。Macの方はこのブロックを飛ばしてください】</em></p>
+<br>
+<p>「次にWindowsの方の手順です。Macの方はこのブロックを飛ばして次に進んでください。</p>
+<br>
+<p>ブラウザを開いてURLバーに『claude.ai』と入力してEnterを押します。</p>
+<br>
+<p>トップページが開いたら、ダウンロードリンクをクリックし、『Windows用をダウンロード』をクリックします。</p>
+<br>
+<p>ダウンロードが完了したら、ダウンロードフォルダ内の『ClaudeSetup.exe』をダブルクリックします。</p>
+<br>
+<p>『このアプリがデバイスに変更を加えることを許可しますか？』という確認が出ます。『はい』をクリックしてください。</p>
+<br>
+<p>インストールが自動で進みます。完了するとデスクトップにClaudeのアイコンが作成されます。</p>
+<br>
+<hr>
+<br>
+<p>Windowsでの注意点をお伝えします。</p>
+<br>
+<p>セキュリティソフトが反応することがあります。その場合は一時的に許可するか、セキュリティソフトの設定で例外登録してください。</p>
+<br>
+<p>インストール先はデフォルトのまま変えないことをおすすめします。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編④：アカウント登録・ログイン・初期設定】（約2分）</h3>
+<p><em>【画面：Claude Codeデスクトップアプリを起動した直後のログイン画面】</em></p>
+<br>
+<p>「Claude Codeを起動するとこのようなログイン画面が表示されます。</p>
+<br>
+<p>まだアカウントを持っていない方は『アカウントを作成』をクリックしてください。メールアドレスとパスワードを登録するだけで完了します。Googleアカウントでのログインも可能です。</p>
+<br>
+<p>すでにアカウントをお持ちの方はそのままログインしてください。</p>
+<br>
+<hr>
+<br>
+<p>ログインが完了するとClaude Codeのホーム画面が開きます。</p>
+<br>
+<p>この段階でやっておくべき初期設定が2つあります。</p>
+<br>
+<p>1つ目は表示言語の確認です。設定アイコンをクリックして、言語が日本語になっているか確認してください。</p>
+<br>
+<p>2つ目はテーマの設定です。画面が明るすぎる・暗すぎる場合は、同じ設定画面でライトモード・ダークモードを切り替えられます。</p>
+<br>
+<p>これで起動の準備は完了です。」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<p><em>【画面：Claude Codeホーム画面】</em></p>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>Claude Codeにはブラウザ版・CLI版・デスクトップ版の3種類がある</li>
+<li>この講座ではデスクトップ版のみを使う</li>
+<li>インストール後にアカウント登録・ログインすれば使える状態になる</li>
+<br>
+<p>次回は起動後の画面の見方、各エリアの役割、そして最初の指示の送り方を学びます。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>オープニング</th><th>claude.aiのトップページ</th></tr>
+<tr><th>本編①</th><th>claude.aiをブラウザで開いたまま口頭で3種類を解説</th></tr>
+<tr><th>本編②</th><th>Macの画面収録：ブラウザ→ダウンロード→dmgファイル→インストール→警告ダイアログ</th></tr>
+<tr><th>本編③</th><th>Windowsの画面収録：ブラウザ→ダウンロード→exeファイル→インストール完了</th></tr>
+<tr><th>本編④</th><th>Claude Codeログイン画面→アカウント作成→ホーム画面→設定画面</th></tr>
+<tr><th>クロージング</th><th>Claude Codeホーム画面のまま音声でまとめ</th></tr>
+</table>
+<br>
+<blockquote>**収録メモ：** Mac版・Windows版それぞれの画面収録が必要。警告ダイアログが出る場面を意図的に見せて対処法を説明する。</blockquote>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="01.html" class="nav-btn">← 第01回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="03.html" class="nav-btn">第03回 →</a></div>
+</body></html>

@@ -1,0 +1,24 @@
+【第31回 エラー対処デモ用 - エラー再現手順】
+
+■ エラー再現方法（収録前に実施）
+1. requirements.txt を開く
+2. 「anthropic」の行を一時的に削除して保存
+3. アプリを起動する
+4. 以下のエラーが出ることを確認：
+   ModuleNotFoundError: No module named 'anthropic'
+
+■ Claude Codeへの貼り付け用テキスト
+---
+以下のエラーが出ました。原因を教えてそのまま修正してください。
+
+Traceback (most recent call last):
+  File "src/main.py", line 3, in <module>
+    from generator import generate_description
+  File "src/generator.py", line 2, in <module>
+    import anthropic
+ModuleNotFoundError: No module named 'anthropic'
+---
+
+■ 収録後に確認すること
+- requirements.txt が復元されているか
+- アプリが正常起動するか

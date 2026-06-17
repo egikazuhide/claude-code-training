@@ -1,0 +1,211 @@
+/* ===========================================================
+   Claude Code 研修動画 - 収録用モックアップ画面 共通スタイル
+   =========================================================== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Segoe UI", sans-serif;
+}
+
+body {
+  background: #ECEAE3;
+  color: #1F1E1D;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 共通：擬似ウィンドウ枠 ---------- */
+.window {
+  background: #FAFAF8;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 14px;
+  border: 1px solid #E5E4DD;
+}
+
+.titlebar {
+  background: #F0EFE9;
+  border-bottom: 1px solid #E5E4DD;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #6B6A66;
+  flex-shrink: 0;
+}
+.traffic { display: flex; gap: 6px; }
+.traffic span { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.traffic .red{background:#FF5F57}.traffic .yellow{background:#FEBC2E}.traffic .green{background:#28C840}
+.titlebar .name { font-weight: 600; color: #1F1E1D; }
+.titlebar .branch {
+  margin-left: auto;
+  background: #E5E4DD;
+  border-radius: 5px;
+  padding: 2px 10px;
+  font-size: 12px;
+  color: #6B6A66;
+}
+
+/* ---------- Claude Code アプリ風 ---------- */
+.app-body { display: flex; flex: 1; min-height: 0; }
+
+.sidebar {
+  width: 230px;
+  background: #F5F4ED;
+  border-right: 1px solid #E5E4DD;
+  padding: 14px 10px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.sidebar .proj-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B6A66;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  padding: 4px 8px 10px;
+}
+.file-tree { font-size: 13.5px; line-height: 1.9; color: #4A4943; }
+.file-item { display: flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.file-item.dir { font-weight: 600; color: #1F1E1D; }
+.file-item.indent1 { padding-left: 22px; }
+.file-item.indent2 { padding-left: 36px; }
+.file-item .icon { width: 16px; text-align: center; opacity: .8; }
+.file-item.new { color: #1F8B4C; font-weight: 600; }
+.file-item.new::after { content: "● 新規"; font-size: 10px; margin-left: auto; background: #E3F4EA; color: #1F8B4C; border-radius: 4px; padding: 1px 6px; }
+.file-item.changed::after { content: "● 変更"; font-size: 10px; margin-left: auto; background: #FCEFE8; color: #C15F3C; border-radius: 4px; padding: 1px 6px; }
+
+.main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.chat { flex: 1; overflow-y: auto; padding: 22px 28px; display: flex; flex-direction: column; gap: 18px; }
+
+.msg { max-width: 760px; }
+.msg-user { align-self: flex-end; }
+.msg-user .bubble {
+  background: #C15F3C; color: #fff;
+  border-radius: 14px 14px 2px 14px;
+  padding: 12px 18px; font-size: 14.5px; line-height: 1.75;
+  white-space: pre-wrap;
+}
+.msg-assistant .bubble {
+  background: #FFFFFF; border: 1px solid #E5E4DD;
+  border-radius: 2px 14px 14px 14px;
+  padding: 14px 18px; font-size: 14.5px; line-height: 1.8; color: #2D2C29;
+  white-space: pre-wrap;
+}
+.msg-assistant .avatar, .msg-user .avatar { display:none; }
+.msg-label { font-size: 11px; color: #9C9A93; margin-bottom: 4px; font-weight: 600; letter-spacing: .03em; }
+.msg-user .msg-label { text-align: right; }
+
+/* ツールアクションカード（ファイル作成・コマンド実行など） */
+.tool-card {
+  background: #F5F4ED; border: 1px solid #E5E4DD; border-radius: 10px;
+  padding: 10px 16px; font-size: 13px; color: #4A4943;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  display: flex; align-items: center; gap: 10px;
+}
+.tool-card .icon { font-size: 15px; }
+.tool-card .label { font-weight: 600; color: #1F1E1D; }
+
+/* 承認ダイアログ */
+.approval-card {
+  background: #FFFBF0; border: 1px solid #F0DCB8; border-radius: 10px;
+  padding: 14px 18px; font-size: 13.5px; color: #2D2C29;
+}
+.approval-card .q { font-weight: 600; margin-bottom: 8px; }
+.approval-card pre {
+  background: #2D2C29; color: #E3E2DC; border-radius: 8px; padding: 10px 14px;
+  font-size: 12.5px; overflow-x: auto; margin: 8px 0; font-family: ui-monospace, Menlo, monospace;
+}
+.approval-buttons { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.approval-buttons button {
+  border: none; border-radius: 7px; padding: 7px 16px; font-size: 13px; cursor: pointer;
+  font-family: inherit;
+}
+.btn-yes { background: #C15F3C; color: #fff; font-weight: 600; }
+.btn-yes-always { background: #F0EFE9; color: #4A4943; border: 1px solid #E5E4DD !important; }
+.btn-no { background: #F0EFE9; color: #4A4943; border: 1px solid #E5E4DD !important; }
+
+/* 入力欄 */
+.input-bar {
+  border-top: 1px solid #E5E4DD; padding: 14px 28px; flex-shrink: 0; background: #FAFAF8;
+}
+.input-box {
+  border: 1px solid #E5E4DD; border-radius: 12px; padding: 12px 16px;
+  font-size: 14px; color: #9C9A93; display: flex; align-items: center; justify-content: space-between;
+  background: #fff;
+}
+.input-box .send {
+  background: #C15F3C; color: #fff; border-radius: 8px; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+}
+
+/* ---------- ナビ・索引 ---------- */
+.nav-top {
+  background: #1F1E1D; color: #FAFAF8; padding: 10px 18px; font-size: 13px;
+  display: flex; align-items: center; gap: 16px; flex-shrink: 0;
+}
+.nav-top a { color: #F0BFA8; text-decoration: none; font-weight: 600; }
+.nav-top .ep { background: #C15F3C; border-radius: 5px; padding: 2px 10px; font-weight: 700; }
+.nav-top .goal { color: #C9C8C2; font-size: 12px; margin-left: auto; }
+
+/* ---------- 比較 / 図解ページ ---------- */
+.compare-wrap { display: flex; gap: 14px; flex: 1; padding: 14px; min-height: 0; }
+.compare-col { flex: 1; display: flex; flex-direction: column; }
+.compare-col .window { margin: 0; flex: 1; }
+.compare-title { text-align: center; font-weight: 700; font-size: 13px; color: #6B6A66; padding: 8px 0; }
+
+.diagram-wrap { flex: 1; padding: 30px; overflow: auto; }
+.flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center; }
+.flow-box {
+  background: #fff; border: 2px solid #E5E4DD; border-radius: 12px; padding: 18px 22px;
+  min-width: 160px; text-align: center; font-size: 14px; line-height: 1.6; color: #2D2C29;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.flow-box .ic { font-size: 28px; display:block; margin-bottom:6px; }
+.flow-box .t { font-weight: 700; margin-bottom: 4px; }
+.flow-box .d { font-size: 12px; color: #9C9A93; }
+.flow-arrow { font-size: 26px; color: #C15F3C; padding: 0 16px; font-weight: 700; }
+.flow-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; margin: 18px 0; }
+
+.section-title {
+  font-size: 18px; font-weight: 700; color: #1F1E1D; margin: 28px 0 14px; text-align:center;
+}
+.steps-list { max-width: 720px; margin: 0 auto; }
+.steps-list .step {
+  display: flex; gap: 14px; background: #fff; border: 1px solid #E5E4DD; border-radius: 10px;
+  padding: 14px 18px; margin-bottom: 12px; align-items: flex-start;
+}
+.steps-list .step .num {
+  background: #C15F3C; color: #fff; font-weight: 700; border-radius: 50%;
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px;
+}
+.steps-list .step .body .t { font-weight: 700; margin-bottom: 4px; }
+.steps-list .step .body .d { font-size: 13px; color: #6B6A66; line-height: 1.7; }
+
+/* ブラウザ風（ChatGPT/Copilot/claude.ai）画面 */
+.browser-bar {
+  background: #F0EFE9; border-bottom: 1px solid #E5E4DD; padding: 8px 14px; display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.browser-bar .url {
+  flex: 1; background: #fff; border: 1px solid #E5E4DD; border-radius: 14px; padding: 5px 14px; font-size: 12px; color: #4A4943;
+}
+.browser-body { flex: 1; overflow: auto; padding: 24px; }
+
+/* チャット風（ChatGPT等の汎用） */
+.generic-chat .msg-user .bubble { background: #1F1E1D; }
+.generic-chat .code-block {
+  background: #1E1E1E; color: #D4D4D4; border-radius: 8px; padding: 14px; font-size: 12.5px;
+  font-family: ui-monospace, Menlo, monospace; overflow-x: auto; margin-top: 8px; line-height:1.6;
+}
+
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 700; border-radius: 5px; padding: 2px 8px; margin-left: 6px;
+}
+.badge-ok { background:#E3F4EA; color:#1F8B4C; }
+.badge-no { background:#FCEAE8; color:#D9534F; }

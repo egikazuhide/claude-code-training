@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第07回 | Gitの役割と基本：セーブデータとして使いこなす</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#8B5CF6;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第07回 / Part2</span>
+  <span class="title">Gitの役割と基本：セーブデータとして使いこなす</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>変更を保存・確認・元に戻す操作ができる</span></div>
+  <div class="meta-item">🎬 収録：<span>Git操作をClaude Code画面で実演</span></div>
+</div>
+<div class="nav"><a href="06.html" class="nav-btn">← 第06回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="08.html" class="nav-btn">第08回 →</a></div>
+<div class="container"><h1>第07回｜Gitの役割と基本：セーブデータとして使いこなす</h1>
+<br>
+<p><strong>尺：10分 / Part2</strong></p>
+<p><strong>ゴール：変更を保存・確認・元に戻す操作ができる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>Gitとは何か：ゲームのセーブデータで理解する</th><th>3分</th></tr>
+<tr><th>本編②</th><th>Claude CodeとGitの関係</th><th>2分</th></tr>
+<tr><th>本編③</th><th>実演：変更を保存・確認・元に戻す</th><th>3分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回は修正サイクルの回し方を学びました。今回は『Git』について学びます。</p>
+<br>
+<p>Gitという言葉を聞いて『難しそう』と思った方もいるかもしれません。でも安心してください。この講座では、Gitをゲームの『セーブデータ』として使うだけです。プログラミング的な難しい使い方は一切しません。</p>
+<br>
+<p>この動画が終わったら、変更の保存・確認・元に戻す操作ができるようになります。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：Gitとは何か】（約3分）</h3>
+<br>
+<p>「Gitとは、ファイルの変更履歴を管理するツールです。</p>
+<br>
+<p>わかりやすく説明するために、ゲームのセーブデータで考えてみましょう。</p>
+<br>
+<hr>
+<br>
+<p>RPGゲームで冒険していると思ってください。</p>
+<br>
+<p>重要な場面に来たとき、あなたはセーブします。『ここまでの進行状況を保存した』という意味です。</p>
+<br>
+<p>その後、別の道に進んで失敗したとします。セーブデータがあれば、セーブした地点に戻ることができます。</p>
+<br>
+<p>Gitもまったく同じ仕組みです。</p>
+<br>
+<hr>
+<br>
+<p>Gitでは『コミット』と呼ばれる操作が、ゲームのセーブに相当します。</p>
+<br>
+<li>コミット＝今の状態をセーブする</li>
+<li>ファイルが増えても、変更内容も、すべて記録される</li>
+<li>いつでも過去のセーブ地点に戻れる</li>
+<br>
+<hr>
+<br>
+<p>なぜGitが必要かというと、Claude Codeで作業していると、修正を重ねるうちに『前のバージョンの方が良かった』ということがよく起きます。</p>
+<br>
+<p>Gitがあれば、前のバージョンに一瞬で戻れます。Gitがなければ、どんな変更をしたか思い出せず、困ることになります。</p>
+<br>
+<p>この講座ではClaude Codeに『Gitで保存して』と指示するだけで保存できますので、難しいコマンドを覚える必要はありません。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：Claude CodeとGitの関係】（約2分）</h3>
+<br>
+<p>「Claude CodeはGitと連携しています。</p>
+<br>
+<p>プロジェクトフォルダをClaude Codeで開くと、自動的にGitで管理できる状態になります。</p>
+<br>
+<p>Claude Codeに指示するだけでコミット（セーブ）してもらえます。</p>
+<br>
+<p>例えばこんな指示が使えます。</p>
+<br>
+<p>『今の状態をGitで保存してください。メモアプリの骨格ができたという内容でコミットしてください』</p>
+<br>
+<p>このように伝えると、Claude Codeが代わりにGitの操作をしてくれます。あなたはGitのコマンドを一切知らなくても大丈夫です。</p>
+<br>
+<hr>
+<br>
+<p>また、変更履歴の確認もできます。</p>
+<br>
+<p>『これまでの変更履歴を見せてください』</p>
+<br>
+<p>と指示すると、どのタイミングでどんな変更をしたかの一覧が表示されます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：実演：保存・確認・元に戻す】（約3分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>実際に操作してみます。まずメモアプリのファイルが入ったプロジェクトを開いています。</p>
+<br>
+<hr>
+<br>
+<p><strong>操作1：現在の状態をコミット（セーブ）する</strong></p>
+<br>
+<p>チャット欄に入力します。</p>
+<br>
+<p>『今の状態をGitで保存してください。「メモアプリの初期バージョン完成」というメッセージでコミットしてください』</p>
+<br>
+<p>Claude Codeが自動でGitの保存操作を行います。承認ダイアログが出たら『Yes』をクリックします。</p>
+<br>
+<hr>
+<br>
+<p><strong>操作2：ファイルを変更してもう一度コミットする</strong></p>
+<br>
+<p>ファイルに変更を加えます。</p>
+<br>
+<p>『保存ボタンの色を青に変えてください』</p>
+<br>
+<p>変更完了後、もう一度コミットします。</p>
+<br>
+<p>『今の変更をGitで保存してください。「保存ボタンの色を青に変更」というメッセージでコミットしてください』</p>
+<br>
+<hr>
+<br>
+<p><strong>操作3：変更履歴を確認する</strong></p>
+<br>
+<p>『これまでのコミット履歴を見せてください』</p>
+<br>
+<p>2つのコミットが時系列で表示されます。</p>
+<br>
+<hr>
+<br>
+<p><strong>操作4：元のバージョンに戻す</strong></p>
+<br>
+<p>『最初のコミット（メモアプリ初期バージョン）に戻してください』</p>
+<br>
+<p>と指示すると、ボタンが元の色に戻ります。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>Gitはゲームのセーブデータと同じ仕組み</li>
+<li>コミット＝今の状態を保存する操作</li>
+<li>Claude Codeに頼めば自動でGit操作してくれる</li>
+<li>失敗しても過去のセーブ地点に戻れる</li>
+<br>
+<p>次回はCLAUDE.mdという設定ファイルの作り方を学びます。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>ゲームのセーブデータのイメージ図スライド</th></tr>
+<tr><th>本編① 後半</th><th>Gitの概念図（コミットが積み重なるイメージ）スライド</th></tr>
+<tr><th>本編②</th><th>Claude CodeとGitの連携スライド</th></tr>
+<tr><th>本編③</th><th>コミット→確認→戻すの一連の操作画面収録</th></tr>
+</table>
+<br>
+<blockquote>**収録メモ：** 本編③は事前にメモアプリのサンプルプロジェクトを用意しておく。コミット・履歴確認・ロールバックを実際に見せる。</blockquote>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="06.html" class="nav-btn">← 第06回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="08.html" class="nav-btn">第08回 →</a></div>
+</body></html>

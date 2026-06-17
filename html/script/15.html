@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第15回 | CSVデータの集計・加工スクリプトを作る</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#F59E0B;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第15回 / Part4</span>
+  <span class="title">CSVデータの集計・加工スクリプトを作る</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>データファイルを読み込んで集計結果を出力できる</span></div>
+  <div class="meta-item">🎬 収録：<span>集計スクリプト作成・実行を画面収録</span></div>
+</div>
+<div class="nav"><a href="14.html" class="nav-btn">← 第14回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="16.html" class="nav-btn">第16回 →</a></div>
+<div class="container"><h1>第27回｜CSVデータの集計・加工スクリプトを作る</h1>
+<br>
+<p><strong>尺：10分 / Part7</strong></p>
+<p><strong>ゴール：データファイルを読み込んで集計結果を出力できる</strong></p>
+<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
+<tr><th>本編①</th><th>作るスクリプトの仕様</th><th>2分</th></tr>
+<tr><th>本編②</th><th>実演：集計スクリプトを作って動かす</th><th>6分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<br>
+<p>「前回はファイル整理スクリプトを作りました。今回はデータ集計スクリプトを作ります。</p>
+<br>
+<p>毎月Excelで手作業していた集計作業を自動化する方法を学びます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：作るスクリプトの仕様】（約2分）</h3>
+<br>
+<p>「今回作るスクリプトの仕様を確認します。</p>
+<br>
+<p><strong>シナリオ：</strong> 毎日届く売上CSVを自動集計する</p>
+<br>
+<p>入力ファイル：sales_YYYYMMDD.csv（日別の売上データ）</p>
+<p>出力：月次集計レポート（Excel形式）</p>
+<br>
+<p><strong>CSVの構造：</strong></p>
+<li>日付・店舗名・商品カテゴリ・売上金額・件数</li>
+<br>
+<p><strong>集計したいこと：</strong></p>
+<li>店舗別の月間売上合計</li>
+<li>商品カテゴリ別の売上合計</li>
+<li>売上上位3商品</li>
+<li>日別の売上推移グラフ</li>
+<br>
+<p>このスクリプトを毎月実行するだけで集計レポートが自動作成されます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：実演：集計スクリプトを作って動かす】（約6分）</h3>
+<br>
+<p>「<em>【画面収録開始】</em></p>
+<br>
+<p>サンプルの売上CSVファイルを準備しました。1か月分のデータが入っています。</p>
+<br>
+<p>チャット欄に指示を入力します。</p>
+<br>
+<p>『以下の仕様でCSV集計スクリプトを作成してください。</p>
+<br>
+<p>ファイル名：aggregate_sales.py</p>
+<br>
+<p>入力：</p>
+<p>・コマンドライン引数で入力CSVファイルのパスを受け取る</p>
+<p>・CSVの列：日付、店舗名、商品カテゴリ、売上金額、件数</p>
+<br>
+<p>出力：Excelファイル（集計_日付.xlsx）に以下のシートを作成</p>
+<p>・シート1：店舗別集計（店舗ごとの売上合計・件数合計・平均単価）</p>
+<p>・シート2：カテゴリ別集計（カテゴリごとの売上合計・売上比率）</p>
+<p>・シート3：日別推移（日付ごとの売上合計・折れ線グラフつき）</p>
+<p>・シート4：商品ランキング（売上上位10件の一覧）</p>
+<br>
+<p>各シートのヘッダー行は背景色を青・文字色を白にする</p>
+<p>数値は3桁カンマ区切りで表示する</p>
+<p>コメントはすべて日本語で書く』</p>
+<br>
+<hr>
+<br>
+<p>スクリプトが生成されました。テスト実行します。</p>
+<br>
+<p>『サンプルCSVファイルを使ってこのスクリプトを実行してください』</p>
+<br>
+<p>実行後、Excelファイルが生成されました。4つのシートを確認します。</p>
+<br>
+<p>シート1：店舗別集計がきれいに整理されています</p>
+<p>シート2：カテゴリ別の売上比率も計算されています</p>
+<p>シート3：日別推移グラフが自動生成されています</p>
+<br>
+<p>毎月手作業でやっていた集計がスクリプトを実行するだけで完了します。</p>
+<br>
+<p><em>【画面収録終了】</em>」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>CSVデータを渡して集計・加工スクリプトを作れる</li>
+<li>店舗別・カテゴリ別・日別集計・グラフ作成まで自動化できた</li>
+<li>毎月の繰り返し集計作業をスクリプト1回の実行で完了できる</li>
+<br>
+<p>次回はスクリプトをダブルクリックで実行できるようにします。</p>
+<br>
+<p>お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ</h2>
+<br>
+<table>
+<tr><th>タイミング</th><th>画面・操作</th></tr>
+<tr><th>本編①</th><th>スクリプト仕様画面収録（入出力・集計内容）</th></tr>
+<tr><th>本編②</th><th>指示→スクリプト生成→テスト実行→Excelシート確認の画面収録</th></tr>
+</table>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="14.html" class="nav-btn">← 第14回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="16.html" class="nav-btn">第16回 →</a></div>
+</body></html>
