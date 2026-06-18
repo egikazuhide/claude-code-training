@@ -11,8 +11,10 @@
   .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
   .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
-  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn:hover{background:#fbbf24}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -35,6 +37,34 @@
   hr{border:none;border-top:1px solid #334155;margin:20px 0}
   blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
   br{display:block;margin:4px 0;content:""}
+
+  @media print {
+    @page { margin:20mm 15mm; size:A4; }
+    body{ background:#fff !important; color:#111 !important; font-size:11pt; }
+    .top-bar{ background:#64748B !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; color:#fff !important; padding:12px 16px; border-radius:4px; margin-bottom:8px; }
+    .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
+    .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
+    .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
+    .dl-btn,.nav{ display:none !important; }
+    .container{ max-width:100%; padding:0; }
+    h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
+    h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    p,li{ color:#222 !important; line-height:1.7; }
+    strong{ color:#111 !important; }
+    em{ color:#555 !important; }
+    code{ background:#f0f0f0 !important; color:#c7254e !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    pre{ background:#f8f8f8 !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    pre code{ color:#333 !important; }
+    table{ border-collapse:collapse; width:100%; }
+    th{ background:#e8f0fe !important; color:#1a5fa8 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; border:1px solid #bbb; }
+    td{ border:1px solid #ddd; color:#222 !important; }
+    tr:nth-child(even) td{ background:#f9f9f9 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    blockquote{ background:#f0f7ff !important; border-left:3px solid #2563eb; color:#333 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    hr{ border-top:1px solid #ccc; }
+    a{ color:#1a5fa8 !important; }
+    .checklist li::marker{ color:#16a34a !important; }
+  }
 </style>
 </head>
 <body>
@@ -46,6 +76,7 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>次に作りたいものの設計メモをClaude Codeと作れる</span></div>
   <div class="meta-item">🎬 収録：<span>Claude Codeとのアイデア出し画面を収録</span></div>
+  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
 <div class="nav"><a href="33.html" class="nav-btn">← 第33回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a></div>
 <div class="container"><h1>第34回｜次のアプリへ：学んだことを活かしたアイデアの広げ方</h1>
@@ -177,15 +208,42 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ</h2>
+<h2>操作・画面の流れ（詳細版）</h2>
 <br>
-<table>
-<tr><th>タイミング</th><th>画面・操作</th></tr>
-<tr><th>オープニング</th><th>全34回の学習内容Claude Code画面のまま音声でまとめ</th></tr>
-<tr><th>本編①</th><th>アイデアを見つけるための質問スライド・アイデア例一覧スライド</th></tr>
-<tr><th>本編②</th><th>Claude Codeと設計メモ作成の画面収録</th></tr>
-<tr><th>クロージング</th><th>今後の学習ロードマップスライド・修了おめでとうスライド</th></tr>
-</table>
+<h3>📋 収録前準備チェックリスト</h3>
+<li>[ ] roadmap.html（収録用モックアップ）をブラウザで開いておく</li>
+<li>[ ] Claude Codeを起動し新しい空のプロジェクトを用意</li>
+<li>[ ] 画面録画を開始する（音声テスト済み）</li>
+<li>[ ] 通知をオフにする</li>
+<br>
+<h3>🎬 収録手順（9分完全版）</h3>
+<br>
+<p>#### 【オープニング】 0:00〜2:00</p>
+<li>「34回の研修動画を最後まで完走いただき、本当にありがとうございました」</li>
+<li>「今日は学んだことの振り返りと、次に作りたいものをどう考えるかを一緒に整理します」</li>
+<br>
+<p>#### 【本編①：アイデアの広げ方】 2:00〜4:00</p>
+<li>**2:00〜2:30** roadmap.htmlをブラウザで表示 → 「次のアイデアを見つける質問」グリッドを映す</li>
+<li>**2:30〜4:00** 4つの質問カードを一つずつ読み上げて「自分の仕事に当てはめてみてください」と話す</li>
+<br>
+<p>#### 【本編②：実演 アイデア出しと設計メモ】 4:00〜7:00</p>
+<li>**4:00〜4:30** Claude Codeのチャット欄に「私は経理の仕事をしています。Claude Codeで自動化できることを3つ提案してください」と入力（自分の業務に変えてOK）</li>
+<li>**4:30〜5:30** 返ってきた提案を読み上げて「こういうアプリを次に作れます」と説明</li>
+<li>**5:30〜7:00** 「では一番興味のあるアイデアで設計メモを作ってみましょう」と入力 → 設計メモを映す</li>
+<br>
+<p>#### 【クロージング】 7:00〜9:00</p>
+<li>**7:00〜7:30** roadmap.htmlの「学習ロードマップ」を映す</li>
+<li>**7:30〜8:30** 3ステップを読み上げる：「①今日学んだことを反復する ②自分の仕事に関連するツールを作る ③Claude Codeのアップデートを追う」</li>
+<li>**8:30〜9:00** 「皆さんのアプリ作りを応援しています。ありがとうございました」（最後は余韻を持たせて）</li>
+<br>
+<p>#### 【補足：最後の映し方】</p>
+<li>クロージングの後5秒間そのまま映してから録画停止</li>
+<br>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>各操作後は2〜3秒間画面を止めて視聴者に確認の時間を与える</li>
+<li>ファイルが生成された瞬間・ブラウザで開いた瞬間など成果が見えるシーンはゆっくり映す</li>
+<li>承認ダイアログは必ず3ボタンが見えるよう拡大表示してからYesをクリック</li>
 <br></div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="33.html" class="nav-btn">← 第33回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a></div>
 </body></html>

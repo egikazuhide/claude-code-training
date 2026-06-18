@@ -11,8 +11,10 @@
   .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
   .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
-  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn:hover{background:#fbbf24}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -35,6 +37,34 @@
   hr{border:none;border-top:1px solid #334155;margin:20px 0}
   blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
   br{display:block;margin:4px 0;content:""}
+
+  @media print {
+    @page { margin:20mm 15mm; size:A4; }
+    body{ background:#fff !important; color:#111 !important; font-size:11pt; }
+    .top-bar{ background:#3B82F6 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; color:#fff !important; padding:12px 16px; border-radius:4px; margin-bottom:8px; }
+    .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
+    .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
+    .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
+    .dl-btn,.nav{ display:none !important; }
+    .container{ max-width:100%; padding:0; }
+    h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
+    h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    p,li{ color:#222 !important; line-height:1.7; }
+    strong{ color:#111 !important; }
+    em{ color:#555 !important; }
+    code{ background:#f0f0f0 !important; color:#c7254e !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    pre{ background:#f8f8f8 !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    pre code{ color:#333 !important; }
+    table{ border-collapse:collapse; width:100%; }
+    th{ background:#e8f0fe !important; color:#1a5fa8 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; border:1px solid #bbb; }
+    td{ border:1px solid #ddd; color:#222 !important; }
+    tr:nth-child(even) td{ background:#f9f9f9 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    blockquote{ background:#f0f7ff !important; border-left:3px solid #2563eb; color:#333 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    hr{ border-top:1px solid #ccc; }
+    a{ color:#1a5fa8 !important; }
+    .checklist li::marker{ color:#16a34a !important; }
+  }
 </style>
 </head>
 <body>
@@ -46,6 +76,7 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>画面の各エリアの役割を把握し最初の指示を送れる</span></div>
   <div class="meta-item">🎬 収録：<span>Claude Code画面を映しながら各エリアを指し示して解説</span></div>
+  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
 <div class="nav"><a href="02.html" class="nav-btn">← 第02回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="04.html" class="nav-btn">第04回 →</a></div>
 <div class="container"><h1>第03回｜画面の構成・承認ボタン・指示の送り方を理解する</h1>
@@ -199,18 +230,62 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ</h2>
+<h2>操作・画面の流れ（詳細版）</h2>
 <br>
+<h3>📋 収録前準備チェックリスト</h3>
+<li>[ ] Claude Codeを起動し、空のプロジェクトフォルダを開いておく</li>
+<li>[ ] プロジェクト名：「training_demo」（デスクトップに作成）</li>
+<li>[ ] 画面録画開始</li>
+<br>
+<h3>🎬 収録手順（12分完全版）</h3>
+<br>
+<p>#### 【オープニング】 0:00〜1:00</p>
 <table>
-<tr><th>タイミング</th><th>画面・操作</th></tr>
-<tr><th>オープニング</th><th>Claude Codeホーム画面</th></tr>
-<tr><th>本編①</th><th>Claude Code画面を表示し、マウスカーソルで各エリアを順番に指し示す</th></tr>
-<tr><th>本編②</th><th>チャット欄に短い指示を入力→承認ダイアログを表示→3ボタンをカーソルで指す</th></tr>
-<tr><th>本編③</th><th>チャット欄にhello.txt作成指示を入力→送信→承認→ファイルツリーで確認</th></tr>
-<tr><th>クロージング</th><th>作成されたhello.txtが表示されたまま音声でまとめ</th></tr>
+<tr><th>秒</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>0〜60</th><th>Claude Code全体画面を映す</th><th>「今日は画面の見方と、最初の指示の出し方、そして承認ボタンの使い方を学びます」</th></tr>
 </table>
 <br>
-<blockquote>**収録メモ：** 画面上の各エリアを指し示す際、編集時に矢印テキストのオーバーレイを追加するとより見やすくなる。</blockquote>
+<p>#### 【本編①：画面の見方】 1:00〜5:00</p>
+<table>
+<tr><th>秒</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>1:00〜1:40</th><th>左サイドバーにカーソルを移動してゆっくり動かす</th><th>「まず左側のエリアを見てください。ここがファイルツリーです。プロジェクト内のファイルが一覧で表示されます」</th></tr>
+<tr><th>1:40〜2:20</th><th>右のチャット欄にカーソルを移動</th><th>「右側のエリアがチャット欄です。ここにClaude Codeへの指示を日本語で書きます」</th></tr>
+<tr><th>2:20〜3:00</th><th>上部のプロジェクト名部分を指差す</th><th>「上にはプロジェクト名が表示されています。今は『training_demo』というプロジェクトを開いています」</th></tr>
+<tr><th>3:00〜3:40</th><th>画面下部の入力エリアをクリックしてカーソルを出す</th><th>「一番下の白い枠がメッセージ入力エリアです。ここに日本語で指示を書いてEnterキーで送信します」</th></tr>
+<tr><th>3:40〜5:00</th><th>画面全体をゆっくりスクロールして各エリアを再確認</th><th>「まとめると、左にファイル、右にチャット、下に入力欄です。シンプルな3エリア構成です」</th></tr>
+</table>
+<br>
+<p>#### 【本編②：承認ボタンの説明】 5:00〜8:00</p>
+<table>
+<tr><th>秒</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>5:00〜5:30</th><th>入力欄に「test.txtというファイルを作ってください」と入力</th><th>「実際に試してみましょう。入力欄に——と入力してEnterを押します」</th></tr>
+<tr><th>5:30〜6:00</th><th>Enterを押す → 承認ダイアログが出るまで待つ</th><th>「送信すると、Claude Codeが考え始めます」</th></tr>
+<tr><th>6:00〜6:30</th><th>承認ダイアログが出た瞬間に一時停止して拡大</th><th>「ここで承認ダイアログが出てきました。これがとても大事な画面です」</th></tr>
+<tr><th>6:30〜7:15</th><th>ダイアログのYes/No/Alwaysボタンをゆっくり指差す</th><th>「3つのボタンがあります。『Yes』は今回だけ許可。『No』は拒否。『Always』は今後このプロジェクトでは自動で許可、という意味です」</th></tr>
+<tr><th>7:15〜7:30</th><th>「Yes」をクリック</th><th>「基本的に『Yes』をクリックして進めます」</th></tr>
+<tr><th>7:30〜8:00</th><th>ファイルが生成されてサイドバーに出現する様子を映す</th><th>「サイドバーにtest.txtが出てきました。Claude Codeがファイルを作ってくれました」</th></tr>
+</table>
+<br>
+<p>#### 【本編③：最初の指示 hello.txt作成】 8:00〜11:00</p>
+<table>
+<tr><th>秒</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>8:00〜8:30</th><th>入力欄に「hello.txtというファイルを作り、中に『こんにちは、Claude Code！』と書いてください」と入力</th><th>「次は少し複雑な指示を出してみます——と入力してEnterを押します」</th></tr>
+<tr><th>8:30〜9:00</th><th>Enterを押す → ツールカードが出てくる</th><th>「Claude Codeが動き始めました」</th></tr>
+<tr><th>9:00〜9:30</th><th>承認ダイアログで「Yes」をクリック</th><th>「承認します」</th></tr>
+<tr><th>9:30〜10:00</th><th>サイドバーにhello.txtが出現 → クリックして内容を表示</th><th>「hello.txtが作られました。クリックして開いてみます」</th></tr>
+<tr><th>10:00〜10:30</th><th>hello.txtの内容「こんにちは、Claude Code！」を拡大表示</th><th>「指示通りに書いてくれています！これがClaude Codeの基本的な使い方です」</th></tr>
+<tr><th>10:30〜11:00</th><th>サイドバーのファイル2つ（test.txt, hello.txt）を映す</th><th>「このようにファイルがどんどん追加されていきます」</th></tr>
+</table>
+<br>
+<p>#### 【クロージング】 11:00〜12:00</p>
+<table>
+<tr><th>秒</th><th>画面</th><th>話す内容</th></tr>
+<tr><th>11:00〜12:00</th><th>Claude Codeのサイドバーを表示</th><th>「今日は画面の見方・承認ボタンの使い方・最初のファイル作成ができました。次回は良い指示と悪い指示の違いを学びます。お疲れさまでした」</th></tr>
+</table>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>承認ダイアログは一時停止してゆっくり映すこと（3ボタンが見えるよう）</li>
+<li>hello.txtの内容確認シーンは拡大表示すること</li>
 <br></div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="02.html" class="nav-btn">← 第02回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="04.html" class="nav-btn">第04回 →</a></div>
 </body></html>

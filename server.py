@@ -230,8 +230,10 @@ def render_script(num):
   .top-bar .ep{{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}}
   .top-bar .title{{font-size:17px;font-weight:700;color:#fff;flex:1}}
   .top-bar .min{{font-size:13px;color:rgba(255,255,255,0.8)}}
-  .meta-bar{{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap}}
+  .meta-bar{{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}}
   .meta-item{{font-size:12px;color:#64748b}}.meta-item span{{color:#94a3b8;font-weight:500}}
+  .dl-btn{{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}}
+  .dl-btn:hover{{background:#fbbf24}}
   .nav{{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}}
   .nav-btn{{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}}
   .nav-btn:hover{{background:#1e293b;color:#e2e8f0}}
@@ -254,6 +256,34 @@ def render_script(num):
   hr{{border:none;border-top:1px solid #334155;margin:20px 0}}
   blockquote{{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}}
   br{{display:block;margin:4px 0;content:""}}
+
+  @media print {{
+    @page {{ margin:20mm 15mm; size:A4; }}
+    body{{ background:#fff !important; color:#111 !important; font-size:11pt; }}
+    .top-bar{{ background:{color} !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; color:#fff !important; padding:12px 16px; border-radius:4px; margin-bottom:8px; }}
+    .top-bar .ep,.top-bar .title,.top-bar .min{{ color:#fff !important; }}
+    .meta-bar{{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }}
+    .meta-item{{ color:#444 !important; }} .meta-item span{{ color:#222 !important; }}
+    .dl-btn,.nav{{ display:none !important; }}
+    .container{{ max-width:100%; padding:0; }}
+    h1{{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }}
+    h2{{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+    h3{{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+    p,li{{ color:#222 !important; line-height:1.7; }}
+    strong{{ color:#111 !important; }}
+    em{{ color:#555 !important; }}
+    code{{ background:#f0f0f0 !important; color:#c7254e !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+    pre{{ background:#f8f8f8 !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+    pre code{{ color:#333 !important; }}
+    table{{ border-collapse:collapse; width:100%; }}
+    th{{ background:#e8f0fe !important; color:#1a5fa8 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; border:1px solid #bbb; }}
+    td{{ border:1px solid #ddd; color:#222 !important; }}
+    tr:nth-child(even) td{{ background:#f9f9f9 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+    blockquote{{ background:#f0f7ff !important; border-left:3px solid #2563eb; color:#333 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
+    hr{{ border-top:1px solid #ccc; }}
+    a{{ color:#1a5fa8 !important; }}
+    .checklist li::marker{{ color:#16a34a !important; }}
+  }}
 </style>
 </head>
 <body>
@@ -265,6 +295,7 @@ def render_script(num):
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>{row["ゴール"]}</span></div>
   <div class="meta-item">🎬 収録：<span>{row["収録スタイル"]}</span></div>
+  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
 <div class="nav">{nav}</div>
 <div class="container">{body}</div>
