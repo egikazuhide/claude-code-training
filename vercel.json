@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "buildCommand": "mkdir -p public && cp -r html/* public/ && cp -r screens public/",
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/script/:num", "destination": "/script/:num.html" }
+  ]
+}
