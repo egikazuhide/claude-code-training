@@ -6,7 +6,16 @@
 
 ## プロジェクト概要
 
-`/Users/egikazuhide/claude_code_training/` に、Claude Code研修動画（全34回、Part1〜Part9構成）のスクリプト・収録用モックアップ画面・配信用Webビューアーを構築しています。GitHubリポジトリ `egikazuhide/claude-code-training`（公開）にプッシュ済みで、Vercel上に `https://claudecodetraining-eight.vercel.app` として公開しています。
+`/Users/egikazuhide/claude_code_training/` に、Claude Code研修動画（全40回、Part1〜Part9構成、合計約436分）のスクリプト・収録用モックアップ画面・配信用Webビューアーを構築しています。GitHubリポジトリ `egikazuhide/claude-code-training`（公開）にプッシュ済みで、Vercel上に `https://claudecodetraining-eight.vercel.app` として公開しています。
+
+### カリキュラム全体構成（2024年改訂版）
+- **Part1〜5（01〜20回）**：Claude Codeの基礎スキル（指示の出し方・文書生成・スクリプト自動化・Webページ作成）。最終アプリの内容に関わらず一貫して使える土台パート。
+- **Part6（21〜24回）「新しい武器を知る」**：2つのアプリ全体像、GitHub連携、Supabase入門（DB・認証）、Vercel公開とNext.js基礎。
+- **Part7（25〜30回）「名刺管理アプリを作る」**：設計→テーブル設計・ログイン→登録・一覧→検索・編集・削除→セキュリティ設定（RLS）→Vercel公開・配布。**最終成果物①**。
+- **Part8（31〜37回）「現場日報報告アプリを作る」**：設計（写真・Storage含む）→投稿フォーム→写真アップロード→一覧・カレンダー→管理者集計機能→ロールベースRLS→配布。**最終成果物②**。
+- **Part9（38〜40回）「仕上げ・配布・運用」**：Web版エラー対処（ブラウザConsole・Vercelログ）、他社への配布・複数社運用、最終回（次のアイデア出し）。
+
+**重要：以前のバージョンでは最終成果物が「動画から画像つきマニュアルを生成するデスクトップアプリ」（ffmpeg・Claude API・tkinter）でしたが、これは廃止されました。** 現在は **Webアプリ2本（名刺管理アプリ・現場日報報告アプリ、Next.js + Supabase + Vercel構成）** が最終成果物です。古い言及（manual_creator、ffmpeg等）が資料に残っていたら、混在を疑い確認してください。
 
 ### 全体構成
 ```
