@@ -3,38 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第21回 | 今回作るアプリの全体像</title>
+<title>第21回 | 今回作る2つのアプリの全体像</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  .app-cards { display:flex; flex-wrap:wrap; gap:18px; justify-content:center; max-width:760px; margin:0 auto 24px; }
+  .app-card {
+    background:#fff; border:1px solid #E5E4DD; border-radius:12px; padding:18px 20px; width:330px;
+    font-size:13px; line-height:1.7; box-shadow:0 2px 8px rgba(0,0,0,.04);
+  }
+  .app-card .ic { font-size:28px; display:block; margin-bottom:8px; }
+  .app-card .t { font-size:15px; font-weight:700; color:#3a3833; margin-bottom:6px; }
+  .stack-row { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; max-width:700px; margin:0 auto 24px; }
+  .stack-box {
+    background:#fff; border:1px solid #E5E4DD; border-radius:10px; padding:14px 18px; width:180px;
+    text-align:center; font-size:12px; line-height:1.6; box-shadow:0 2px 8px rgba(0,0,0,.04);
+  }
+  .stack-box .ic { font-size:24px; display:block; margin-bottom:6px; }
+  .stack-box .t { font-weight:700; color:#3a3833; margin-bottom:4px; }
+</style>
 </head>
 <body>
 <div class="nav-top" id="navTop"></div>
 <div class="window">
-  <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">manual_creator - アプリ全体像</span></div>
+  <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">アプリ全体像 - 2つの実用Webアプリ</span></div>
   <div class="diagram-wrap">
 
-    <div class="section-title">完成イメージ：「マニュアル自動生成アプリ」</div>
+    <div class="section-title">完成イメージ：2つの実用Webアプリ</div>
     <p style="text-align:center;color:#6B6A66;font-size:13px;max-width:560px;margin:0 auto 20px">
-      操作を録画した動画ファイルを読み込ませるだけで、画像つきの手順マニュアル（Word / PDF）を自動で作成するデスクトップアプリ
+      Next.js・Supabase・Vercelを使い、他社にも配布できるレベルの本格的なWebアプリを2つ作ります
     </p>
 
-    <div class="flow-row">
-      <div class="flow-box"><span class="ic">🎬</span><div class="t">動画ファイル</div><div class="d">操作を録画した.mp4</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-box"><span class="ic">🖼️</span><div class="t">画像を切り出し</div><div class="d">ffmpegで一定間隔ごとに静止画を抽出</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-box"><span class="ic">🤖</span><div class="t">AIが説明文を生成</div><div class="d">Claude APIが各画像の操作内容を文章化</div></div>
+    <div class="app-cards">
+      <div class="app-card">
+        <span class="ic">💼</span>
+        <div class="t">名刺管理アプリ</div>
+        受け取った名刺をWeb上で登録・一覧・検索できるアプリ。ログイン機能つきで、自分の名刺だけが見える安全な作り。まずはここから基礎を固めます。
+      </div>
+      <div class="app-card">
+        <span class="ic">📸</span>
+        <div class="t">現場日報報告アプリ</div>
+        現場担当者がスマホから日報と写真を投稿し、管理者がカレンダーや一覧で確認できるアプリ。写真アップロードや権限管理など一歩進んだ機能に挑戦します。
+      </div>
     </div>
-    <div class="flow-row">
-      <div class="flow-box"><span class="ic">📋</span><div class="t">プレビュー画面</div><div class="d">Step1, 2, 3...と並べて表示<br>編集・削除・並び替え</div></div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-box"><span class="ic">📄</span><div class="t">Word / PDF 出力</div><div class="d">画像つき手順マニュアルとして保存</div></div>
+
+    <div class="section-title">使う技術構成</div>
+    <div class="stack-row">
+      <div class="stack-box"><span class="ic">🐙</span><div class="t">GitHub</div>コードの保存・共有</div>
+      <div class="stack-box"><span class="ic">🗄️</span><div class="t">Supabase</div>データベース・認証・写真保存</div>
+      <div class="stack-box"><span class="ic">▲</span><div class="t">Vercel</div>Webアプリの公開・自動デプロイ</div>
     </div>
 
     <div class="section-title">この先のPartで学ぶこと</div>
     <div class="steps-list">
-      <div class="step"><div class="num">1</div><div class="body"><div class="t">アプリを設計する（Part6）</div><div class="d">設計メモの作成・ffmpeg入門・AI画像認識の仕組みを理解する</div></div></div>
-      <div class="step"><div class="num">2</div><div class="body"><div class="t">アプリを作る（Part7）</div><div class="d">プロジェクト作成 → ドロップ画面 → 画像切り出し・AI説明文生成 → プレビュー → 編集機能 → 出力機能</div></div></div>
-      <div class="step"><div class="num">3</div><div class="body"><div class="t">仕上げる・配布する（Part8）</div><div class="d">エラー対処・通しテスト・パッケージ化して他のPCでも使えるようにする</div></div></div>
+      <div class="step"><div class="num">1</div><div class="body"><div class="t">新しい武器を知る（Part6）</div><div class="d">GitHub・Supabase・Vercel・Next.jsの基礎を1つずつ学ぶ</div></div></div>
+      <div class="step"><div class="num">2</div><div class="body"><div class="t">名刺管理アプリを作る（Part7）</div><div class="d">設計 → テーブル・ログイン → 登録・一覧 → 検索・編集・削除 → セキュリティ設定 → 公開</div></div></div>
+      <div class="step"><div class="num">3</div><div class="body"><div class="t">現場日報報告アプリを作る（Part8）</div><div class="d">設計 → 投稿フォーム → 写真アップロード → 一覧・カレンダー → 管理者機能 → 権限管理 → 公開</div></div></div>
+      <div class="step"><div class="num">4</div><div class="body"><div class="t">仕上げ・配布・運用（Part9）</div><div class="d">エラー対処・他社への配布方法・次のアプリへのアイデア出し</div></div></div>
     </div>
 
   </div>

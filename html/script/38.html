@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第38回 | エラーが出たときの対処法（Web版）</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+  .top-bar{background:#64748B;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
+  .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
+  .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
+  .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+  .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
+  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn:hover{background:#fbbf24}
+  .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
+  .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
+  .nav-btn:hover{background:#1e293b;color:#e2e8f0}
+  .home-btn{background:#1e293b}
+  .container{max-width:800px;margin:0 auto;padding:32px 24px}
+  h1{font-size:22px;font-weight:700;color:#f1f5f9;margin:24px 0 12px;border-bottom:1px solid #334155;padding-bottom:8px}
+  h2{font-size:18px;font-weight:600;color:#38bdf8;margin:20px 0 10px}
+  h3{font-size:15px;font-weight:600;color:#7dd3fc;margin:16px 0 8px}
+  p{font-size:14px;line-height:1.8;color:#cbd5e1;margin:6px 0}
+  li{font-size:14px;line-height:1.8;color:#cbd5e1;margin:4px 0 4px 20px;list-style:disc}
+  strong{color:#f1f5f9;font-weight:600}
+  em{color:#94a3b8;font-style:italic}
+  code{background:#1e293b;border:1px solid #334155;border-radius:4px;padding:1px 6px;font-size:12px;color:#7dd3fc;font-family:monospace}
+  pre{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+  pre code{background:none;border:none;padding:0;font-size:13px;color:#a5f3fc}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  th{background:#1e293b;color:#7dd3fc;padding:8px 12px;text-align:left;border:1px solid #334155;font-weight:600}
+  td{padding:8px 12px;border:1px solid #1e293b;color:#cbd5e1}
+  tr:nth-child(even) td{background:#111827}
+  hr{border:none;border-top:1px solid #334155;margin:20px 0}
+  blockquote{border-left:3px solid #38bdf8;padding:8px 16px;background:#1e293b;border-radius:0 6px 6px 0;margin:10px 0;font-size:13px;color:#94a3b8}
+  br{display:block;margin:4px 0;content:""}
+
+  @media print {
+    @page { margin:20mm 15mm; size:A4; }
+    body{ background:#fff !important; color:#111 !important; font-size:11pt; }
+    .top-bar{ background:#64748B !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; color:#fff !important; padding:12px 16px; border-radius:4px; margin-bottom:8px; }
+    .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
+    .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
+    .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
+    .dl-btn,.nav{ display:none !important; }
+    .container{ max-width:100%; padding:0; }
+    h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
+    h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    p,li{ color:#222 !important; line-height:1.7; }
+    strong{ color:#111 !important; }
+    em{ color:#555 !important; }
+    code{ background:#f0f0f0 !important; color:#c7254e !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    pre{ background:#f8f8f8 !important; border:1px solid #ddd; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    pre code{ color:#333 !important; }
+    table{ border-collapse:collapse; width:100%; }
+    th{ background:#e8f0fe !important; color:#1a5fa8 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; border:1px solid #bbb; }
+    td{ border:1px solid #ddd; color:#222 !important; }
+    tr:nth-child(even) td{ background:#f9f9f9 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    blockquote{ background:#f0f7ff !important; border-left:3px solid #2563eb; color:#333 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    hr{ border-top:1px solid #ccc; }
+    a{ color:#1a5fa8 !important; }
+    .checklist li::marker{ color:#16a34a !important; }
+  }
+</style>
+</head>
+<body>
+<div class="top-bar">
+  <span class="ep">第38回 / Part9</span>
+  <span class="title">エラーが出たときの対処法（Web版）</span>
+  <span class="min">⏱ 10分</span>
+</div>
+<div class="meta-bar">
+  <div class="meta-item">🎯 ゴール：<span>ブラウザとVercelのログからエラー原因を見つけて直せる</span></div>
+  <div class="meta-item">🎬 収録：<span>エラー発生から修正完了まで画面収録</span></div>
+  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+</div>
+<div class="nav"><a href="37.html" class="nav-btn">← 第37回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="39.html" class="nav-btn">第39回 →</a></div>
+<div class="container"><h1>第38回｜エラーが出たときの対処法（Web版）</h1>
+<br>
+<p><strong>尺：10分 / Part9</strong></p>
+<p><strong>ゴール：ブラウザとVercelのログからエラー原因を見つけて直せる</strong></p>
+<p><strong>収録スタイル：エラー発生から修正完了まで画面収録</strong></p>
+<br>
+<hr>
+<br>
+<h2>構成</h2>
+<br>
+<table>
+<tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
+<tr><th>オープニング</th><th>Web版エラー対処の重要性</th><th>1分</th></tr>
+<tr><th>本編①</th><th>ブラウザのコンソールエラーを読む</th><th>3分</th></tr>
+<tr><th>本編②</th><th>Vercelのデプロイログ・ランタイムログを読む</th><th>3分</th></tr>
+<tr><th>本編③</th><th>実演：エラーをClaude Codeに渡して直す</th><th>2分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
+</table>
+<br>
+<hr>
+<br>
+<h2>トークスクリプト</h2>
+<br>
+<h3>【オープニング】（約1分）</h3>
+<p><em>【画面：Claude Code】</em></p>
+<br>
+<p>「第31回でPythonのエラー対処を学びましたが、Webアプリでは少し違う場所にエラーが出ます。今日はブラウザとVercel、それぞれでのエラーの見つけ方と直し方を学びます。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編①：ブラウザのコンソールエラーを読む】（約3分）</h3>
+<p><em>【画面：ブラウザのデベロッパーツール「Console」タブ】</em></p>
+<br>
+<p>「ブラウザでアプリを操作していて、画面が真っ白になったり、ボタンを押しても反応しなかったりする場合、まずブラウザの開発者ツールを開きます。</p>
+<br>
+<p>右クリック→『検証』→『Console』タブを開きます。ここに赤字でエラーメッセージが表示されていることが多いです。</p>
+<br>
+<p>このエラー文を選択してコピーし、Claude Codeに『ブラウザのコンソールに次のエラーが出ています。直してください』と伝えるだけで、多くの場合解決します。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編②：Vercelのデプロイログ・ランタイムログを読む】（約3分）</h3>
+<p><em>【画面：Vercelダッシュボードの「Deployments」→ログ画面】</em></p>
+<br>
+<p>「ローカルでは動くのに、Vercelに公開した後だけエラーになる、ということもあります。多くの場合、環境変数の設定漏れが原因です。</p>
+<br>
+<p>Vercelダッシュボードの『Deployments』タブから、該当のデプロイをクリックし、ビルドログを確認します。赤字のエラーがあれば、その内容をコピーしてClaude Codeに伝えます。</p>
+<br>
+<p>公開後の動作エラー（ランタイムエラー）は『Logs』タブから確認できます。こちらも同様にエラー文をコピーしてClaude Codeに渡します。」</p>
+<br>
+<hr>
+<br>
+<h3>【本編③：実演：エラーをClaude Codeに渡して直す】（約2分）</h3>
+<p><em>【画面：Claude Code】</em></p>
+<br>
+<p>「実際に試してみましょう。あえて環境変数を1つ削除してデプロイし、エラーが起きる様子を見せます。</p>
+<br>
+<p>Vercelのログにエラーが出たら、その内容をコピーし、Claude Codeに『Vercelで以下のエラーが出ています。原因を調べて直してください』と伝えます。多くの場合『環境変数が設定されていません』という趣旨の回答とともに、設定し直すよう案内してくれます。」</p>
+<br>
+<hr>
+<br>
+<h3>【クロージング】（約1分）</h3>
+<p><em>【画面：正常に動くアプリ】</em></p>
+<br>
+<p>「まとめます。</p>
+<br>
+<li>画面の不具合はブラウザのConsoleタブを確認する</li>
+<li>公開後の不具合はVercelのビルドログ・ランタイムログを確認する</li>
+<li>エラー文はそのままコピーしてClaude Codeに渡せば多くは解決する</li>
+<br>
+<p>次回は他社への配布方法を詳しく学びます。お疲れさまでした。」</p>
+<br>
+<hr>
+<br>
+<h2>操作・画面の流れ（詳細版）</h2>
+<br>
+<h3>📋 収録前準備チェックリスト</h3>
+<li>[ ] 公開済みのいずれかのアプリ（名刺管理または日報報告）を開いておく</li>
+<li>[ ] Vercelダッシュボードをブラウザのタブで開いておく</li>
+<li>[ ] あえて環境変数を1つ削除する操作を事前にリハーサルしておく（収録後は必ず元に戻す）</li>
+<br>
+<h3>🎬 収録手順（10分完全版）</h3>
+<br>
+<p>#### 【オープニング】 0:00〜1:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>0:00〜1:00</th><th>Claude Code全体</th><th>「Webアプリ特有のエラーの見つけ方・直し方を学びます」</th></tr>
+</table>
+<br>
+<p>#### 【本編①：ブラウザのコンソール】 1:00〜4:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>1:00〜1:30</th><th>右クリック→「検証」→「Console」タブを開く</th><th>「開発者ツールのConsoleタブを開きます」</th></tr>
+<tr><th>1:30〜3:00</th><th>（事前に再現させた）コンソールエラーを表示・拡大</th><th>「赤字のエラーメッセージがここに出ます」</th></tr>
+<tr><th>3:00〜4:00</th><th>エラー文を選択してコピー</th><th>「このエラー文をコピーします」</th></tr>
+</table>
+<br>
+<p>#### 【本編②：Vercelのログ】 4:00〜7:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>4:00〜5:00</th><th>Vercel「Deployments」タブで該当デプロイのビルドログを開く</th><th>「公開時のビルドログを確認します」</th></tr>
+<tr><th>5:00〜6:00</th><th>「Logs」タブでランタイムログを開く</th><th>「公開後の動作エラーはここで確認します」</th></tr>
+<tr><th>6:00〜7:00</th><th>エラー文を確認・コピー</th><th>「エラー文をコピーします」</th></tr>
+</table>
+<br>
+<p>#### 【本編③：実演】 7:00〜9:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>7:00〜7:30</th><th>Vercelの環境変数を1つ削除して再デプロイ（事前リハーサル済み）</th><th>「あえてエラーを起こしてみます」</th></tr>
+<tr><th>7:30〜8:30</th><th>エラーログをコピーしClaude Codeに「Vercelで以下のエラーが出ています。直してください」と入力 → Enter</th><th>「Claude Codeに伝えます」</th></tr>
+<tr><th>8:30〜9:00</th><th>環境変数を再設定して直る様子を確認</th><th>「直りました」</th></tr>
+</table>
+<br>
+<p>#### 【クロージング】 9:00〜10:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>9:00〜10:00</th><th>正常動作するアプリ画面</th><th>「次回は他社への配布方法を学びます。お疲れさまでした」</th></tr>
+</table>
+<br>
+<h3>⚠️ 収録時の注意点</h3>
+<li>環境変数を削除する実演は必ず収録後に正しい値へ戻すこと。本番データに影響しないよう十分注意する</li>
+<br></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="37.html" class="nav-btn">← 第37回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="39.html" class="nav-btn">第39回 →</a></div>
+</body></html>

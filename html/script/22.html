@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第22回 | アプリの設計をClaude Codeと一緒に言語化する</title>
+<title>第22回 | GitHubでコードを管理する：チーム開発の土台を作る</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
@@ -70,20 +70,20 @@
 <body>
 <div class="top-bar">
   <span class="ep">第22回 / Part6</span>
-  <span class="title">アプリの設計をClaude Codeと一緒に言語化する</span>
-  <span class="min">⏱ 9分</span>
+  <span class="title">GitHubでコードを管理する：チーム開発の土台を作る</span>
+  <span class="min">⏱ 12分</span>
 </div>
 <div class="meta-bar">
-  <div class="meta-item">🎯 ゴール：<span>「何が必要か」をリストアップした設計メモを作れる</span></div>
-  <div class="meta-item">🎬 収録：<span>Claude Codeとの設計会話を画面収録</span></div>
+  <div class="meta-item">🎯 ゴール：<span>GitHubリポジトリを作成しClaude Codeと連携してpushできる</span></div>
+  <div class="meta-item">🎬 収録：<span>リポジトリ作成からpushまで画面収録</span></div>
   <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
 <div class="nav"><a href="21.html" class="nav-btn">← 第21回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="23.html" class="nav-btn">第23回 →</a></div>
-<div class="container"><h1>第10回｜アプリの設計をClaude Codeと一緒に言語化する</h1>
+<div class="container"><h1>第22回｜GitHubでコードを管理する：チーム開発の土台を作る</h1>
 <br>
-<p><strong>尺：9分 / Part3</strong></p>
-<p><strong>ゴール：「何が必要か」をリストアップした設計メモを作れる</strong></p>
-<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<p><strong>尺：12分 / Part6</strong></p>
+<p><strong>ゴール：GitHubリポジトリを作成しClaude Codeと連携してpushできる</strong></p>
+<p><strong>収録スタイル：リポジトリ作成からpushまで画面収録</strong></p>
 <br>
 <hr>
 <br>
@@ -91,10 +91,11 @@
 <br>
 <table>
 <tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
-<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
-<tr><th>本編①</th><th>なぜ設計が必要か</th><th>2分</th></tr>
-<tr><th>本編②</th><th>設計メモの作り方</th><th>2分</th></tr>
-<tr><th>本編③</th><th>実演：Claude Codeと設計メモを作る</th><th>3分</th></tr>
+<tr><th>オープニング</th><th>GitHubを学ぶ理由</th><th>1分</th></tr>
+<tr><th>本編①</th><th>GitHubとGitの違い</th><th>2分</th></tr>
+<tr><th>本編②</th><th>GitHubアカウント作成・リポジトリ作成</th><th>3分</th></tr>
+<tr><th>本編③</th><th>Claude Codeでリポジトリにpushする</th><th>4分</th></tr>
+<tr><th>本編④</th><th>これからの運用ルール</th><th>1分</th></tr>
 <tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
 </table>
 <br>
@@ -103,149 +104,141 @@
 <h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
+<p><em>【画面：github.comのトップページ】</em></p>
 <br>
-<p>「前回は作るアプリの全体像を理解しました。今回は実際にコードを書き始める前の準備として、アプリの設計をClaude Codeと一緒に言語化します。</p>
+<p>「第7回でGitについて学びました。コミット＝セーブデータ、という説明をしましたね。</p>
 <br>
-<p>設計というと難しそうに聞こえますが、要するに『何が必要か』をリストアップするだけです。この作業をしておくと、これからの作業がぐっとスムーズになります。」</p>
+<p>今日学ぶGitHubは、そのセーブデータを『インターネット上に保管する場所』です。パソコンが壊れてもコードが失われず、他の人と共同で開発することもできるようになります。</p>
 <br>
-<hr>
-<br>
-<h3>【本編①：なぜ設計が必要か】（約2分）</h3>
-<br>
-<p>「なぜ作り始める前に設計をするのか。</p>
-<br>
-<p>料理で例えてみましょう。初めて作る料理を作るとき、まずレシピを確認しますよね。材料を確認して、調理の手順を把握してから取り掛かります。</p>
-<br>
-<p>レシピなしでいきなり作り始めると、途中で材料が足りないことに気づいたり、工程の順番が間違っていたりします。</p>
+<p>これから作るアプリは、最終的にVercelで公開しますが、そのためにもGitHubにコードを置いておくことが前提になります。今日のうちにしっかり連携させましょう。」</p>
 <br>
 <hr>
 <br>
-<p>アプリ開発も同じです。</p>
+<h3>【本編①：GitHubとGitの違い】（約2分）</h3>
+<p><em>【画面：Git（ローカル）とGitHub（クラウド）の図】</em></p>
 <br>
-<p>設計なしでいきなり作り始めると、後から『この機能が抜けていた』『この順番でやると難しい』という問題が出てきます。</p>
+<p>「Gitは『自分のパソコンの中』で変更履歴を記録する仕組みでした。</p>
 <br>
-<p>一方、設計メモがあると、Claude Codeへの指示が具体的になり、作業がスムーズに進みます。</p>
+<p>GitHubは、そのGitの記録を『インターネット上のサーバー』にアップロードして保管・共有するサービスです。</p>
 <br>
-<p>設計メモは完璧である必要はありません。作りながら変えていけばいい。ただ、最初に全体像を把握しておくことが重要です。」</p>
+<p>たとえるなら、Gitは『自分の手元のセーブデータ』、GitHubは『クラウドに自動バックアップされたセーブデータ』です。</p>
 <br>
-<hr>
-<br>
-<h3>【本編②：設計メモの作り方】（約2分）</h3>
-<br>
-<p>「設計メモには以下の項目を書きます。</p>
+<p>GitHubに置いておくことで、後でVercelと連携して『コードを更新したら自動で公開ページも更新される』という仕組みが作れます。これが今日のゴールにつながります。」</p>
 <br>
 <hr>
 <br>
-<p><strong>①必要な画面の一覧</strong></p>
+<h3>【本編②：GitHubアカウント作成・リポジトリ作成】（約3分）</h3>
+<p><em>【画面：github.com/signup】</em></p>
 <br>
-<p>アプリにどんな画面が必要かをリストアップします。</p>
+<p>「まずGitHubのアカウントを作ります。すでにお持ちの方は次のステップに進んでください。</p>
 <br>
-<p>例：</p>
-<li>メイン画面（ファイルドロップ・処理開始）</li>
-<li>マニュアルプレビュー画面（ステップ一覧表示）</li>
-<li>設定画面（切り出し間隔・出力形式の設定）</li>
+<p>メールアドレス・パスワード・ユーザー名を入力して登録します。</p>
 <br>
 <hr>
 <br>
-<p><strong>②各画面に必要な機能</strong></p>
+<p><em>【画面：github.com/new（新規リポジトリ作成画面）】</em></p>
 <br>
-<p>各画面で何ができる必要があるかをリストアップします。</p>
+<p>アカウントができたら、『リポジトリ』を作ります。リポジトリとは、プロジェクトを保管する箱のようなものです。</p>
 <br>
-<p>例（メイン画面）：</p>
-<li>動画ファイルをドロップして受け取れる</li>
-<li>処理の進捗をバーで表示する</li>
-<li>処理完了後にプレビュー画面に遷移する</li>
+<p>『New repository』をクリックし、名前を入力します。今回は名刺管理アプリ用に『business-card-app』という名前にしましょう。</p>
 <br>
-<hr>
-<br>
-<p><strong>③処理の順番（フロー）</strong></p>
-<br>
-<p>ユーザーがアプリを使う流れを書きます。</p>
-<br>
-<p>例：</p>
-<li>アプリを起動</li>
-<li>動画ファイルをドロップ</li>
-<li>処理中の表示</li>
-<li>マニュアルプレビュー表示</li>
-<li>編集して出力</li>
+<p>公開・非公開（Public / Private）を選べますが、業務アプリなのでまずは『Private』を選んでおくのが安全です。」</p>
 <br>
 <hr>
 <br>
-<p>この3項目を書くだけで十分な設計メモになります。Claude Codeと会話しながら一緒に作れます。」</p>
+<h3>【本編③：Claude Codeでリポジトリにpushする】（約4分）</h3>
+<p><em>【画面：Claude Code】</em></p>
+<br>
+<p>「ここからはClaude Codeを使います。すでにターミナルでghコマンドというGitHub操作用のコマンドが使えるようになっていますが、それすら覚える必要はありません。Claude Codeに日本語で頼むだけです。</p>
+<br>
+<p>新しいプロジェクトフォルダを開いた状態で、チャット欄に次のように入力します。</p>
+<br>
+<p>『GitHubにbusiness-card-appという名前のプライベートリポジトリを作成して、このプロジェクトをpushしてください』</p>
+<br>
+<p>承認ダイアログが出たら『Yes』をクリックします。Claude CodeがGitの初期化、コミット、GitHubでのリポジトリ作成、pushまでを自動でやってくれます。</p>
+<br>
+<p>完了したら、ブラウザでGitHubのリポジトリページを開いて、ファイルが反映されていることを確認しましょう。」</p>
 <br>
 <hr>
 <br>
-<h3>【本編③：実演：Claude Codeと設計メモを作る】（約3分）</h3>
+<h3>【本編④：これからの運用ルール】（約1分）</h3>
+<p><em>【画面：Claude Code】</em></p>
 <br>
-<p>「<em>【画面収録開始】</em></p>
+<p>「今後、機能を1つ実装するたびに、Claude Codeに『コミットしてpushしてください』と頼む習慣をつけましょう。</p>
 <br>
-<p>チャット欄に次のように入力します。</p>
-<br>
-<p>『動画ファイルを読み込んで、画像つきのステップマニュアルを自動生成するデスクトップアプリを作りたいです。必要な画面・機能・処理の流れを設計メモとしてリストアップしてください』</p>
-<br>
-<hr>
-<br>
-<p>するとClaude Codeが設計メモの案を出してくれます。</p>
-<br>
-<p>出てきた案を見て、足りないものや変えたいところを追加の指示で修正します。</p>
-<br>
-<p>例：『設定画面に「切り出し間隔を秒単位で指定できる」機能を追加してください』</p>
-<br>
-<p>修正後、最終的な設計メモをファイルに保存してもらいます。</p>
-<br>
-<p>『この設計メモを DESIGN.md というファイルに保存してください』</p>
-<br>
-<p>これで設計メモが完成です。</p>
-<br>
-<p><em>【画面収録終了】</em>」</p>
+<p>こまめに保存しておくことで、何か問題が起きたときにいつでも前の状態に戻せます。」</p>
 <br>
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
+<p><em>【画面：GitHubのリポジトリページ】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
-<li>設計は料理のレシピ。作り始める前に全体像を把握する</li>
-<li>設計メモに書くのは3項目：画面・機能・フロー</li>
-<li>Claude Codeと会話しながら一緒に作れる</li>
+<li>GitHubはコードをクラウドに保管する場所</li>
+<li>リポジトリはプロジェクトを入れる箱</li>
+<li>Claude Codeに日本語で頼むだけでGitHub操作が完了する</li>
 <br>
-<p>次回はffmpegについて理解します。</p>
-<br>
-<p>お疲れさまでした。」</p>
+<p>次回はデータベースサービス『Supabase』を学びます。お疲れさまでした。」</p>
 <br>
 <hr>
 <br>
 <h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
-<li>[ ] Claude Codeを起動しmanual_creatorプロジェクトを開く</li>
-<li>[ ] 画面録画を開始する（音声テスト済み）</li>
-<li>[ ] 通知をオフにする</li>
+<li>[ ] GitHubアカウントを作成済みにしておく（収録中の新規登録は推奨しない。すでにある場合はログイン状態にする）</li>
+<li>[ ] `gh auth status` でClaude Code（ターミナル）からGitHubにログイン済みか確認</li>
+<li>[ ] Claude Codeで空のプロジェクトフォルダ「business-card-app」を作成し開いておく</li>
+<li>[ ] 画面録画開始</li>
 <br>
-<h3>🎬 収録手順（9分完全版）</h3>
+<h3>🎬 収録手順（12分完全版）</h3>
 <br>
 <p>#### 【オープニング】 0:00〜1:00</p>
-<li>「今日はアプリの設計メモを作ります。いきなり作り始めると迷子になるので、設計が大切です」</li>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>0:00〜1:00</th><th>github.comのトップページを表示</th><th>「第7回で学んだGitのおさらいと、GitHubがその記録をクラウドに保管する仕組みであることを説明」</th></tr>
+</table>
 <br>
-<p>#### 【本編①：なぜ設計が必要か】 1:00〜3:00</p>
-<li>「設計メモは地図です。これがないと途中でどこにいるかわからなくなります」</li>
+<p>#### 【本編①：GitHubとGitの違い】 1:00〜3:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>1:00〜3:00</th><th>図解スライド（Git=ローカル / GitHub=クラウド）を表示</th><th>「Gitは手元のセーブデータ、GitHubはクラウドの自動バックアップだとたとえて説明」</th></tr>
+</table>
 <br>
-<p>#### 【本編②：設計メモの作り方】 3:00〜5:00</p>
-<li>「機能一覧・使用技術・画面構成の3点を決めます」</li>
+<p>#### 【本編②：アカウント・リポジトリ作成】 3:00〜6:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>3:00〜3:30</th><th>github.com/signup（すでにアカウントがある場合はスキップしてログイン画面）</th><th>「アカウントを作成（または既存アカウントでログイン）」</th></tr>
+<tr><th>3:30〜4:30</th><th>github.com/new を開く</th><th>「New repositoryをクリックします」</th></tr>
+<tr><th>4:30〜5:30</th><th>リポジトリ名「business-card-app」を入力、Privateを選択</th><th>「名前を入力し、業務用なのでPrivateを選びます」</th></tr>
+<tr><th>5:30〜6:00</th><th>「Create repository」をクリック</th><th>「これでリポジトリの箱が作られました」</th></tr>
+</table>
 <br>
-<p>#### 【本編③：実演 Claude Codeと設計メモを作る】 5:00〜8:00</p>
-<li>**5:00〜5:30** 「動画から画像つきマニュアルを自動生成するデスクトップアプリの設計メモを作ってください。必要な機能・使用技術・画面構成・フォルダ構成を含めてください」と入力してEnter</li>
-<li>**5:30〜6:30** 承認でYes → design.mdが生成される</li>
-<li>**6:30〜8:00** design.mdをクリックして内容を確認・スクロールしながら読み上げ</li>
+<p>#### 【本編③：Claude Codeでpush】 6:00〜10:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>6:00〜6:30</th><th>Claude Codeのチャット欄に「GitHubにbusiness-card-appという名前のプライベートリポジトリを作成して、このプロジェクトをpushしてください」と入力してEnter</th><th>「Claude Codeに日本語で頼みます」</th></tr>
+<tr><th>6:30〜8:00</th><th>承認ダイアログで「Yes」をクリック → Git init・commit・GitHub CLIでのリポジトリ作成・pushが実行される様子を映す</th><th>「承認すると自動で進みます」</th></tr>
+<tr><th>8:00〜9:00</th><th>完了メッセージを確認</th><th>「pushが完了しました」</th></tr>
+<tr><th>9:00〜10:00</th><th>ブラウザでGitHubのリポジトリページをリロードして、ファイルが反映されていることを確認</th><th>「GitHub上にファイルが見えています！」</th></tr>
+</table>
 <br>
-<p>#### 【クロージング】 8:00〜9:00</p>
-<li>「この設計メモをもとに開発を進めます。次回はffmpegを学びます」と締める</li>
+<p>#### 【本編④：運用ルール】 10:00〜11:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>10:00〜11:00</th><th>Claude Code画面</th><th>「今後は機能を1つ作るたびにコミット・pushする習慣をつけましょう」</th></tr>
+</table>
 <br>
+<p>#### 【クロージング】 11:00〜12:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>11:00〜12:00</th><th>GitHubのリポジトリページ</th><th>「次回はSupabaseを学びます。お疲れさまでした」</th></tr>
+</table>
 <br>
 <h3>⚠️ 収録時の注意点</h3>
-<li>各操作後は2〜3秒間画面を止めて視聴者に確認の時間を与える</li>
-<li>ファイルが生成された瞬間・ブラウザで開いた瞬間など成果が見えるシーンはゆっくり映す</li>
-<li>承認ダイアログは必ず3ボタンが見えるよう拡大表示してからYesをクリック</li>
+<li>GitHubのログイン画面・パスワード入力は映さない</li>
+<li>Privateリポジトリを選ぶ理由（業務データなので非公開が基本）を必ず説明する</li>
+<li>`gh auth status` が未ログインの場合は事前にログインしておくこと（収録中にブラウザ認証フローが挟まると長くなる）</li>
 <br></div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="21.html" class="nav-btn">← 第21回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="23.html" class="nav-btn">第23回 →</a></div>
 </body></html>

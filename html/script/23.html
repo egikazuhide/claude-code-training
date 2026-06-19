@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第23回 | 動画から画像を切り出す仕組みを理解する（ffmpeg入門）</title>
+<title>第23回 | Supabase入門：データベースと認証の基礎</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
@@ -70,20 +70,20 @@
 <body>
 <div class="top-bar">
   <span class="ep">第23回 / Part6</span>
-  <span class="title">動画から画像を切り出す仕組みを理解する（ffmpeg入門）</span>
-  <span class="min">⏱ 9分</span>
+  <span class="title">Supabase入門：データベースと認証の基礎</span>
+  <span class="min">⏱ 12分</span>
 </div>
 <div class="meta-bar">
-  <div class="meta-item">🎯 ゴール：<span>ffmpegが何者かを理解しClaude Codeに導入させられる</span></div>
-  <div class="meta-item">🎬 収録：<span>ffmpegインストール操作を画面収録</span></div>
+  <div class="meta-item">🎯 ゴール：<span>Supabaseでプロジェクトを作りテーブルと認証を理解する</span></div>
+  <div class="meta-item">🎬 収録：<span>プロジェクト作成からテーブル確認まで画面収録</span></div>
   <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
 <div class="nav"><a href="22.html" class="nav-btn">← 第22回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="24.html" class="nav-btn">第24回 →</a></div>
-<div class="container"><h1>第11回｜動画から画像を切り出す仕組みを理解する（ffmpeg入門）</h1>
+<div class="container"><h1>第23回｜Supabase入門：データベースと認証の基礎</h1>
 <br>
-<p><strong>尺：9分 / Part3</strong></p>
-<p><strong>ゴール：ffmpegが何者かを理解しClaude Codeに導入させられる</strong></p>
-<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<p><strong>尺：12分 / Part6</strong></p>
+<p><strong>ゴール：Supabaseでプロジェクトを作りテーブルと認証を理解する</strong></p>
+<p><strong>収録スタイル：プロジェクト作成からテーブル確認まで画面収録</strong></p>
 <br>
 <hr>
 <br>
@@ -91,10 +91,11 @@
 <br>
 <table>
 <tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
-<tr><th>オープニング</th><th>前回の復習・この動画の目的</th><th>1分</th></tr>
-<tr><th>本編①</th><th>ffmpegとは何か</th><th>3分</th></tr>
-<tr><th>本編②</th><th>ffmpegで何ができるか</th><th>2分</th></tr>
-<tr><th>本編③</th><th>実演：Claude Codeにffmpegをインストールさせる</th><th>2分</th></tr>
+<tr><th>オープニング</th><th>Supabaseを学ぶ理由</th><th>1分</th></tr>
+<tr><th>本編①</th><th>Supabaseとは何か</th><th>2分</th></tr>
+<tr><th>本編②</th><th>プロジェクト作成</th><th>3分</th></tr>
+<tr><th>本編③</th><th>テーブルエディタの使い方</th><th>3分</th></tr>
+<tr><th>本編④</th><th>認証（Auth）の基礎</th><th>2分</th></tr>
 <tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
 </table>
 <br>
@@ -103,127 +104,129 @@
 <h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
+<p><em>【画面：supabase.comのトップページ】</em></p>
 <br>
-<p>「前回アプリの設計メモを作りました。今回は設計の中で登場した『ffmpeg』というツールについて理解します。</p>
+<p>「これから作る名刺管理アプリも現場日報報告アプリも、データを保存する場所が必要です。名刺の情報、日報の内容、それから『誰がログインしているか』を管理する仕組みも必要です。</p>
 <br>
-<p>ffmpegはアプリを作るうえで欠かせないツールですが、名前が難しそうで敬遠してしまう方もいます。でも、今回の動画を見れば正体がわかります。インストールもClaude Codeに任せればOKです。」</p>
-<br>
-<hr>
-<br>
-<h3>【本編①：ffmpegとは何か】（約3分）</h3>
-<br>
-<p>「ffmpegとは、動画や音声ファイルを処理するための無料のツールです。</p>
-<br>
-<p>世界中の動画サービス（YouTube・Netflix・TikTokなど）が裏側でffmpegを使っているほど、信頼性の高いツールです。</p>
+<p>それを全部まとめて提供してくれるのが、今日学ぶ『Supabase』です。」</p>
 <br>
 <hr>
 <br>
-<p>普段私たちが使う動画プレイヤーやビデオ編集ソフトは、画面があってマウスで操作できます。ffmpegは画面がなく、命令文を入力して操作します。</p>
+<h3>【本編①：Supabaseとは何か】（約2分）</h3>
+<p><em>【画面：Supabaseの機能一覧ページ】</em></p>
 <br>
-<p>ただし今回は、ffmpegを直接操作しません。Claude Codeにffmpegを使った処理を書いてもらい、Claude Codeが代わりに操作します。あなたはffmpegのコマンドを一切知らなくて大丈夫です。</p>
+<p>「Supabaseは、データベース・認証・ファイル保存（ストレージ）・サーバー機能をまとめて提供するサービスです。</p>
 <br>
-<hr>
+<p>普通であれば、データベースサーバーを自分で構築し、ログイン機能を自分でプログラムする必要がありました。Supabaseを使えば、その複雑な部分を任せて、画面の管理画面から設定できます。</p>
 <br>
-<p>ビデオカメラに例えるとわかりやすいです。</p>
-<br>
-<p>ffmpegは「動画を処理する専門スタッフ」です。Claude Codeが「監督」として指示を出し、ffmpegが実際の作業を行います。あなたは「プロデューサー」として全体の方向性を指示するだけです。」</p>
-<br>
-<hr>
-<br>
-<h3>【本編②：ffmpegで何ができるか】（約2分）</h3>
-<br>
-<p>「ffmpegでできる処理の中で、今回のアプリで使う機能を紹介します。</p>
+<p>Claude Codeとの相性も非常に良く、コードからSupabaseに接続する処理もすぐに書いてもらえます。」</p>
 <br>
 <hr>
 <br>
-<p><strong>使う機能：動画からスクリーンショットを切り出す</strong></p>
+<h3>【本編②：プロジェクト作成】（約3分）</h3>
+<p><em>【画面：supabase.com/dashboard】</em></p>
 <br>
-<p>例えば、5秒ごとに1枚画像を切り出すという処理ができます。</p>
+<p>「まずSupabaseにアカウント登録し、ログインします。GitHubアカウントでログインできるので、前回作ったアカウントがそのまま使えます。</p>
 <br>
-<p>5分（300秒）の動画なら5秒間隔で60枚。10秒間隔なら30枚の画像が得られます。</p>
+<p>ダッシュボードで『New project』をクリックします。</p>
 <br>
-<p>切り出す間隔は設定で変えられます。操作が細かい場面は短い間隔、ゆっくりした場面は長い間隔というように、後から調整できます。</p>
+<p>プロジェクト名を『business-card-app』とし、データベースのパスワードを設定します。このパスワードは厳重に保管してください（あとで使います）。</p>
 <br>
-<hr>
+<p>リージョン（サーバーの地域）は『Northeast Asia (Tokyo)』を選ぶと日本からのアクセスが速くなります。</p>
 <br>
-<p>その他にもffmpegは、動画の形式変換・動画のカット・音声の抽出など様々な処理ができますが、今回使うのはスクリーンショット切り出しだけです。</p>
-<br>
-<p>将来的にはffmpegを使って動画の自動編集なども作れるようになります。」</p>
-<br>
-<hr>
-<br>
-<h3>【本編③：実演：Claude Codeにffmpegをインストールさせる】（約2分）</h3>
-<br>
-<p>「<em>【画面収録開始】</em></p>
-<br>
-<p>では、ffmpegをインストールしてもらいます。チャット欄に入力します。</p>
-<br>
-<p>『ffmpegをこのパソコンにインストールしてください。Macの場合はHomebrewを使ったインストール方法で進めてください』</p>
-<br>
-<p>（Windowsの方は）</p>
-<p>『ffmpegをこのパソコンにインストールしてください。Windowsでインストールする方法で進めてください』</p>
+<p>作成ボタンを押すと、1〜2分でプロジェクトが立ち上がります。」</p>
 <br>
 <hr>
 <br>
-<p>Claude Codeがインストールの手順を実行してくれます。途中で承認ダイアログが出たら『Yes』をクリックします。</p>
+<h3>【本編③：テーブルエディタの使い方】（約3分）</h3>
+<p><em>【画面：Supabaseダッシュボードの「Table Editor」】</em></p>
 <br>
-<p>インストールが完了したら、正しくインストールされたか確認してもらいます。</p>
+<p>「左メニューの『Table Editor』を開きます。ここがデータベースのテーブル（表）を管理する画面です。</p>
 <br>
-<p>『ffmpegが正しくインストールされているか確認してください』</p>
+<p>まだ何もテーブルがない状態ですが、この画面からExcelのような感覚で表を作ったり、列を追加したりできます。</p>
 <br>
-<p>バージョン番号が表示されれば成功です。</p>
+<p>実際のテーブル作成はClaude Codeに任せますが、『どんな画面か』を今のうちに知っておくと、後で確認するときに迷いません。」</p>
 <br>
-<p><em>【画面収録終了】</em>」</p>
+<hr>
+<br>
+<h3>【本編④：認証（Auth）の基礎】（約2分）</h3>
+<p><em>【画面：Supabaseダッシュボードの「Authentication」】</em></p>
+<br>
+<p>「左メニューの『Authentication』を開きます。ここでユーザーのログイン管理ができます。</p>
+<br>
+<p>メールアドレスとパスワードでのログイン、Googleアカウントでのログインなど、さまざまな方法に対応しています。今回はシンプルに『メール＋パスワード』のログインを使います。</p>
+<br>
+<p>ここで作られたユーザー情報は、データベースの他のテーブルと紐づけて『このユーザーが作ったデータだけを表示する』という制御に使います。これは次のPart7で詳しく扱います。」</p>
 <br>
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
+<p><em>【画面：Supabaseダッシュボード全体】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
-<li>ffmpegは動画処理の専門ツール。世界中で使われている</li>
-<li>今回は動画からスクリーンショットを切り出すために使う</li>
-<li>インストールも操作もClaude Codeに任せればOK</li>
+<li>Supabaseはデータベース・認証・ストレージをまとめて提供するサービス</li>
+<li>Table Editorでデータの表を管理する</li>
+<li>Authenticationでログイン機能を管理する</li>
 <br>
-<p>次回はClaude APIに画像を渡して説明文を生成させる仕組みを理解します。</p>
-<br>
-<p>お疲れさまでした。」</p>
+<p>次回はVercelとNext.jsの基礎を学びます。お疲れさまでした。」</p>
 <br>
 <hr>
 <br>
 <h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
-<li>[ ] manual_creatorプロジェクトを開く</li>
-<li>[ ] テスト用動画ファイル（test.mp4、30秒程度）をデスクトップに用意</li>
-<li>[ ] 画面録画を開始する（音声テスト済み）</li>
-<li>[ ] 通知をオフにする</li>
+<li>[ ] Supabaseアカウントを作成済みにしておく（GitHubアカウントでログイン可能）</li>
+<li>[ ] プロジェクト名・データベースパスワードを事前に決めておく</li>
+<li>[ ] ブラウザでsupabase.comを開いておく</li>
 <br>
-<h3>🎬 収録手順（9分完全版）</h3>
+<h3>🎬 収録手順（12分完全版）</h3>
 <br>
 <p>#### 【オープニング】 0:00〜1:00</p>
-<li>「今日はffmpegという動画処理ツールを使えるようにします。動画から画像を切り出すのに使います」</li>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>0:00〜1:00</th><th>supabase.comのトップページ</th><th>「名刺・日報のデータ保存とログイン管理を担うSupabaseを学びます」</th></tr>
+</table>
 <br>
-<p>#### 【本編①：ffmpegとは何か】 1:00〜4:00</p>
-<li>「ffmpegは動画・音声を加工できる業界標準のツールです。インストールするだけでClaude Codeが使えるようになります」</li>
+<p>#### 【本編①：Supabaseとは何か】 1:00〜3:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>1:00〜3:00</th><th>Supabaseの機能一覧ページをスクロールしながら見せる</th><th>「データベース・認証・ストレージ・サーバー機能をまとめて提供してくれます」</th></tr>
+</table>
 <br>
-<p>#### 【本編②：ffmpegで何ができるか】 4:00〜6:00</p>
-<li>「動画変換・音声抽出・画像切り出しができます。今回は画像切り出しに使います」</li>
+<p>#### 【本編②：プロジェクト作成】 3:00〜6:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>3:00〜3:30</th><th>supabase.com/dashboardでログイン（GitHub連携）</th><th>「GitHubアカウントでログインします」</th></tr>
+<tr><th>3:30〜4:00</th><th>「New project」をクリック</th><th>「新規プロジェクトを作成します」</th></tr>
+<tr><th>4:00〜5:00</th><th>プロジェクト名「business-card-app」、DBパスワードを入力</th><th>「名前とパスワードを設定します。パスワードは厳重に保管してください」</th></tr>
+<tr><th>5:00〜5:30</th><th>リージョンで「Northeast Asia (Tokyo)」を選択</th><th>「東京リージョンを選ぶと日本からのアクセスが速くなります」</th></tr>
+<tr><th>5:30〜6:00</th><th>「Create new project」をクリック → 作成完了を待つ</th><th>「1〜2分でプロジェクトが立ち上がります」</th></tr>
+</table>
 <br>
-<p>#### 【本編③：実演 Claude Codeにffmpegをインストールさせる】 6:00〜8:00</p>
-<li>**6:00〜6:20** 「ffmpegをこのMacにインストールしてください」と入力してEnter</li>
-<li>**6:20〜7:00** 承認でYes → brew install ffmpegが実行される（少し待つ）</li>
-<li>**7:00〜7:30** インストール完了を確認</li>
-<li>**7:30〜8:00** 「ffmpeg -version と実行してください」→ バージョンが表示されることを映す</li>
+<p>#### 【本編③：テーブルエディタ】 6:00〜9:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>6:00〜7:00</th><th>左メニュー「Table Editor」をクリック</th><th>「ここがデータベースの表を管理する画面です」</th></tr>
+<tr><th>7:00〜9:00</th><th>空のテーブル一覧画面を見せながら説明</th><th>「Excelのような感覚で表を作れます。実際の作成はClaude Codeに任せます」</th></tr>
+</table>
 <br>
-<p>#### 【クロージング】 8:00〜9:00</p>
-<li>「次回はAIに画像を渡して説明文を生成する仕組みを学びます」と締める</li>
+<p>#### 【本編④：認証の基礎】 9:00〜11:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>9:00〜10:00</th><th>左メニュー「Authentication」をクリック → 「Users」タブを表示</th><th>「ここでユーザーのログイン管理ができます」</th></tr>
+<tr><th>10:00〜11:00</th><th>「Providers」タブでEmail・Googleなどのログイン方法一覧を見せる</th><th>「今回はメール＋パスワードのログインを使います」</th></tr>
+</table>
 <br>
+<p>#### 【クロージング】 11:00〜12:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>11:00〜12:00</th><th>Supabaseダッシュボード全体</th><th>「次回はVercelとNext.jsの基礎を学びます。お疲れさまでした」</th></tr>
+</table>
 <br>
 <h3>⚠️ 収録時の注意点</h3>
-<li>各操作後は2〜3秒間画面を止めて視聴者に確認の時間を与える</li>
-<li>ファイルが生成された瞬間・ブラウザで開いた瞬間など成果が見えるシーンはゆっくり映す</li>
-<li>承認ダイアログは必ず3ボタンが見えるよう拡大表示してからYesをクリック</li>
+<li>データベースパスワードは画面に映さない、または収録後に変更する</li>
+<li>プロジェクト作成の待ち時間（1〜2分）はカットしてOK</li>
 <br></div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="22.html" class="nav-btn">← 第22回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="24.html" class="nav-btn">第24回 →</a></div>
 </body></html>

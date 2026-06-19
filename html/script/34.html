@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第34回 | 次のアプリへ：学んだことを活かしたアイデアの広げ方と今後のロードマップ</title>
+<title>第34回 | 日報一覧・カレンダー表示を作る</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
-  .top-bar{background:#64748B;padding:16px 24px;display:flex;align-items:center;gap:12px}
+  .top-bar{background:#6366F1;padding:16px 24px;display:flex;align-items:center;gap:12px}
   .top-bar .ep{font-size:13px;background:rgba(0,0,0,0.2);border-radius:4px;padding:2px 10px;color:#fff;font-weight:600}
   .top-bar .title{font-size:17px;font-weight:700;color:#fff;flex:1}
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
@@ -41,7 +41,7 @@
   @media print {
     @page { margin:20mm 15mm; size:A4; }
     body{ background:#fff !important; color:#111 !important; font-size:11pt; }
-    .top-bar{ background:#64748B !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; color:#fff !important; padding:12px 16px; border-radius:4px; margin-bottom:8px; }
+    .top-bar{ background:#6366F1 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; color:#fff !important; padding:12px 16px; border-radius:4px; margin-bottom:8px; }
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
@@ -69,21 +69,21 @@
 </head>
 <body>
 <div class="top-bar">
-  <span class="ep">第34回 / Part9</span>
-  <span class="title">次のアプリへ：学んだことを活かしたアイデアの広げ方と今後のロードマップ</span>
-  <span class="min">⏱ 9分</span>
+  <span class="ep">第34回 / Part8</span>
+  <span class="title">日報一覧・カレンダー表示を作る</span>
+  <span class="min">⏱ 15分</span>
 </div>
 <div class="meta-bar">
-  <div class="meta-item">🎯 ゴール：<span>次に作りたいものの設計メモをClaude Codeと作れる</span></div>
-  <div class="meta-item">🎬 収録：<span>Claude Codeとのアイデア出し画面を収録</span></div>
+  <div class="meta-item">🎯 ゴール：<span>投稿した日報を一覧とカレンダーで確認できる</span></div>
+  <div class="meta-item">🎬 収録：<span>一覧・カレンダー実装から確認まで画面収録</span></div>
   <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
-<div class="nav"><a href="33.html" class="nav-btn">← 第33回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a></div>
-<div class="container"><h1>第34回｜次のアプリへ：学んだことを活かしたアイデアの広げ方</h1>
+<div class="nav"><a href="33.html" class="nav-btn">← 第33回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="35.html" class="nav-btn">第35回 →</a></div>
+<div class="container"><h1>第34回｜日報一覧・カレンダー表示を作る</h1>
 <br>
-<p><strong>尺：9分 / Part8（最終回）</strong></p>
-<p><strong>ゴール：次に作りたいものの設計メモをClaude Codeと作れる</strong></p>
-<p><strong>収録スタイル：操作画面を映しながら音声解説</strong></p>
+<p><strong>尺：15分 / Part8</strong></p>
+<p><strong>ゴール：投稿した日報を一覧とカレンダーで確認できる</strong></p>
+<p><strong>収録スタイル：一覧・カレンダー実装から確認まで画面収録</strong></p>
 <br>
 <hr>
 <br>
@@ -91,159 +91,120 @@
 <br>
 <table>
 <tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
-<tr><th>オープニング</th><th>全講座の振り返り</th><th>2分</th></tr>
-<tr><th>本編①</th><th>アイデアの広げ方</th><th>2分</th></tr>
-<tr><th>本編②</th><th>実演：次のアプリのアイデア出しと設計メモ</th><th>3分</th></tr>
-<tr><th>クロージング</th><th>修了メッセージ・今後の学習ロードマップ</th><th>2分</th></tr>
+<tr><th>オープニング</th><th>今日のゴール確認</th><th>1分</th></tr>
+<tr><th>本編①</th><th>一覧表示画面を作る</th><th>5分</th></tr>
+<tr><th>本編②</th><th>日報詳細・写真表示画面を作る</th><th>4分</th></tr>
+<tr><th>本編③</th><th>カレンダー表示を追加する</th><th>4分</th></tr>
+<tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
 </table>
 <br>
 <hr>
 <br>
 <h2>トークスクリプト</h2>
 <br>
-<h3>【オープニング】（約2分）</h3>
+<h3>【オープニング】（約1分）</h3>
+<p><em>【画面：Claude Code】</em></p>
 <br>
-<p>「この講座も34回目、最終回になりました。</p>
-<br>
-<p>振り返ってみましょう。</p>
-<br>
-<p>この講座でできるようになったこと：</p>
-<br>
-<li>Claude Codeの基本操作（指示の出し方・ファイルの渡し方）</li>
-<li>Gitで変更を管理する</li>
-<li>CLAUDE.mdでプロジェクトの前提をAIに覚えさせる</li>
-<li>Wordファイル・Excelファイル・PDFの生成</li>
-<li>繰り返し作業を自動化するスクリプトの作成</li>
-<li>HTMLページ・ランディングページ・複数ページサイトの作成</li>
-<li>そして、動画から画像つきマニュアルを自動生成するアプリの完成</li>
-<br>
-<p>最初は『アプリなんて自分には作れない』と思っていた方も、実際に動くアプリを作れたはずです。</p>
-<br>
-<p>これはClaude Codeというツールの力だけでなく、あなたが『指示を出す力』を身につけたからです。」</p>
+<p>「今日は、これまで投稿した日報を確認するための『一覧画面』『詳細画面』、そして『カレンダー表示』を作ります。」</p>
 <br>
 <hr>
 <br>
-<h3>【本編①：アイデアの広げ方】（約2分）</h3>
+<h3>【本編①：一覧表示画面を作る】（約5分）</h3>
+<p><em>【画面：Claude Code】</em></p>
 <br>
-<p>「次に何を作るか考えてみましょう。</p>
+<p>「チャット欄に入力します。</p>
 <br>
-<p>アイデアを見つけるコツは、自分の日常業務の中にある『繰り返しの作業』や『もっと楽にしたい場面』を探すことです。</p>
+<p>『/reportsページに、ログイン中のユーザーが投稿した日報を一覧表示してください。日付・現場名・作業内容の冒頭を表で表示し、各行をクリックすると詳細ページに移動するようにしてください。上部に新規投稿へのリンクも置いてください』</p>
 <br>
-<hr>
-<br>
-<p><strong>考えるときの質問：</strong></p>
-<br>
-<li>毎週・毎月繰り返している手作業は何か？</li>
-<li>他の人から毎回同じ質問を受けることは何か？</li>
-<li>『これを自動化できたら』と思ったことは何か？</li>
-<li>他のツールでやっていることをデスクトップアプリにしたいものはあるか？</li>
+<p>承認後、ブラウザで/reportsを開き、前回投稿した日報が一覧に表示されているか確認します。」</p>
 <br>
 <hr>
 <br>
-<p><strong>アイデアの例：</strong></p>
+<h3>【本編②：日報詳細・写真表示画面を作る】（約4分）</h3>
+<p><em>【画面：Claude Code】</em></p>
 <br>
-<li>請求書PDFから金額を抽出して集計するスクリプト</li>
-<li>会議の録音ファイルを文字起こしして議事録を作るアプリ</li>
-<li>毎朝のメール確認・返信案作成を半自動化するツール</li>
-<li>在庫データを管理するシンプルなデスクトップアプリ</li>
-<li>写真から自動でアルバムを整理するスクリプト</li>
+<p>「次に詳細画面です。</p>
 <br>
-<p>これらすべて、この講座で学んだ知識の組み合わせで作れます。」</p>
+<p>『/reports/[id]ページに、その日報の詳細（日付・現場名・作業内容・所感）と、添付された写真を並べて表示してください』</p>
 <br>
-<hr>
+<p>承認後、一覧から1件クリックして詳細画面に移動し、写真が正しく表示されることを確認します。</p>
 <br>
-<h3>【本編②：実演：アイデア出しと設計メモ】（約3分）</h3>
-<br>
-<p>「<em>【画面収録開始】</em></p>
-<br>
-<p>では、次に作るものをClaude Codeと一緒に考えてみましょう。</p>
-<br>
-<p>チャット欄に入力します。</p>
-<br>
-<p>『私はよく会議の議事録を手作業で作っています。会議の録音ファイルをアプリに渡すと、自動で文字起こしして議事録Wordファイルを作ってくれるアプリを作りたいです。このアプリの実現可能性と大まかな設計メモを作ってください』</p>
+<p>Storageのバケットが『Private』設定の場合、写真を表示するには『署名付きURL』という仕組みが必要になります。Claude Codeに『写真の表示にエラーが出ます。Private bucketの画像を表示できるよう署名付きURLを使う実装に直してください』と伝えれば、対応する実装に修正してくれます。」</p>
 <br>
 <hr>
 <br>
-<p>Claude Codeが実現可能性を説明して設計メモの案を出してくれます。</p>
+<h3>【本編③：カレンダー表示を追加する】（約4分）</h3>
+<p><em>【画面：Claude Code】</em></p>
 <br>
-<p>Whisper（音声認識AI）を使えば文字起こしができること、Claude APIで議事録フォーマットに整形できることが示されました。</p>
+<p>「最後にカレンダー表示です。</p>
 <br>
-<p>設計メモをファイルに保存します。</p>
+<p>『/reports/calendarページに、日報をカレンダー形式で表示してください。日報が投稿された日には印をつけ、クリックするとその日の日報詳細に移動できるようにしてください』</p>
 <br>
-<p>『この設計メモをNEXT_IDEA.mdというファイルに保存してください』</p>
-<br>
-<p>次のプロジェクトの第一歩が踏み出せました。</p>
-<br>
-<p><em>【画面収録終了】</em>」</p>
+<p>承認後、カレンダーページを開いて確認します。投稿した日付に印がついているか、クリックして詳細に移動できるかを確認しましょう。」</p>
 <br>
 <hr>
 <br>
-<h3>【クロージング】（約2分）</h3>
+<h3>【クロージング】（約1分）</h3>
+<p><em>【画面：カレンダー画面】</em></p>
 <br>
-<p>「最後に、今後の学習ロードマップをお伝えします。</p>
+<p>「まとめます。</p>
 <br>
-<hr>
+<li>一覧画面・詳細画面・カレンダー画面の3つを作った</li>
+<li>Private bucketの写真表示には署名付きURLが必要だと学んだ</li>
 <br>
-<p><strong>ステップ1：今日学んだことを反復する</strong></p>
-<br>
-<p>まずはこの講座のアプリを少し改造してみてください。切り出し間隔を変える、出力フォーマットを変える、など小さな変更から始めると自信がつきます。</p>
-<br>
-<p><strong>ステップ2：自分の仕事に関連するツールを作る</strong></p>
-<br>
-<p>自分の業務でよく使う作業を一つ選んで、スクリプトまたは小さなアプリを作ってみてください。</p>
-<br>
-<p><strong>ステップ3：Claude Codeのアップデートを追う</strong></p>
-<br>
-<p>Claude Codeは急速に進化しています。新機能が出たら試してみてください。</p>
-<br>
-<hr>
-<br>
-<p>この講座を通して大切なことをお伝えします。</p>
-<br>
-<p>プログラミングの知識がなくても、指示を出す力があれば、必要なものを作れる時代になりました。</p>
-<br>
-<p>Claude Codeは道具です。道具は使う人の発想で価値が決まります。あなたが『こういうものがあれば便利』と思うアイデアを、これからも形にし続けてください。</p>
-<br>
-<p>34回、お疲れさまでした。これからも一緒に頑張りましょう。」</p>
+<p>次回は管理者用の集計・検索機能を作ります。お疲れさまでした。」</p>
 <br>
 <hr>
 <br>
 <h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
-<li>[ ] roadmap.html（収録用モックアップ）をブラウザで開いておく</li>
-<li>[ ] Claude Codeを起動し新しい空のプロジェクトを用意</li>
-<li>[ ] 画面録画を開始する（音声テスト済み）</li>
-<li>[ ] 通知をオフにする</li>
+<li>[ ] 前回までで写真投稿が複数件できている状態のプロジェクトを開く（できれば異なる日付で3〜5件投稿しておく）</li>
 <br>
-<h3>🎬 収録手順（9分完全版）</h3>
+<h3>🎬 収録手順（15分完全版）</h3>
 <br>
-<p>#### 【オープニング】 0:00〜2:00</p>
-<li>「34回の研修動画を最後まで完走いただき、本当にありがとうございました」</li>
-<li>「今日は学んだことの振り返りと、次に作りたいものをどう考えるかを一緒に整理します」</li>
+<p>#### 【オープニング】 0:00〜1:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>0:00〜1:00</th><th>Claude Code全体</th><th>「今日は一覧・詳細・カレンダー表示を作ります」</th></tr>
+</table>
 <br>
-<p>#### 【本編①：アイデアの広げ方】 2:00〜4:00</p>
-<li>**2:00〜2:30** roadmap.htmlをブラウザで表示 → 「次のアイデアを見つける質問」グリッドを映す</li>
-<li>**2:30〜4:00** 4つの質問カードを一つずつ読み上げて「自分の仕事に当てはめてみてください」と話す</li>
+<p>#### 【本編①：一覧画面】 1:00〜6:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>1:00〜1:40</th><th>チャット欄に一覧画面実装の指示を入力してEnter</th><th>「/reportsの一覧表示を依頼します」</th></tr>
+<tr><th>1:40〜3:30</th><th>承認でYes → ファイルが生成される</th><th>「一覧表示のコードが作られました」</th></tr>
+<tr><th>3:30〜4:30</th><th>ブラウザで/reportsを開く</th><th>「一覧画面を確認します」</th></tr>
+<tr><th>4:30〜6:00</th><th>複数件の日報が表に表示されることを確認</th><th>「投稿した日報が並んでいます」</th></tr>
+</table>
 <br>
-<p>#### 【本編②：実演 アイデア出しと設計メモ】 4:00〜7:00</p>
-<li>**4:00〜4:30** Claude Codeのチャット欄に「私は経理の仕事をしています。Claude Codeで自動化できることを3つ提案してください」と入力（自分の業務に変えてOK）</li>
-<li>**4:30〜5:30** 返ってきた提案を読み上げて「こういうアプリを次に作れます」と説明</li>
-<li>**5:30〜7:00** 「では一番興味のあるアイデアで設計メモを作ってみましょう」と入力 → 設計メモを映す</li>
+<p>#### 【本編②：詳細画面】 6:00〜10:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>6:00〜6:40</th><th>チャット欄に詳細画面実装の指示を入力してEnter</th><th>「詳細ページの実装を依頼します」</th></tr>
+<tr><th>6:40〜8:00</th><th>承認でYes → ファイルが生成される</th><th>「詳細ページが作られました」</th></tr>
+<tr><th>8:00〜8:40</th><th>一覧から1件クリックして詳細ページに移動</th><th>「詳細を開きます」</th></tr>
+<tr><th>8:40〜9:30</th><th>写真が表示されない場合「Private bucketの画像を表示できるよう署名付きURLを使う実装に直してください」と入力 → Yes</th><th>「Private設定の場合の対処法を実演します」</th></tr>
+<tr><th>9:30〜10:00</th><th>写真が正しく表示されることを確認</th><th>「写真が表示されました」</th></tr>
+</table>
 <br>
-<p>#### 【クロージング】 7:00〜9:00</p>
-<li>**7:00〜7:30** roadmap.htmlの「学習ロードマップ」を映す</li>
-<li>**7:30〜8:30** 3ステップを読み上げる：「①今日学んだことを反復する ②自分の仕事に関連するツールを作る ③Claude Codeのアップデートを追う」</li>
-<li>**8:30〜9:00** 「皆さんのアプリ作りを応援しています。ありがとうございました」（最後は余韻を持たせて）</li>
+<p>#### 【本編③：カレンダー表示】 10:00〜14:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>10:00〜10:40</th><th>チャット欄にカレンダー画面実装の指示を入力してEnter</th><th>「カレンダー表示の実装を依頼します」</th></tr>
+<tr><th>10:40〜12:30</th><th>承認でYes → ファイルが生成される</th><th>「カレンダー機能が作られました」</th></tr>
+<tr><th>12:30〜13:30</th><th>ブラウザで/reports/calendarを開く → 投稿日に印がついていることを確認</th><th>「投稿日にマークが表示されています」</th></tr>
+<tr><th>13:30〜14:00</th><th>マークをクリックして詳細に移動することを確認</th><th>「クリックすると詳細が見られます」</th></tr>
+</table>
 <br>
-<p>#### 【補足：最後の映し方】</p>
-<li>クロージングの後5秒間そのまま映してから録画停止</li>
-<br>
+<p>#### 【クロージング】 14:00〜15:00</p>
+<table>
+<tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
+<tr><th>14:00〜15:00</th><th>カレンダー画面全体</th><th>「次回は管理者用の集計・検索機能を作ります。お疲れさまでした」</th></tr>
+</table>
 <br>
 <h3>⚠️ 収録時の注意点</h3>
-<li>各操作後は2〜3秒間画面を止めて視聴者に確認の時間を与える</li>
-<li>ファイルが生成された瞬間・ブラウザで開いた瞬間など成果が見えるシーンはゆっくり映す</li>
-<li>承認ダイアログは必ず3ボタンが見えるよう拡大表示してからYesをクリック</li>
+<li>投稿日が同じ日に集中していると見栄えが悪いので、事前に異なる日付で複数件投稿しておくとカレンダーが見やすくなる</li>
 <br></div>
-<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="33.html" class="nav-btn">← 第33回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="33.html" class="nav-btn">← 第33回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="35.html" class="nav-btn">第35回 →</a></div>
 </body></html>

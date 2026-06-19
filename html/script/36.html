@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第33回 | 写真アップロード機能を実装する</title>
+<title>第36回 | ロールベースのセキュリティ設定をする</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
@@ -69,21 +69,21 @@
 </head>
 <body>
 <div class="top-bar">
-  <span class="ep">第33回 / Part8</span>
-  <span class="title">写真アップロード機能を実装する</span>
+  <span class="ep">第36回 / Part8</span>
+  <span class="title">ロールベースのセキュリティ設定をする</span>
   <span class="min">⏱ 12分</span>
 </div>
 <div class="meta-bar">
-  <div class="meta-item">🎯 ゴール：<span>日報に現場写真を添付して保存できる</span></div>
-  <div class="meta-item">🎬 収録：<span>Storage連携の実装から確認まで画面収録</span></div>
+  <div class="meta-item">🎯 ゴール：<span>管理者と現場担当者で見える範囲を分ける設定ができる</span></div>
+  <div class="meta-item">🎬 収録：<span>ロール別RLS設定から確認まで画面収録</span></div>
   <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
 </div>
-<div class="nav"><a href="32.html" class="nav-btn">← 第32回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="34.html" class="nav-btn">第34回 →</a></div>
-<div class="container"><h1>第33回｜写真アップロード機能を実装する</h1>
+<div class="nav"><a href="35.html" class="nav-btn">← 第35回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="37.html" class="nav-btn">第37回 →</a></div>
+<div class="container"><h1>第36回｜ロールベースのセキュリティ設定をする</h1>
 <br>
 <p><strong>尺：12分 / Part8</strong></p>
-<p><strong>ゴール：日報に現場写真を添付して保存できる</strong></p>
-<p><strong>収録スタイル：Storage連携の実装から確認まで画面収録</strong></p>
+<p><strong>ゴール：管理者と現場担当者で見える範囲を分ける設定ができる</strong></p>
+<p><strong>収録スタイル：ロール別RLS設定から確認まで画面収録</strong></p>
 <br>
 <hr>
 <br>
@@ -92,9 +92,9 @@
 <table>
 <tr><th>ブロック</th><th>内容</th><th>時間</th></tr>
 <tr><th>オープニング</th><th>今日のゴール確認</th><th>1分</th></tr>
-<tr><th>本編①</th><th>写真アップロードの仕組み</th><th>2分</th></tr>
-<tr><th>本編②</th><th>投稿フォームに写真選択を追加する</th><th>5分</th></tr>
-<tr><th>本編③</th><th>動作確認</th><th>3分</th></tr>
+<tr><th>本編①</th><th>画面側の制御だけでは不十分な理由</th><th>3分</th></tr>
+<tr><th>本編②</th><th>ロールを考慮したRLSポリシーを設定する</th><th>6分</th></tr>
+<tr><th>本編③</th><th>動作確認</th><th>1分</th></tr>
 <tr><th>クロージング</th><th>まとめ・次回予告</th><th>1分</th></tr>
 </table>
 <br>
@@ -105,107 +105,100 @@
 <h3>【オープニング】（約1分）</h3>
 <p><em>【画面：Claude Code】</em></p>
 <br>
-<p>「今日は日報投稿フォームに、写真を添付してアップロードできる機能を追加します。現場の様子を写真で記録できるようになる、日報アプリらしい機能です。」</p>
+<p>「前回、画面側（アプリのコード）で管理者専用ページのアクセス制御を作りました。今日は、データベース側でも同じようにロールに応じた制御を行います。これで二重の安全対策が完成します。」</p>
 <br>
 <hr>
 <br>
-<h3>【本編①：写真アップロードの仕組み】（約2分）</h3>
-<p><em>【画面：図解：フォーム→Storage→データベースの流れ】</em></p>
+<h3>【本編①：画面側の制御だけでは不十分な理由】（約3分）</h3>
+<p><em>【画面：図解：画面の制御とデータベースの制御の二重構造】</em></p>
 <br>
-<p>「仕組みを確認しましょう。</p>
+<p>「なぜ画面側の制御だけでは不十分なのでしょうか。</p>
 <br>
-<p>ユーザーがフォームで写真を選択すると、まずその画像ファイルがSupabaseの『Storage』（第31回で作ったreport-photosバケット）にアップロードされます。</p>
+<p>画面（アプリのコード）の制御は『入り口の見張り』のようなものです。しかし、技術的な知識がある人であれば、画面を経由せず直接データベースに問い合わせることも可能です。</p>
 <br>
-<p>アップロードが成功すると、その写真の保存場所を示す『URL』が発行されます。このURLをreport_photosテーブルに保存します。</p>
-<br>
-<p>つまり、画像の実物はStorageに、画像の場所を示す文字列はデータベースに、という役割分担になっています。」</p>
+<p>そのため、データベース自体にも『このデータは誰が見られるか』というルールを設定しておくことが重要です。第29回で名刺管理アプリに設定したRLSと同じ考え方ですが、今回は『管理者なら全部見える』『現場担当者は自分のものだけ見える』という、ロールに応じた条件分岐が必要になります。」</p>
 <br>
 <hr>
 <br>
-<h3>【本編②：投稿フォームに写真選択を追加する】（約5分）</h3>
+<h3>【本編②：ロールを考慮したRLSポリシーを設定する】（約6分）</h3>
 <p><em>【画面：Claude Code】</em></p>
 <br>
-<p>「実装しましょう。チャット欄に入力します。</p>
+<p>「チャット欄に入力します。</p>
 <br>
-<p>『/reports/newの投稿フォームに、写真を1〜3枚選択してアップロードできる機能を追加してください。選択した写真はSupabase Storageのreport-photosバケットにアップロードし、アップロード後のURLをreport_photosテーブルに、投稿したreportのidと紐づけて保存してください』</p>
+<p>『reportsテーブルとreport_photosテーブルにRow Level Securityを有効化してください。ポリシーは次の通りにしてください。profilesテーブルのroleがadminのユーザーは全データをSELECTできます。roleがworkerのユーザーは自分のuser_idのデータのみSELECT・INSERT・UPDATE・DELETEできます』</p>
 <br>
-<p>承認してファイルが更新されたら、フォーム画面をリロードして確認します。</p>
+<p>生成されたSQLを確認すると、profilesテーブルを参照しながら条件分岐するやや複雑な記述になっていることがわかります。難しく見えますが、Claude Codeが書いてくれるので安心してください。</p>
 <br>
-<p>ファイル選択ボタンが追加されているはずです。」</p>
+<p>このSQLをコピーし、Supabaseの『SQL Editor』に貼り付けて実行します。</p>
+<br>
+<p>実行後、対象テーブルの『RLS』タブで、ポリシーが正しく登録されていることを確認します。」</p>
 <br>
 <hr>
 <br>
-<h3>【本編③：動作確認】（約3分）</h3>
+<h3>【本編③：動作確認】（約1分）</h3>
 <p><em>【画面：ブラウザ】</em></p>
 <br>
-<p>「実際にテスト用の写真を選択してみましょう。お使いのパソコンに保存されている適当な画像ファイルで構いません。</p>
-<br>
-<p>日付・現場・作業内容を入力し、写真を1枚選択して『保存』をクリックします。</p>
-<br>
-<p>保存できたら、Supabaseダッシュボードの『Storage』→『report-photos』を開き、アップロードされた画像ファイルを確認します。さらに『Table Editor』のreport_photosテーブルを開き、URLが正しく保存されているかも確認しましょう。」</p>
+<p>「管理者アカウントでログインしてすべての日報が見えること、現場担当者アカウントでログインして自分の日報だけが見えることを、それぞれ確認します。」</p>
 <br>
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
-<p><em>【画面：Storageの画像一覧】</em></p>
+<p><em>【画面：Supabaseのポリシー一覧】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
-<li>写真はSupabase Storageに保存される</li>
-<li>写真の保存場所（URL）はreport_photosテーブルに記録される</li>
-<li>フォームから写真付きで日報を投稿できるようになった</li>
+<li>画面側の制御とデータベース側の制御、二重の安全対策が重要</li>
+<li>profilesテーブルのroleを使って条件分岐するRLSポリシーを設定した</li>
+<li>管理者・現場担当者それぞれの見える範囲を確認した</li>
 <br>
-<p>次回は日報の一覧・カレンダー表示を作ります。お疲れさまでした。」</p>
+<p>次回は配布準備とVercelへの公開を行います。お疲れさまでした。」</p>
 <br>
 <hr>
 <br>
 <h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
-<li>[ ] 前回までで投稿フォームが実装済みのプロジェクトを開く</li>
-<li>[ ] テスト用の画像ファイル（現場っぽい写真、または何でも良い画像）を2〜3枚デスクトップに用意</li>
+<li>[ ] 前回までで管理者ページが実装済みのプロジェクトを開く</li>
+<li>[ ] 管理者用・現場担当者用の2つのテストアカウントを用意しておく</li>
 <br>
 <h3>🎬 収録手順（12分完全版）</h3>
 <br>
 <p>#### 【オープニング】 0:00〜1:00</p>
 <table>
 <tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
-<tr><th>0:00〜1:00</th><th>Claude Code全体</th><th>「今日は写真アップロード機能を追加します」</th></tr>
+<tr><th>0:00〜1:00</th><th>Claude Code全体</th><th>「今日はデータベース側のセキュリティ設定を行います」</th></tr>
 </table>
 <br>
-<p>#### 【本編①：仕組みの説明】 1:00〜3:00</p>
+<p>#### 【本編①：二重対策の重要性】 1:00〜4:00</p>
 <table>
 <tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
-<tr><th>1:00〜3:00</th><th>図解スライド（フォーム→Storage→DB）</th><th>「画像はStorage、URLはデータベースに保存される役割分担を説明」</th></tr>
+<tr><th>1:00〜4:00</th><th>図解スライド（画面の制御とDBの制御）</th><th>「画面側だけでは不十分で、データベース側にも制御が必要な理由を説明」</th></tr>
 </table>
 <br>
-<p>#### 【本編②：実装】 3:00〜8:00</p>
+<p>#### 【本編②：RLSポリシー設定】 4:00〜10:00</p>
 <table>
 <tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
-<tr><th>3:00〜3:40</th><th>チャット欄に写真アップロード機能の実装指示を入力してEnter</th><th>「写真アップロード機能の追加を依頼します」</th></tr>
-<tr><th>3:40〜6:00</th><th>承認でYes → ファイルが更新される様子を映す</th><th>「アップロード処理のコードが追加されました」</th></tr>
-<tr><th>6:00〜7:00</th><th>ブラウザで/reports/newをリロード</th><th>「フォームに写真選択ボタンが追加されています」</th></tr>
-<tr><th>7:00〜8:00</th><th>ファイル選択ボタンをクリックして画面を確認</th><th>「選択画面が開きます」</th></tr>
+<tr><th>4:00〜4:40</th><th>チャット欄にロール対応RLSポリシー作成SQLの指示を入力してEnter</th><th>「ロールに応じたポリシー作成を依頼します」</th></tr>
+<tr><th>4:40〜6:00</th><th>生成されたSQLを確認しながら解説</th><th>「adminは全件、workerは自分のものだけ、という条件分岐になっています」</th></tr>
+<tr><th>6:00〜6:30</th><th>SQLをコピー</th><th>「コピーします」</th></tr>
+<tr><th>6:30〜8:00</th><th>SupabaseのSQL Editorに貼り付けて実行</th><th>「実行します」</th></tr>
+<tr><th>8:00〜10:00</th><th>対象テーブルの「RLS」タブでポリシー一覧を確認</th><th>「ポリシーが登録されました」</th></tr>
 </table>
 <br>
-<p>#### 【本編③：動作確認】 8:00〜11:00</p>
+<p>#### 【本編③：動作確認】 10:00〜11:00</p>
 <table>
 <tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
-<tr><th>8:00〜9:00</th><th>日付・現場・作業内容を入力し、写真を1枚選択</th><th>「テストデータと写真を入力します」</th></tr>
-<tr><th>9:00〜9:30</th><th>「保存」をクリック</th><th>「保存します」</th></tr>
-<tr><th>9:30〜10:30</th><th>Supabase「Storage」→「report-photos」で画像ファイルを確認</th><th>「画像がアップロードされています」</th></tr>
-<tr><th>10:30〜11:00</th><th>「Table Editor」のreport_photosテーブルでURLを確認</th><th>「URLが記録されています」</th></tr>
+<tr><th>10:00〜11:00</th><th>管理者・現場担当者それぞれでログインし、見える範囲が異なることを確認</th><th>「役割に応じた表示制御が正しく機能しています」</th></tr>
 </table>
 <br>
 <p>#### 【クロージング】 11:00〜12:00</p>
 <table>
 <tr><th>経過時間</th><th>画面操作</th><th>話す内容</th></tr>
-<tr><th>11:00〜12:00</th><th>Storageの画像一覧</th><th>「次回は一覧・カレンダー表示を作ります。お疲れさまでした」</th></tr>
+<tr><th>11:00〜12:00</th><th>Supabaseのポリシー一覧</th><th>「次回は配布準備とVercelへの公開です。お疲れさまでした」</th></tr>
 </table>
 <br>
 <h3>⚠️ 収録時の注意点</h3>
-<li>テスト画像は個人が特定できる写真を避け、風景や物のサンプル画像を使う</li>
-<li>ファイルサイズが大きい画像はアップロードに時間がかかるため、軽量な画像を用意しておく</li>
+<li>RLSのSQLは複雑に見えるため、視聴者が委縮しないよう「丸ごとClaude Codeに任せて大丈夫」と繰り返し伝える</li>
 <br></div>
-<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="32.html" class="nav-btn">← 第32回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="34.html" class="nav-btn">第34回 →</a></div>
+<div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="35.html" class="nav-btn">← 第35回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="37.html" class="nav-btn">第37回 →</a></div>
 </body></html>

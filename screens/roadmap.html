@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第34回 | 次のアプリへ：学んだことを活かしたアイデアの広げ方</title>
+<title>第40回 | 次のアプリへ：学んだことを活かしたアイデアの広げ方</title>
 <link rel="stylesheet" href="style.css">
 <style>
   .idea-grid { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; max-width:760px; margin:0 auto 30px; }
@@ -20,11 +20,11 @@
   <div class="titlebar"><div class="traffic"><span class="red"></span><span class="yellow"></span><span class="green"></span></div><span class="name">最終回：これからのロードマップ</span></div>
   <div class="diagram-wrap">
 
-    <div class="section-title">この34回でできるようになったこと</div>
+    <div class="section-title">この40回でできるようになったこと</div>
     <div class="steps-list">
       <div class="step"><div class="num">✓</div><div class="body"><div class="t">指示を出す力</div><div class="d">良い指示の作り方・ファイルの渡し方・会話を続けながらの修正・Git・CLAUDE.md</div></div></div>
       <div class="step"><div class="num">✓</div><div class="body"><div class="t">文書・スクリプト・Webページの作成</div><div class="d">Word / Excel / PDF生成、自動化スクリプト、HTML・ランディングページ・複数ページサイト</div></div></div>
-      <div class="step"><div class="num">✓</div><div class="body"><div class="t">アプリの完成</div><div class="d">動画から画像つきマニュアルを自動生成するデスクトップアプリを設計から配布まで一貫して制作</div></div></div>
+      <div class="step"><div class="num">✓</div><div class="body"><div class="t">2つの実用Webアプリの完成</div><div class="d">名刺管理アプリ・現場日報報告アプリを、GitHub・Supabase・Vercelを使って設計から公開・配布まで一貫して制作</div></div></div>
     </div>
 
     <div class="section-title">次のアイデアを見つける質問</div>
@@ -32,30 +32,30 @@
       <div class="idea-card"><span class="ic">🔁</span>毎週・毎月繰り返している手作業は何か？</div>
       <div class="idea-card"><span class="ic">❓</span>他の人から毎回同じ質問を受けることは何か？</div>
       <div class="idea-card"><span class="ic">💡</span>「これを自動化できたら」と思ったことは何か？</div>
-      <div class="idea-card"><span class="ic">🖥️</span>他のツールでやっていることをデスクトップアプリにしたいものは？</div>
+      <div class="idea-card"><span class="ic">🗄️</span>社内のどんな業務がデータベース化されていないか？</div>
     </div>
 
     <div class="section-title">アイデアの例</div>
     <div class="idea-grid">
+      <div class="idea-card"><span class="ic">📦</span>在庫・備品管理をWebで一覧・検索できるアプリ</div>
+      <div class="idea-card"><span class="ic">🗓️</span>シフト・勤怠を入力・確認できる社内アプリ</div>
+      <div class="idea-card"><span class="ic">📬</span>問い合わせ・クレームを記録・集計するアプリ</div>
       <div class="idea-card"><span class="ic">🧾</span>請求書PDFから金額を抽出して集計するスクリプト</div>
       <div class="idea-card"><span class="ic">🎙️</span>会議の録音を文字起こしして議事録を作るアプリ</div>
-      <div class="idea-card"><span class="ic">📬</span>毎朝のメール確認・返信案作成を半自動化するツール</div>
-      <div class="idea-card"><span class="ic">📦</span>在庫データを管理するシンプルなデスクトップアプリ</div>
-      <div class="idea-card"><span class="ic">🖼️</span>写真から自動でアルバムを整理するスクリプト</div>
     </div>
 
     <div class="section-title">学習ロードマップ</div>
     <div class="steps-list">
-      <div class="step"><div class="num">1</div><div class="body"><div class="t">今日学んだことを反復する</div><div class="d">このアプリを少し改造してみる（切り出し間隔を変える、出力フォーマットを変えるなど）</div></div></div>
-      <div class="step"><div class="num">2</div><div class="body"><div class="t">自分の仕事に関連するツールを作る</div><div class="d">業務でよく使う作業を一つ選び、スクリプトまたは小さなアプリを作ってみる</div></div></div>
-      <div class="step"><div class="num">3</div><div class="body"><div class="t">Claude Codeのアップデートを追う</div><div class="d">新機能が出たら積極的に試してみる</div></div></div>
+      <div class="step"><div class="num">1</div><div class="body"><div class="t">今日学んだことを反復する</div><div class="d">名刺管理アプリ・現場日報報告アプリを少し改造してみる（項目を増やす、デザインを変えるなど）</div></div></div>
+      <div class="step"><div class="num">2</div><div class="body"><div class="t">自分の仕事に関連するアプリを作る</div><div class="d">業務でよく使うデータを一つ選び、Next.js・Supabase・Vercelで小さなアプリを作ってみる</div></div></div>
+      <div class="step"><div class="num">3</div><div class="body"><div class="t">Claude Code・Supabase・Vercelのアップデートを追う</div><div class="d">新機能が出たら積極的に試してみる</div></div></div>
     </div>
 
   </div>
 </div>
 <script src="data.js"></script>
 <script>
-  const ep = "34";
+  const ep = "40";
   const data = EPISODES[ep];
   const nums = Object.keys(EPISODES).sort();
   const idx = nums.indexOf(ep);
