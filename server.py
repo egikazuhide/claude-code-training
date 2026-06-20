@@ -243,6 +243,7 @@ def render_script(num):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>第{num}回 | {row["動画タイトル"]}</title>
+<link rel="stylesheet" href="/teleprompter.css">
 <style>
   *{{box-sizing:border-box;margin:0;padding:0}}
   body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}}
@@ -256,6 +257,8 @@ def render_script(num):
   .dl-btn:hover{{background:#fbbf24}}
   .dl-btn-flow{{background:#6366f1;color:#fff}}
   .dl-btn-flow:hover{{background:#818cf8}}
+  .dl-btn-rec-open{{background:#ef4444;color:#fff}}
+  .dl-btn-rec-open:hover{{background:#f87171}}
   .dl-group{{margin-left:auto;display:flex;gap:8px}}
   .print-only-label{{display:none}}
   .nav{{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}}
@@ -332,6 +335,7 @@ def render_script(num):
   <div class="meta-item">🎯 ゴール：<span>{row["ゴール"]}</span></div>
   <div class="meta-item">🎬 収録：<span>{row["収録スタイル"]}</span></div>
   <div class="dl-group">
+    <button class="dl-btn dl-btn-rec-open" onclick="Teleprompter.open('{num}')">▶ 収録モードを開く</button>
     <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
     <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
   </div>
@@ -349,7 +353,10 @@ function printSection(type) {{
   document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
   window.print();
 }}
+window.TP_EPISODE = "{num}";
 </script>
+<script src="/teleprompter-data.js"></script>
+<script src="/teleprompter.js"></script>
 </body></html>'''
     return html, row['動画タイトル'], num
 
@@ -369,6 +376,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Location', '/screens/')
                 self.end_headers()
                 return
+            return http.server.SimpleHTTPRequestHandler.do_GET(self)
+        elif self.path in ('/teleprompter.js', '/teleprompter.css', '/teleprompter-data.js'):
             return http.server.SimpleHTTPRequestHandler.do_GET(self)
         elif self.path.startswith('/script/'):
             num = self.path.split('/')[-1].zfill(2)

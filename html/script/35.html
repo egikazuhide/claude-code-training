@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>第35回 | 管理者用の集計・検索機能を作る</title>
+<link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
@@ -17,6 +18,8 @@
   .dl-btn:hover{background:#fbbf24}
   .dl-btn-flow{background:#6366f1;color:#fff}
   .dl-btn-flow:hover{background:#818cf8}
+  .dl-btn-rec-open{background:#ef4444;color:#fff}
+  .dl-btn-rec-open:hover{background:#f87171}
   .dl-group{margin-left:auto;display:flex;gap:8px}
   .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
@@ -93,6 +96,7 @@
   <div class="meta-item">🎯 ゴール：<span>管理者が現場別・期間別に日報を集計・検索できる</span></div>
   <div class="meta-item">🎬 収録：<span>集計機能の実装から確認まで画面収録</span></div>
   <div class="dl-group">
+    <button class="dl-btn dl-btn-rec-open" onclick="Teleprompter.open('35')">▶ 収録モードを開く</button>
     <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
     <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
   </div>
@@ -225,5 +229,8 @@ function printSection(type) {
   document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
   window.print();
 }
+window.TP_EPISODE = "35";
 </script>
+<script src="../teleprompter-data.js"></script>
+<script src="../teleprompter.js"></script>
 </body></html>

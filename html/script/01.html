@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>第01回 | Claude Codeとは？ChatGPT・Copilotと何が違うか</title>
+<link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
@@ -17,6 +18,8 @@
   .dl-btn:hover{background:#fbbf24}
   .dl-btn-flow{background:#6366f1;color:#fff}
   .dl-btn-flow:hover{background:#818cf8}
+  .dl-btn-rec-open{background:#ef4444;color:#fff}
+  .dl-btn-rec-open:hover{background:#f87171}
   .dl-group{margin-left:auto;display:flex;gap:8px}
   .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
@@ -93,6 +96,7 @@
   <div class="meta-item">🎯 ゴール：<span>Claude Codeがどんなツールで何ができるか人に説明できる</span></div>
   <div class="meta-item">🎬 収録：<span>ブラウザ画面を映しながら解説</span></div>
   <div class="dl-group">
+    <button class="dl-btn dl-btn-rec-open" onclick="Teleprompter.open('01')">▶ 収録モードを開く</button>
     <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
     <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
   </div>
@@ -129,7 +133,7 @@
 <br>
 <p>「こんにちは。この講座では、Claude Codeというツールを使って、プログラミングの知識がゼロの状態から、実際に動くアプリを作れるようになるまでを一緒に学んでいきます。</p>
 <br>
-<p>全34回の動画で構成されていて、今回はその第1回目です。</p>
+<p>全40回の動画で構成されていて、今回はその第1回目です。</p>
 <br>
 <p>まず最初に『そもそもClaude Codeって何なの？』というところから丁寧に説明します。ChatGPTやCopilotという名前を聞いたことがある方もいると思いますが、それらとどう違うのか、Claude Codeは何が得意なのかをこの動画でしっかり理解しましょう。」</p>
 <br>
@@ -258,7 +262,7 @@
 <table>
 <tr><th>秒</th><th>画面</th><th>話す内容</th></tr>
 <tr><th>0〜5</th><th>claude.aiのトップページ表示</th><th>無音で画面を映す</th></tr>
-<tr><th>5〜60</th><th>claude.aiのまま</th><th>「こんにちは。この講座では〜全34回の動画で構成されていて、今回はその第1回目です。まず最初に『そもそもClaude Codeって何なの？』というところから丁寧に説明します」とスクリプト通りに話す</th></tr>
+<tr><th>5〜60</th><th>claude.aiのまま</th><th>「こんにちは。この講座では〜全40回の動画で構成されていて、今回はその第1回目です。まず最初に『そもそもClaude Codeって何なの？』というところから丁寧に説明します」とスクリプト通りに話す</th></tr>
 </table>
 <br>
 <p>#### 【本編①：AIツール3種類の違い】 1:00〜5:00（4分）</p>
@@ -311,5 +315,8 @@ function printSection(type) {
   document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
   window.print();
 }
+window.TP_EPISODE = "01";
 </script>
+<script src="../teleprompter-data.js"></script>
+<script src="../teleprompter.js"></script>
 </body></html>
