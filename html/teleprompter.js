@@ -43,9 +43,13 @@
       this.fontSize = 38;
       this.furiganaOn = true;
       this.ngList = [];
+      this.stopList = [];
+      this.pendingStopStart = null;
       this.scrollY = 0;
-      this.activeSilence = null;
+      this.activeSilenceFreeze = null; // { hit, enteredAtMs, duration }
+      this.completedSilences = new Set();
       this.recTimer = null;
+      this.lastTickMs = 0;
       this.rafId = null;
 
       this.root = null;
@@ -115,6 +119,10 @@
               <h4>NGマーカー</h4>
               <ul class="tp-ng-list" id="tpNgList"><li class="tp-ng-empty">まだありません</li></ul>
             </div>
+            <div>
+              <h4>停止履歴</h4>
+              <ul class="tp-ng-list tp-stop-list" id="tpStopList"><li class="tp-ng-empty">まだありません</li></ul>
+            </div>
           </div>
           <div class="tp-prompter-wrap">
             <div class="tp-blocktimer" id="tpBlockTimer">
@@ -161,6 +169,7 @@
         blockList: r.querySelector("#tpBlockList"),
         checklist: r.querySelector("#tpChecklist"),
         ngList: r.querySelector("#tpNgList"),
+        stopList: r.querySelector("#tpStopList"),
         blockTimer: r.querySelector("#tpBlockTimer"),
         btName: r.querySelector("#tpBtName"),
         btTime: r.querySelector("#tpBtTime"),
@@ -245,12 +254,8 @@
     }
 
     startRecordingTimer() {
-      this.recStart = performance.now() - this.elapsedSec * 1000;
-      this.recTimer = setInterval(() => {
-        this.elapsedSec = (performance.now() - this.recStart) / 1000;
-        this.el.timecode.textContent = fmtTime(this.elapsedSec);
-        this.checkSilence();
-      }, 200);
+      this.lastTickMs = performance.now();
+      this.recTimer = setInterval(() => this.tickRecording(), 200);
     }
 
     stopRecordingTimer() {
@@ -258,10 +263,54 @@
       this.recTimer = null;
     }
 
+    tickRecording() {
+      const now = performance.now();
+
+      if (this.activeSilenceFreeze) {
+        // カウントダウン中はタイムコードを進めない。残り時間は壁時計時間で計算する
+        const elapsedInSilence = (now - this.activeSilenceFreeze.enteredAtMs) / 1000;
+        const remaining = this.activeSilenceFreeze.duration - elapsedInSilence;
+        if (remaining <= 0) {
+          this.elapsedSec = this.activeSilenceFreeze.hit.end;
+          this.completedSilences.add(this.activeSilenceFreeze.hit);
+          this.activeSilenceFreeze = null;
+          this.el.silenceOverlay.hidden = true;
+        } else {
+          this.el.silenceNum.textContent = Math.ceil(remaining);
+          this.el.silenceLabel.textContent = this.activeSilenceFreeze.hit.label;
+        }
+      } else {
+        const delta = (now - this.lastTickMs) / 1000;
+        this.elapsedSec += delta;
+        const hit = this.allSilences.find(
+          (s) => !this.completedSilences.has(s) && this.elapsedSec >= s.start && this.elapsedSec < s.end
+        );
+        if (hit) {
+          this.elapsedSec = hit.start;
+          this.activeSilenceFreeze = { hit, enteredAtMs: now, duration: hit.end - hit.start };
+          this.el.silenceOverlay.hidden = false;
+          this.el.silenceNum.textContent = Math.ceil(hit.end - hit.start);
+          this.el.silenceLabel.textContent = hit.label;
+        }
+      }
+
+      this.lastTickMs = now;
+      this.el.timecode.textContent = fmtTime(this.elapsedSec);
+    }
+
     togglePlay() {
       this.isPlaying = !this.isPlaying;
       this.el.playBtn.classList.toggle("is-playing", this.isPlaying);
       this.el.playBtn.textContent = this.isPlaying ? "⏸ 止める (Space)" : "▶ 流す (Space)";
+      if (!this.isPlaying) {
+        // 流すを止めた瞬間＝停止区間の開始
+        this.pendingStopStart = this.elapsedSec;
+      } else if (this.pendingStopStart != null) {
+        // 再度流した瞬間＝停止区間の終了
+        this.stopList.push({ start: this.pendingStopStart, end: this.elapsedSec });
+        this.pendingStopStart = null;
+        this.renderStopList();
+      }
     }
 
     pausePlay() {
@@ -275,6 +324,19 @@
       this.ngList.push(entry);
       this.renderNgList();
       this.flash();
+    }
+
+    renderStopList() {
+      if (!this.stopList.length) {
+        this.el.stopList.innerHTML = `<li class="tp-ng-empty">まだありません</li>`;
+        return;
+      }
+      this.el.stopList.innerHTML = this.stopList
+        .map((s) => {
+          const dur = Math.max(0, Math.round(s.end - s.start));
+          return `<li>${fmtTime(s.start)} 〜 ${fmtTime(s.end)}（${dur}秒）</li>`;
+        })
+        .join("");
     }
 
     renderNgList() {
@@ -331,20 +393,6 @@
         }
       });
       return best != null ? this.flatLines[best] : null;
-    }
-
-    checkSilence() {
-      const hit = this.allSilences.find((s) => this.elapsedSec >= s.start && this.elapsedSec < s.end);
-      if (hit) {
-        const remaining = Math.ceil(hit.end - this.elapsedSec);
-        this.el.silenceOverlay.hidden = false;
-        this.el.silenceNum.textContent = remaining > 0 ? remaining : "";
-        this.el.silenceLabel.textContent = hit.label;
-        this.activeSilence = hit;
-      } else if (this.activeSilence) {
-        this.el.silenceOverlay.hidden = true;
-        this.activeSilence = null;
-      }
     }
 
     tickFrame() {
