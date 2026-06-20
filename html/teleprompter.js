@@ -282,7 +282,7 @@
     beginRecording() {
       this.isRecording = true;
       this.elapsedSec = 0;
-      this.completedSilences = new Set();
+      this.completedSilences = new Set(this.allSilences.filter((s) => s.start <= 0));
       this.activeSilenceFreeze = null;
       this.pendingStopStart = null;
       this.el.recIndicator.classList.add("is-rec");
