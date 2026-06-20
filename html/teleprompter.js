@@ -50,6 +50,8 @@
       this.completedSilences = new Set();
       this.recTimer = null;
       this.lastTickMs = 0;
+      this.isPreRolling = false;
+      this.preRollTimer = null;
       this.rafId = null;
 
       this.root = null;
@@ -85,6 +87,7 @@
     close() {
       document.removeEventListener("keydown", this.boundKeydown);
       this.stopRecordingTimer();
+      if (this.preRollTimer) clearInterval(this.preRollTimer);
       cancelAnimationFrame(this.rafId);
       if (this.root && this.root.parentNode) this.root.parentNode.removeChild(this.root);
     }
@@ -242,15 +245,52 @@
     }
 
     toggleRecording() {
-      this.isRecording = !this.isRecording;
-      this.el.recIndicator.classList.toggle("is-rec", this.isRecording);
-      this.el.recBtn.classList.toggle("is-rec", this.isRecording);
-      this.el.recBtn.textContent = this.isRecording ? "⏹ 停止 (R)" : "⏺ 録画 (R)";
       if (this.isRecording) {
-        this.startRecordingTimer();
-      } else {
+        this.isRecording = false;
+        this.el.recIndicator.classList.remove("is-rec");
+        this.el.recBtn.classList.remove("is-rec");
+        this.el.recBtn.textContent = "⏺ 録画 (R)";
         this.stopRecordingTimer();
+        return;
       }
+      if (this.isPreRolling) return;
+      this.startPreRoll();
+    }
+
+    startPreRoll() {
+      this.isPreRolling = true;
+      this.el.recBtn.disabled = true;
+      let remaining = 5;
+      this.el.silenceOverlay.hidden = false;
+      this.el.silenceLabel.textContent = "録画開始まで";
+      this.el.silenceNum.textContent = remaining;
+      this.preRollTimer = setInterval(() => {
+        remaining -= 1;
+        if (remaining <= 0) {
+          clearInterval(this.preRollTimer);
+          this.preRollTimer = null;
+          this.el.silenceOverlay.hidden = true;
+          this.isPreRolling = false;
+          this.el.recBtn.disabled = false;
+          this.beginRecording();
+        } else {
+          this.el.silenceNum.textContent = remaining;
+        }
+      }, 1000);
+    }
+
+    beginRecording() {
+      this.isRecording = true;
+      this.elapsedSec = 0;
+      this.completedSilences = new Set();
+      this.activeSilenceFreeze = null;
+      this.pendingStopStart = null;
+      this.el.recIndicator.classList.add("is-rec");
+      this.el.recBtn.classList.add("is-rec");
+      this.el.recBtn.textContent = "⏹ 停止 (R)";
+      this.el.timecode.textContent = fmtTime(0);
+      this.startRecordingTimer();
+      if (!this.isPlaying) this.togglePlay();
     }
 
     startRecordingTimer() {
