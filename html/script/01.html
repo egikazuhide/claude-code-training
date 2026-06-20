@@ -13,8 +13,12 @@
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
   .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
-  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .dl-btn:hover{background:#fbbf24}
+  .dl-btn-flow{background:#6366f1;color:#fff}
+  .dl-btn-flow:hover{background:#818cf8}
+  .dl-group{margin-left:auto;display:flex;gap:8px}
+  .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -45,8 +49,20 @@
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
-    .dl-btn,.nav{ display:none !important; }
+    .dl-btn,.dl-group,.nav{ display:none !important; }
     .container{ max-width:100%; padding:0; }
+    .print-only-label{ display:none; }
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction { display:none !important; }
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section { display:none !important; }
     h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
     h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -76,10 +92,16 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>Claude Codeがどんなツールで何ができるか人に説明できる</span></div>
   <div class="meta-item">🎬 収録：<span>ブラウザ画面を映しながら解説</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav"><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="02.html" class="nav-btn">第02回 →</a></div>
-<div class="container"><h1>第01回｜Claude Codeとは？ChatGPT・Copilotと何が違うか</h1>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第01回／12分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第01回／12分）</div>
+  <div class="intro-section"><h1>第01回｜Claude Codeとは？ChatGPT・Copilotと何が違うか</h1>
 <br>
 <p><strong>尺：12分 / Part1</strong></p>
 <p><strong>ゴール：Claude Codeがどんなツールで何ができるか、人に説明できるようになる</strong></p>
@@ -100,10 +122,10 @@
 <br>
 <hr>
 <br>
-<h2>トークスクリプト</h2>
+</div><div id="script-section"><h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
-<p><em>【画面：claude.aiのトップページを表示した状態で開始】</em></p>
+<p class="stage-direction"><em>【画面：claude.aiのトップページを表示した状態で開始】</em></p>
 <br>
 <p>「こんにちは。この講座では、Claude Codeというツールを使って、プログラミングの知識がゼロの状態から、実際に動くアプリを作れるようになるまでを一緒に学んでいきます。</p>
 <br>
@@ -114,7 +136,7 @@
 <hr>
 <br>
 <h3>【本編①：AIツール3種類の役割の違い】（約4分）</h3>
-<p><em>【画面：ブラウザでchatgpt.comを開く】</em></p>
+<p class="stage-direction"><em>【画面：ブラウザでchatgpt.comを開く】</em></p>
 <br>
 <p>「今世の中にあるAIツールを大きく3種類に分けて考えてみましょう。</p>
 <br>
@@ -126,7 +148,7 @@
 <br>
 <hr>
 <br>
-<p><em>【画面：github.com/features/copilot を開く】</em></p>
+<p class="stage-direction"><em>【画面：github.com/features/copilot を開く】</em></p>
 <br>
 <p><strong>2つ目は『コード作成を補助するAI』です。</strong></p>
 <br>
@@ -136,7 +158,7 @@
 <br>
 <hr>
 <br>
-<p><em>【画面：claude.aiのトップページに戻る】</em></p>
+<p class="stage-direction"><em>【画面：claude.aiのトップページに戻る】</em></p>
 <br>
 <p><strong>3つ目が、今回学ぶ『エージェント型AI』です。</strong></p>
 <br>
@@ -149,7 +171,7 @@
 <hr>
 <br>
 <h3>【本編②：エージェント型である意味】（約4分）</h3>
-<p><em>【画面：ChatGPTで「ToDoアプリを作って」と入力して返答が大量のコードになる様子を見せる】</em></p>
+<p class="stage-direction"><em>【画面：ChatGPTで「ToDoアプリを作って」と入力して返答が大量のコードになる様子を見せる】</em></p>
 <br>
 <p>「もう少し具体的に説明します。</p>
 <br>
@@ -157,7 +179,7 @@
 <br>
 <hr>
 <br>
-<p><em>【画面：Claude Codeデスクトップアプリを起動して画面を見せる】</em></p>
+<p class="stage-direction"><em>【画面：Claude Codeデスクトップアプリを起動して画面を見せる】</em></p>
 <br>
 <p>一方、Claude Codeに『ToDoアプリを作って』と指示すると、Claude Codeは自分でファイルを作り、コードを書き込み、必要なソフトのインストールまで行い、動く状態にしてくれます。あなたは出来上がったものを確認するだけでいい。</p>
 <br>
@@ -171,7 +193,7 @@
 <br>
 <hr>
 <br>
-<p><em>【画面：この講座で作るアプリの完成デモ動画を画面に流す（事前収録）】</em></p>
+<p class="stage-direction"><em>【画面：この講座で作るアプリの完成デモ動画を画面に流す（事前収録）】</em></p>
 <br>
 <p>この講座の最終ゴールをお伝えします。</p>
 <br>
@@ -182,7 +204,7 @@
 <hr>
 <br>
 <h3>【本編③：できること・できないことの整理】（約2分）</h3>
-<p><em>【画面：Claude Codeデスクトップアプリを表示したまま】</em></p>
+<p class="stage-direction"><em>【画面：Claude Codeデスクトップアプリを表示したまま】</em></p>
 <br>
 <p>「Claude Codeでできることをまとめます。</p>
 <br>
@@ -205,7 +227,7 @@
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
-<p><em>【画面：Claude Codeホーム画面】</em></p>
+<p class="stage-direction"><em>【画面：Claude Codeホーム画面】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
@@ -219,7 +241,7 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ（詳細版）</h2>
+</div><div id="flow-section"><h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
 <li>[ ] ブラウザ（Chrome推奨）を起動し、全タブを閉じてクリーンな状態にする</li>
@@ -281,5 +303,13 @@
 <li>「承認ダイアログ」のシーンは次回（第3回）で詳しく扱うため、ここでは「そういう機能がある」と触れる程度でOK</li>
 <li>完成アプリのデモ動画は事前に別撮りして画面再生で映す</li>
 <br></div>
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="02.html" class="nav-btn">第02回 →</a></div>
+<script>
+function printSection(type) {
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}
+</script>
 </body></html>

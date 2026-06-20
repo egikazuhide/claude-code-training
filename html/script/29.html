@@ -13,8 +13,12 @@
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
   .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
-  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .dl-btn:hover{background:#fbbf24}
+  .dl-btn-flow{background:#6366f1;color:#fff}
+  .dl-btn-flow:hover{background:#818cf8}
+  .dl-group{margin-left:auto;display:flex;gap:8px}
+  .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -45,8 +49,20 @@
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
-    .dl-btn,.nav{ display:none !important; }
+    .dl-btn,.dl-group,.nav{ display:none !important; }
     .container{ max-width:100%; padding:0; }
+    .print-only-label{ display:none; }
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction { display:none !important; }
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section { display:none !important; }
     h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
     h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -76,10 +92,16 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>自分のデータだけ見える安全な設定ができる</span></div>
   <div class="meta-item">🎬 収録：<span>RLSポリシー設定から確認まで画面収録</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav"><a href="28.html" class="nav-btn">← 第28回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="30.html" class="nav-btn">第30回 →</a></div>
-<div class="container"><h1>第29回｜セキュリティ設定（RLS）を理解して設定する</h1>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第29回／12分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第29回／12分）</div>
+  <div class="intro-section"><h1>第29回｜セキュリティ設定（RLS）を理解して設定する</h1>
 <br>
 <p><strong>尺：12分 / Part7</strong></p>
 <p><strong>ゴール：自分のデータだけ見える安全な設定ができる</strong></p>
@@ -100,10 +122,10 @@
 <br>
 <hr>
 <br>
-<h2>トークスクリプト</h2>
+</div><div id="script-section"><h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
-<p><em>【画面：Supabaseダッシュボード】</em></p>
+<p class="stage-direction"><em>【画面：Supabaseダッシュボード】</em></p>
 <br>
 <p>「これまで名刺の登録・一覧・検索・編集・削除と機能を作ってきました。しかし、実はまだ重大な問題が残っています。今のままでは、ログインしている全員が、他の人が登録した名刺も見えてしまう可能性があるのです。</p>
 <br>
@@ -112,7 +134,7 @@
 <hr>
 <br>
 <h3>【本編①：なぜセキュリティ設定が必要か】（約3分）</h3>
-<p><em>【画面：図解：複数ユーザーがアクセスするイメージ】</em></p>
+<p class="stage-direction"><em>【画面：図解：複数ユーザーがアクセスするイメージ】</em></p>
 <br>
 <p>「Supabaseのデータベースは、初期設定のままだと『誰でもすべてのデータにアクセスできる』状態になっていることがあります。</p>
 <br>
@@ -123,7 +145,7 @@
 <hr>
 <br>
 <h3>【本編②：RLSとは何か】（約3分）</h3>
-<p><em>【画面：SupabaseのRLS設定ページ】</em></p>
+<p class="stage-direction"><em>【画面：SupabaseのRLS設定ページ】</em></p>
 <br>
 <p>「RLSは『Row Level Security（行レベルセキュリティ）』の略です。</p>
 <br>
@@ -136,7 +158,7 @@
 <hr>
 <br>
 <h3>【本編③：実演：RLSポリシーを設定する】（約4分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「実際に設定しましょう。チャット欄に入力します。</p>
 <br>
@@ -151,7 +173,7 @@
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
-<p><em>【画面：Supabaseのポリシー一覧画面】</em></p>
+<p class="stage-direction"><em>【画面：Supabaseのポリシー一覧画面】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
@@ -163,7 +185,7 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ（詳細版）</h2>
+</div><div id="flow-section"><h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
 <li>[ ] 前回までの機能が実装済みのプロジェクトを開く</li>
@@ -210,5 +232,13 @@
 <li>RLSは概念が難しいので、図解をしっかり使い「鍵をかける」のようなたとえを使うとよい</li>
 <li>RLS設定前にうっかり本番データを使わないよう、テストデータのみで実演すること</li>
 <br></div>
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="28.html" class="nav-btn">← 第28回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="30.html" class="nav-btn">第30回 →</a></div>
+<script>
+function printSection(type) {
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}
+</script>
 </body></html>

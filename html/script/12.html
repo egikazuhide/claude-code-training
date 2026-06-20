@@ -13,8 +13,12 @@
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
   .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
-  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .dl-btn:hover{background:#fbbf24}
+  .dl-btn-flow{background:#6366f1;color:#fff}
+  .dl-btn-flow:hover{background:#818cf8}
+  .dl-group{margin-left:auto;display:flex;gap:8px}
+  .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -45,8 +49,20 @@
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
-    .dl-btn,.nav{ display:none !important; }
+    .dl-btn,.dl-group,.nav{ display:none !important; }
     .container{ max-width:100%; padding:0; }
+    .print-only-label{ display:none; }
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction { display:none !important; }
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section { display:none !important; }
     h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
     h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -76,10 +92,16 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>手元のファイルをClaude Codeに渡して別形式に変換できる</span></div>
   <div class="meta-item">🎬 収録：<span>変換・要約の実演を画面収録</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav"><a href="11.html" class="nav-btn">← 第11回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="13.html" class="nav-btn">第13回 →</a></div>
-<div class="container"><h1>第24回｜既存ファイルを読み込んで内容を要約・変換・加工する</h1>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第12回／9分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第12回／9分）</div>
+  <div class="intro-section"><h1>第24回｜既存ファイルを読み込んで内容を要約・変換・加工する</h1>
 <br>
 <p><strong>尺：9分 / Part6</strong></p>
 <p><strong>ゴール：手元のファイルをClaude Codeに渡して別形式に変換できる</strong></p>
@@ -100,7 +122,7 @@
 <br>
 <hr>
 <br>
-<h2>トークスクリプト</h2>
+</div><div id="script-section"><h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
 <br>
@@ -194,7 +216,7 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ（詳細版）</h2>
+</div><div id="flow-section"><h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
 <li>[ ] Wordファイル（report.docx、表データ入り）をデスクトップに用意</li>
@@ -232,5 +254,13 @@
 <li>ファイルが生成された瞬間・ブラウザで開いた瞬間など成果が見えるシーンはゆっくり映す</li>
 <li>承認ダイアログは必ず3ボタンが見えるよう拡大表示してからYesをクリック</li>
 <br></div>
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="11.html" class="nav-btn">← 第11回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="13.html" class="nav-btn">第13回 →</a></div>
+<script>
+function printSection(type) {
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}
+</script>
 </body></html>

@@ -13,8 +13,12 @@
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
   .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
-  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .dl-btn:hover{background:#fbbf24}
+  .dl-btn-flow{background:#6366f1;color:#fff}
+  .dl-btn-flow:hover{background:#818cf8}
+  .dl-group{margin-left:auto;display:flex;gap:8px}
+  .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -45,8 +49,20 @@
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
-    .dl-btn,.nav{ display:none !important; }
+    .dl-btn,.dl-group,.nav{ display:none !important; }
     .container{ max-width:100%; padding:0; }
+    .print-only-label{ display:none; }
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction { display:none !important; }
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section { display:none !important; }
     h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
     h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -76,10 +92,16 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>名刺を登録して一覧で確認できる</span></div>
   <div class="meta-item">🎬 収録：<span>フォーム実装から一覧表示確認まで画面収録</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav"><a href="26.html" class="nav-btn">← 第26回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="28.html" class="nav-btn">第28回 →</a></div>
-<div class="container"><h1>第27回｜名刺の登録・一覧表示画面を作る</h1>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第27回／15分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第27回／15分）</div>
+  <div class="intro-section"><h1>第27回｜名刺の登録・一覧表示画面を作る</h1>
 <br>
 <p><strong>尺：15分 / Part7</strong></p>
 <p><strong>ゴール：名刺を登録して一覧で確認できる</strong></p>
@@ -100,17 +122,17 @@
 <br>
 <hr>
 <br>
-<h2>トークスクリプト</h2>
+</div><div id="script-section"><h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
-<p><em>【画面：Claude Code、ログイン済みのdashboard画面】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code、ログイン済みのdashboard画面】</em></p>
 <br>
 <p>「前回ログイン機能まで作りました。今日は名刺管理アプリの本体部分、『登録フォーム』と『一覧表示画面』を作ります。これができれば、実際に名刺データを蓄積していけるようになります。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：登録フォームを作る】（約5分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「チャット欄に入力します。</p>
 <br>
@@ -123,7 +145,7 @@
 <hr>
 <br>
 <h3>【本編②：一覧表示画面を作る】（約6分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「次に一覧表示です。チャット欄に入力します。</p>
 <br>
@@ -136,7 +158,7 @@
 <hr>
 <br>
 <h3>【本編③：動作確認】（約2分）</h3>
-<p><em>【画面：ブラウザ】</em></p>
+<p class="stage-direction"><em>【画面：ブラウザ】</em></p>
 <br>
 <p>「もう1件、別の名刺データを登録してみます。『新規登録』リンクをクリックし、別のテストデータを入力して保存します。</p>
 <br>
@@ -145,7 +167,7 @@
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
-<p><em>【画面：一覧画面】</em></p>
+<p class="stage-direction"><em>【画面：一覧画面】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
@@ -157,7 +179,7 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ（詳細版）</h2>
+</div><div id="flow-section"><h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
 <li>[ ] 前回までで実装したログイン機能つきのプロジェクトを開く</li>
@@ -209,5 +231,13 @@
 <li>テストデータは実在の人物・会社名を使わず、架空の情報にすること</li>
 <li>一覧に名刺が表示される瞬間は成果が見える重要なシーンなので、ゆっくり拡大して見せる</li>
 <br></div>
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="26.html" class="nav-btn">← 第26回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="28.html" class="nav-btn">第28回 →</a></div>
+<script>
+function printSection(type) {
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}
+</script>
 </body></html>

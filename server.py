@@ -83,10 +83,17 @@ def md_to_html(md_text):
         # 通常テキスト（インライン装飾）
         else:
             t = line
+            stripped = t.strip()
+            is_stage_direction = (
+                stripped.startswith('*') and stripped.endswith('*')
+                and not stripped.startswith('**')
+                and len(stripped) > 1
+            )
             t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
             t = re.sub(r'\*(.+?)\*', r'<em>\1</em>', t)
             t = re.sub(r'`(.+?)`', r'<code>\1</code>', t)
-            html.append(f'<p>{t}</p>')
+            cls = ' class="stage-direction"' if is_stage_direction else ''
+            html.append(f'<p{cls}>{t}</p>')
 
     if in_table:
         html.append('</table>')
@@ -217,6 +224,19 @@ def render_script(num):
 
     body = md_to_html(md)
 
+    # 本文を「前置き(タイトル・構成表)」「台本」「操作・収録手順」の3区画に分割する
+    idx_talk = body.find('<h2>トークスクリプト</h2>')
+    idx_flow = body.find('<h2>操作・画面の流れ')
+    if idx_talk != -1 and idx_flow != -1:
+        intro_html = body[:idx_talk]
+        script_html = body[idx_talk:idx_flow]
+        flow_html = body[idx_flow:]
+        body = (
+            f'<div class="intro-section">{intro_html}</div>'
+            f'<div id="script-section">{script_html}</div>'
+            f'<div id="flow-section">{flow_html}</div>'
+        )
+
     html = f'''<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -232,8 +252,12 @@ def render_script(num):
   .top-bar .min{{font-size:13px;color:rgba(255,255,255,0.8)}}
   .meta-bar{{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}}
   .meta-item{{font-size:12px;color:#64748b}}.meta-item span{{color:#94a3b8;font-weight:500}}
-  .dl-btn{{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}}
+  .dl-btn{{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}}
   .dl-btn:hover{{background:#fbbf24}}
+  .dl-btn-flow{{background:#6366f1;color:#fff}}
+  .dl-btn-flow:hover{{background:#818cf8}}
+  .dl-group{{margin-left:auto;display:flex;gap:8px}}
+  .print-only-label{{display:none}}
   .nav{{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}}
   .nav-btn{{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}}
   .nav-btn:hover{{background:#1e293b;color:#e2e8f0}}
@@ -264,8 +288,20 @@ def render_script(num):
     .top-bar .ep,.top-bar .title,.top-bar .min{{ color:#fff !important; }}
     .meta-bar{{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }}
     .meta-item{{ color:#444 !important; }} .meta-item span{{ color:#222 !important; }}
-    .dl-btn,.nav{{ display:none !important; }}
+    .dl-btn,.dl-group,.nav{{ display:none !important; }}
     .container{{ max-width:100%; padding:0; }}
+    .print-only-label{{ display:none; }}
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }}
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction {{ display:none !important; }}
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section {{ display:none !important; }}
     h1{{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }}
     h2{{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
     h3{{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
@@ -295,11 +331,25 @@ def render_script(num):
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>{row["ゴール"]}</span></div>
   <div class="meta-item">🎬 収録：<span>{row["収録スタイル"]}</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav">{nav}</div>
-<div class="container">{body}</div>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第{num}回／{row["尺（分）"]}分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第{num}回／{row["尺（分）"]}分）</div>
+  {body}
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none">{nav}</div>
+<script>
+function printSection(type) {{
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}}
+</script>
 </body></html>'''
     return html, row['動画タイトル'], num
 

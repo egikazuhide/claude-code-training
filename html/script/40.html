@@ -13,8 +13,12 @@
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
   .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
-  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .dl-btn:hover{background:#fbbf24}
+  .dl-btn-flow{background:#6366f1;color:#fff}
+  .dl-btn-flow:hover{background:#818cf8}
+  .dl-group{margin-left:auto;display:flex;gap:8px}
+  .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -45,8 +49,20 @@
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
-    .dl-btn,.nav{ display:none !important; }
+    .dl-btn,.dl-group,.nav{ display:none !important; }
     .container{ max-width:100%; padding:0; }
+    .print-only-label{ display:none; }
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction { display:none !important; }
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section { display:none !important; }
     h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
     h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -76,10 +92,16 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>次に作りたいものの設計メモをClaude Codeと作れる</span></div>
   <div class="meta-item">🎬 収録：<span>Claude Codeとのアイデア出し画面を収録</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav"><a href="39.html" class="nav-btn">← 第39回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a></div>
-<div class="container"><h1>第40回｜次のアプリへ：学んだことを活かしたアイデアの広げ方</h1>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第40回／9分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第40回／9分）</div>
+  <div class="intro-section"><h1>第40回｜次のアプリへ：学んだことを活かしたアイデアの広げ方</h1>
 <br>
 <p><strong>尺：9分 / Part9（最終回）</strong></p>
 <p><strong>ゴール：次に作りたいものの設計メモをClaude Codeと作れる</strong></p>
@@ -100,10 +122,10 @@
 <br>
 <hr>
 <br>
-<h2>トークスクリプト</h2>
+</div><div id="script-section"><h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約2分）</h3>
-<p><em>【画面：roadmap.htmlの全体】</em></p>
+<p class="stage-direction"><em>【画面：roadmap.htmlの全体】</em></p>
 <br>
 <p>「40回の研修動画を最後まで完走いただき、本当にありがとうございました。</p>
 <br>
@@ -114,7 +136,7 @@
 <hr>
 <br>
 <h3>【本編①：この講座でできるようになったこと】（約2分）</h3>
-<p><em>【画面：roadmap.htmlの「できるようになったこと」リスト】</em></p>
+<p class="stage-direction"><em>【画面：roadmap.htmlの「できるようになったこと」リスト】</em></p>
 <br>
 <p>「振り返りましょう。</p>
 <br>
@@ -129,7 +151,7 @@
 <hr>
 <br>
 <h3>【本編②：次のアイデアを見つける質問】（約2分）</h3>
-<p><em>【画面：roadmap.htmlの「次のアイデアを見つける質問」グリッド】</em></p>
+<p class="stage-direction"><em>【画面：roadmap.htmlの「次のアイデアを見つける質問」グリッド】</em></p>
 <br>
 <p>「次に何を作るか迷ったら、次の質問を自分に問いかけてみてください。</p>
 <br>
@@ -143,7 +165,7 @@
 <hr>
 <br>
 <h3>【本編③：実演：アイデア出しと設計メモ】（約2分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「実際にClaude Codeとアイデア出しをしてみましょう。チャット欄に入力します。</p>
 <br>
@@ -154,7 +176,7 @@
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
-<p><em>【画面：roadmap.htmlの学習ロードマップ】</em></p>
+<p class="stage-direction"><em>【画面：roadmap.htmlの学習ロードマップ】</em></p>
 <br>
 <p>「最後に、これからの学習ロードマップです。</p>
 <br>
@@ -166,7 +188,7 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ（詳細版）</h2>
+</div><div id="flow-section"><h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
 <li>[ ] roadmap.html（収録用モックアップ：最終回ロードマップ）をブラウザで開いておく</li>
@@ -211,5 +233,13 @@
 <li>最終回なので丁寧に締めること。感謝の言葉を忘れずに</li>
 <li>自分の業務例は視聴者が想像しやすい一般的な業務（総務・営業・製造など）を使うとよい</li>
 <br></div>
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="39.html" class="nav-btn">← 第39回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a></div>
+<script>
+function printSection(type) {
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}
+</script>
 </body></html>

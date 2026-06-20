@@ -13,8 +13,12 @@
   .top-bar .min{font-size:13px;color:rgba(255,255,255,0.8)}
   .meta-bar{background:#1e293b;border-bottom:1px solid #334155;padding:12px 24px;display:flex;gap:24px;flex-wrap:wrap;align-items:center}
   .meta-item{font-size:12px;color:#64748b}.meta-item span{color:#94a3b8;font-weight:500}
-  .dl-btn{margin-left:auto;background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
+  .dl-btn{background:#f59e0b;color:#0f172a;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;text-decoration:none;white-space:nowrap}
   .dl-btn:hover{background:#fbbf24}
+  .dl-btn-flow{background:#6366f1;color:#fff}
+  .dl-btn-flow:hover{background:#818cf8}
+  .dl-group{margin-left:auto;display:flex;gap:8px}
+  .print-only-label{display:none}
   .nav{display:flex;gap:8px;padding:16px 24px;background:#0f172a;border-bottom:1px solid #1e293b;justify-content:center}
   .nav-btn{text-decoration:none;color:#94a3b8;border:1px solid #334155;border-radius:6px;padding:6px 16px;font-size:13px;transition:all 0.15s}
   .nav-btn:hover{background:#1e293b;color:#e2e8f0}
@@ -45,8 +49,20 @@
     .top-bar .ep,.top-bar .title,.top-bar .min{ color:#fff !important; }
     .meta-bar{ background:#f5f5f5 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; padding:8px 16px; margin-bottom:8px; border:1px solid #ddd; }
     .meta-item{ color:#444 !important; } .meta-item span{ color:#222 !important; }
-    .dl-btn,.nav{ display:none !important; }
+    .dl-btn,.dl-group,.nav{ display:none !important; }
     .container{ max-width:100%; padding:0; }
+    .print-only-label{ display:none; }
+    body.print-script-only .print-only-label.label-script,
+    body.print-flow-only .print-only-label.label-flow{
+      display:block !important; font-size:14pt; font-weight:700; color:#1a5fa8 !important;
+      -webkit-print-color-adjust:exact; print-color-adjust:exact;
+      margin:8px 0 16px; padding-bottom:6px; border-bottom:2px solid #1a5fa8;
+    }
+    body.print-script-only .intro-section,
+    body.print-script-only #flow-section,
+    body.print-script-only .stage-direction { display:none !important; }
+    body.print-flow-only .intro-section,
+    body.print-flow-only #script-section { display:none !important; }
     h1{ color:#111 !important; font-size:15pt; border-bottom:1px solid #ccc; }
     h2{ color:#1a5fa8 !important; font-size:13pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     h3{ color:#2563eb !important; font-size:11pt; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
@@ -76,10 +92,16 @@
 <div class="meta-bar">
   <div class="meta-item">🎯 ゴール：<span>名刺テーブルを作りメールとパスワードでログインできる</span></div>
   <div class="meta-item">🎬 収録：<span>テーブル作成からログイン確認まで画面収録</span></div>
-  <button class="dl-btn" onclick="window.print()">📄 PDFでダウンロード</button>
+  <div class="dl-group">
+    <button class="dl-btn" onclick="printSection('script')">📜 台本PDFでダウンロード</button>
+    <button class="dl-btn dl-btn-flow" onclick="printSection('flow')">🎬 操作手順PDFでダウンロード</button>
+  </div>
 </div>
 <div class="nav"><a href="25.html" class="nav-btn">← 第25回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="27.html" class="nav-btn">第27回 →</a></div>
-<div class="container"><h1>第26回｜テーブル設計とログイン機能を実装する</h1>
+<div class="container">
+  <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第26回／15分）</div>
+  <div class="print-only-label label-flow">🎬 操作・収録手順（第26回／15分）</div>
+  <div class="intro-section"><h1>第26回｜テーブル設計とログイン機能を実装する</h1>
 <br>
 <p><strong>尺：15分 / Part7</strong></p>
 <p><strong>ゴール：名刺テーブルを作りメールとパスワードでログインできる</strong></p>
@@ -101,17 +123,17 @@
 <br>
 <hr>
 <br>
-<h2>トークスクリプト</h2>
+</div><div id="script-section"><h2>トークスクリプト</h2>
 <br>
 <h3>【オープニング】（約1分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「今日はデータベースに名刺を保存するための『テーブル』を作り、ユーザーがログインできる画面を実装します。これができれば、名刺管理アプリの土台が完成します。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：名刺テーブルの設計】（約3分）</h3>
-<p><em>【画面：design.mdを表示】</em></p>
+<p class="stage-direction"><em>【画面：design.mdを表示】</em></p>
 <br>
 <p>「design.mdに書かれているテーブル構成を確認しましょう。</p>
 <br>
@@ -132,7 +154,7 @@
 <hr>
 <br>
 <h3>【本編②：Claude CodeにSQLを書いてもらいテーブル作成】（約3分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「実際にテーブルを作りましょう。チャット欄に入力します。</p>
 <br>
@@ -145,7 +167,7 @@
 <hr>
 <br>
 <h3>【本編③：ログイン画面を実装する】（約6分）</h3>
-<p><em>【画面：Claude Code】</em></p>
+<p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
 <p>「次にログイン画面です。チャット欄に入力します。</p>
 <br>
@@ -160,14 +182,14 @@
 <hr>
 <br>
 <h3>【本編④：動作確認】（約1分）</h3>
-<p><em>【画面：ブラウザ】</em></p>
+<p class="stage-direction"><em>【画面：ブラウザ】</em></p>
 <br>
 <p>「登録したメールアドレスとパスワードでログインしてみます。ログインに成功すると、/dashboardページに移動することを確認します。」</p>
 <br>
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
-<p><em>【画面：ブラウザのdashboard画面】</em></p>
+<p class="stage-direction"><em>【画面：ブラウザのdashboard画面】</em></p>
 <br>
 <p>「まとめます。</p>
 <br>
@@ -179,7 +201,7 @@
 <br>
 <hr>
 <br>
-<h2>操作・画面の流れ（詳細版）</h2>
+</div><div id="flow-section"><h2>操作・画面の流れ（詳細版）</h2>
 <br>
 <h3>📋 収録前準備チェックリスト</h3>
 <li>[ ] 第25回で作成したNext.js+Supabase接続済みプロジェクトを開いておく</li>
@@ -237,5 +259,13 @@
 <li>テスト用のメールアドレス・パスワードは実在する個人情報を使わないこと</li>
 <li>「Confirm email」のオフは収録用の簡略化。本番運用時は有効にすることを一言補足するとより実務的</li>
 <br></div>
+</div>
 <div class="nav" style="margin-top:0;border-top:1px solid #1e293b;border-bottom:none"><a href="25.html" class="nav-btn">← 第25回</a><a href="../index.html" class="nav-btn home-btn">📋 一覧</a><a href="27.html" class="nav-btn">第27回 →</a></div>
+<script>
+function printSection(type) {
+  document.body.classList.remove('print-script-only', 'print-flow-only');
+  document.body.classList.add(type === 'script' ? 'print-script-only' : 'print-flow-only');
+  window.print();
+}
+</script>
 </body></html>
