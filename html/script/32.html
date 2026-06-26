@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第32回 | 日報投稿フォームを作る</title>
+<title>第32回 | 土台とフォームの再演</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第32回 / Part8</span>
-  <span class="title">日報投稿フォームを作る</span>
+  <span class="title">土台とフォームの再演</span>
   <span class="min">⏱ 15分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第32回／15分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第32回／15分）</div>
-  <div class="intro-section"><h1>第32回｜日報投稿フォームを作る</h1>
+  <div class="intro-section"><h1>第32回｜土台とフォームの再演</h1>
 <br>
 <p><strong>尺：15分 / Part8</strong></p>
 <p><strong>ゴール：日付・現場名・作業内容を入力して投稿できる</strong></p>
@@ -131,44 +131,44 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「今日は日報アプリの土台と、最初の機能である『日報投稿フォーム』を作ります。第25回・第26回でやった手順とよく似ているので、思い出しながら進めましょう。」</p>
+<p>「今日は日報アプリの土台づくりと、最初の機能である『日報投稿フォーム』を作ります。実はこれ、第25回・第26回でやった手順とびっくりするほど似てます。一度通った道、思い出しながらスイスイ進めましょう。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：プロジェクトの土台作りとログイン機能】（約5分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「まずNext.jsプロジェクトを作り、Supabaseと接続します。</p>
+<p>「まずNext.jsプロジェクトを作って、Supabaseと接続します。</p>
 <br>
 <p>『Next.jsの新しいプロジェクトを作ってください。TypeScriptとTailwind CSSを使う設定でお願いします』と入力し、続けて『このプロジェクトにSupabaseクライアントを接続するセットアップをしてください』と入力します。</p>
 <br>
-<p><code>.env.local</code>に、今回新しく作ったSupabaseプロジェクト（daily-report-app）のURLとanonキーを設定します。名刺管理アプリのものと混同しないよう注意してください。</p>
+<p><code>.env.local</code>に、今回新しく作ったSupabaseプロジェクト（daily-report-app）のURLとanonキーを設定します。名刺管理アプリのものと混同しないよう、ここは要注意です。</p>
 <br>
-<p>次にログイン機能です。『メールとパスワードでログインできる画面を/loginページに作ってください。Supabase Authを使ってください』と入力します。」</p>
+<p>次はログイン機能。『メールとパスワードでログインできる画面を/loginページに作ってください。Supabase Authを使ってください』と入力します。デジャヴ感じてきましたか？　それでいいんです、それが成長です。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編②：テーブル作成】（約3分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「前回作った設計メモをもとに、テーブルを作成するSQLを書いてもらいます。</p>
+<p>「前回作った設計メモをもとに、テーブルを作るSQLを書いてもらいましょう。</p>
 <br>
 <p>『design.mdを参照して、profiles・sites・reports・report_photosの4つのテーブルを作るSQLを書いてください』と入力します。</p>
 <br>
-<p>生成されたSQLをSupabaseの『SQL Editor』で実行し、Table Editorでテーブルが作られていることを確認します。</p>
+<p>生成されたSQLをSupabaseの『SQL Editor』で実行して、Table Editorでテーブルが作られていることを確認します。</p>
 <br>
-<p>また、sitesテーブルにテスト用の現場データを2〜3件、Table Editorから手動で追加しておきましょう。たとえば『東京本社ビル工事』『大阪支店改修工事』などです。」</p>
+<p>ついでにsitesテーブルにテスト用の現場データを2〜3件、Table Editorから手動で追加しておきましょう。たとえば『東京本社ビル工事』『大阪支店改修工事』などです。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編③：日報投稿フォームを作る】（約5分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「いよいよ投稿フォームです。チャット欄に入力します。</p>
+<p>「いよいよ本日のメイン、投稿フォームです。チャット欄に入力します。</p>
 <br>
 <p>『/reports/newというページに、日報投稿フォームを作ってください。入力項目は日付（today初期値）・現場（sitesテーブルから選択するセレクトボックス）・作業内容・所感です。送信するとreportsテーブルに保存され、現在ログイン中のユーザーのuser_idを自動でセットしてください。保存後は/reportsの一覧ページに戻るようにしてください（一覧ページは次回作成するので今回はまだなくて構いません）』</p>
 <br>
-<p>承認してファイルが生成されたら、ログインしてフォームを開き、テストデータを入力して保存してみます。Supabaseの『Table Editor』でreportsテーブルを開き、データが正しく保存されているか確認しましょう。」</p>
+<p>承認してファイルが生成されたら、ログインしてフォームを開き、テストデータを入力して保存してみます。Supabaseの『Table Editor』でreportsテーブルを開いて、データが正しく保存されているか確認しましょう。動きましたね、よし。」</p>
 <br>
 <hr>
 <br>
@@ -181,7 +181,7 @@
 <li>profiles・sites・reports・report_photosのテーブルを作成した</li>
 <li>日報投稿フォームを作り、データが保存されることを確認した</li>
 <br>
-<p>次回は写真アップロード機能を実装します。お疲れさまでした。」</p>
+<p>土台もフォームも整いました。次回は写真アップロード機能を実装します。お疲れさまでした！」</p>
 <br>
 <hr>
 <br>

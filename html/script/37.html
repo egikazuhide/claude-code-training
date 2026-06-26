@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第37回 | 配布準備とVercelへの公開（現場日報報告アプリ）</title>
+<title>第37回 | 現場のポケットへ届ける</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第37回 / Part8</span>
-  <span class="title">配布準備とVercelへの公開（現場日報報告アプリ）</span>
+  <span class="title">現場のポケットへ届ける</span>
   <span class="min">⏱ 10分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第37回／10分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第37回／10分）</div>
-  <div class="intro-section"><h1>第37回｜配布準備とVercelへの公開（現場日報報告アプリ）</h1>
+  <div class="intro-section"><h1>第37回｜現場のポケットへ届ける</h1>
 <br>
 <p><strong>尺：10分 / Part8</strong></p>
 <p><strong>ゴール：現場日報報告アプリを公開し他社に配布できる状態にする</strong></p>
@@ -131,7 +131,7 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「現場日報報告アプリの主要機能がすべて完成しました。今日は名刺管理アプリのときと同様に、Vercelで公開します。今回は『現場からスマホで使う』という前提があるので、スマホでの表示確認も行います。」</p>
+<p>「現場日報報告アプリ、ついに主要機能がすべて完成しました！　今日は名刺管理アプリのときと同様に、Vercelで公開します。今回は『現場からスマホで使う』という前提があるので、スマホでの表示確認もしっかりやります。現場のポケットに届けますよ。」</p>
 <br>
 <hr>
 <br>
@@ -142,7 +142,7 @@
 <br>
 <p>承認後、Vercelの『Add New Project』からこのリポジトリを選択します。</p>
 <br>
-<p>『Environment Variables』に、<code>.env.local</code>と同じSupabaseのURL・anonキーを入力します。これは名刺管理アプリのときとは別の値（daily-report-app用）なので、間違えないように確認してください。</p>
+<p>『Environment Variables』に、<code>.env.local</code>と同じSupabaseのURL・anonキーを入力します。これは名刺管理アプリのときとは別の値（daily-report-app用）なので、間違えないように確認してください。ここ、毎回みんな一瞬「あれ、どっちだっけ」って固まるとこです。</p>
 <br>
 <p>『Deploy』をクリックし、デプロイが完了したら公開URLを開いて、ログイン・日報投稿・写真アップロードまで一通り動くことを確認します。」</p>
 <br>
@@ -151,7 +151,7 @@
 <h3>【本編②：スマホでの動作確認】（約2分）</h3>
 <p class="stage-direction"><em>【画面：スマホの画面（実機またはブラウザのデベロッパーツールでスマホ表示に切り替え）】</em></p>
 <br>
-<p>「現場担当者は主にスマホから使うことを想定しているため、スマホでの見た目も確認しておきましょう。</p>
+<p>「現場担当者は主にスマホから使うことを想定しているため、スマホでの見た目も確認しておきましょう。パソコンでしか動作確認しないで終わるの、それもったいないですよ。</p>
 <br>
 <p>ブラウザのデベロッパーツールで『デバイスツールバー』を表示し、iPhoneなどのスマホサイズに切り替えて確認します。ボタンが小さすぎないか、写真選択がスマホのカメラと連携してスムーズに使えるかをチェックします。気になる点があれば『スマホで見たときに○○のボタンが見えにくいので大きくしてください』とClaude Codeに伝えて調整しましょう。」</p>
 <br>
@@ -162,7 +162,7 @@
 <br>
 <p>「他社にこのアプリを提供する場合も、名刺管理アプリと同じ考え方です。会社ごとに専用のSupabaseプロジェクトとVercelプロジェクトを用意し、同じコードをデプロイします。</p>
 <br>
-<p>もう一歩進んだ運用として、1つのコードベースで複数の会社のデータを扱う『マルチテナント』という設計もありますが、まずは『会社ごとに環境を分ける』という単純な形から始めるのが安全で確実です。」</p>
+<p>もう一歩進んだ運用として、1つのコードベースで複数の会社のデータを扱う『マルチテナント（1つのシステムを複数の会社・組織で共有して使う構成）』という設計もありますが、まずは『会社ごとに環境を分ける』という単純な形から始めるのが安全で確実です。」</p>
 <br>
 <hr>
 <br>

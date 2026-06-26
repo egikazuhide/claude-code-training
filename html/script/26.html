@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第26回 | テーブル設計とログイン機能を実装する</title>
+<title>第26回 | 土台と鍵をかける</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第26回 / Part7</span>
-  <span class="title">テーブル設計とログイン機能を実装する</span>
+  <span class="title">土台と鍵をかける</span>
   <span class="min">⏱ 15分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第26回／15分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第26回／15分）</div>
-  <div class="intro-section"><h1>第26回｜テーブル設計とログイン機能を実装する</h1>
+  <div class="intro-section"><h1>第26回｜土台と鍵をかける</h1>
 <br>
 <p><strong>尺：15分 / Part7</strong></p>
 <p><strong>ゴール：名刺テーブルを作りメールとパスワードでログインできる</strong></p>
@@ -132,14 +132,14 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「今日はデータベースに名刺を保存するための『テーブル』を作り、ユーザーがログインできる画面を実装します。これができれば、名刺管理アプリの土台が完成します。」</p>
+<p>「今日はデータベースに名刺を保存するための『テーブル』（データを行と列で整理した表でしたね）を作って、ユーザーがログインできる画面を実装します。これができたら——名刺管理アプリの土台、ついに完成です。気合い入れていきましょう。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：名刺テーブルの設計】（約3分）</h3>
 <p class="stage-direction"><em>【画面：design.mdを表示】</em></p>
 <br>
-<p>「design.mdに書かれているテーブル構成を確認しましょう。</p>
+<p>「design.mdに書かれているテーブル構成を確認しましょう。前回Claude Codeに作ってもらった、あの設計メモです。</p>
 <br>
 <p>名刺テーブル（business_cards）には、次の列が必要です。</p>
 <br>
@@ -153,42 +153,42 @@
 <li>memo（メモ）</li>
 <li>created_at（登録日時）</li>
 <br>
-<p>特にuser_idの列が重要です。これがあることで『このデータは誰のものか』をシステムが判断できるようになります。」</p>
+<p>中でも主役はuser_id。これがあることで『このデータは誰のものか』をシステムがちゃんと判断できるようになります。地味ですが、めちゃ重要な列です。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編②：Claude CodeにSQLを書いてもらいテーブル作成】（約3分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「実際にテーブルを作りましょう。チャット欄に入力します。</p>
+<p>「では実際にテーブルを作りましょう。チャット欄に入力します。</p>
 <br>
 <p>『SupabaseのSQL Editorで実行するためのSQLを書いてください。business_cardsというテーブルを作り、id・user_id・name・company・department・phone・email・memo・created_atの列を持たせてください。user_idはauth.usersテーブルと紐づけてください』</p>
 <br>
-<p>生成されたSQLをコピーし、Supabaseダッシュボードの『SQL Editor』を開いて貼り付け、『Run』ボタンを押して実行します。</p>
+<p>生成されたSQLをコピーして、Supabaseダッシュボードの『SQL Editor』を開いて貼り付け、『Run』ボタンを押して実行します。</p>
 <br>
-<p>Table Editorに戻って、business_cardsテーブルが作られていることを確認しましょう。」</p>
+<p>Table Editorに戻って、business_cardsテーブルが出来上がっていることを確認しましょう。はい、表ができました。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編③：ログイン画面を実装する】（約6分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「次にログイン画面です。チャット欄に入力します。</p>
+<p>「次にログイン画面です。アプリの『鍵』をかける作業ですね。チャット欄に入力します。</p>
 <br>
 <p>『メールアドレスとパスワードでログイン・新規登録できる画面を/loginページに作ってください。Supabase Authを使ってください。ログインに成功したら/dashboardにリダイレクトしてください』</p>
 <br>
-<p>承認してファイルが生成されたら、開発サーバーを起動して確認します。『開発サーバーを起動してください』と頼み、ブラウザでhttp://localhost:3000/loginを開きます。</p>
+<p>承認してファイルが生成されたら、開発サーバーを起動して確認します。『開発サーバーを起動してください』と頼んで、ブラウザでhttp://localhost:3000/loginを開きます。</p>
 <br>
 <p>ログイン画面が表示されたら、まず『新規登録』を試してみましょう。テスト用のメールアドレスとパスワードを入力します。</p>
 <br>
-<p>登録が完了すると、Supabaseの確認メールが送られる設定になっている場合があります。今回はテスト用に、Supabaseダッシュボードの『Authentication』→『Settings』で『Confirm email』を一時的にオフにしておくと、すぐにログインできて確認がスムーズです。」</p>
+<p>登録が完了すると、Supabaseの確認メールが送られる設定になっている場合があります。今回はテスト用に、Supabaseダッシュボードの『Authentication』→『Settings』で『Confirm email』を一時的にオフにしておくと、すぐログインできて確認がスムーズです。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編④：動作確認】（約1分）</h3>
 <p class="stage-direction"><em>【画面：ブラウザ】</em></p>
 <br>
-<p>「登録したメールアドレスとパスワードでログインしてみます。ログインに成功すると、/dashboardページに移動することを確認します。」</p>
+<p>「登録したメールアドレスとパスワードでログインしてみます。ログインに成功すると、/dashboardページに移動することを確認します。はい、鍵かかりました。」</p>
 <br>
 <hr>
 <br>
@@ -201,7 +201,7 @@
 <li>user_idで誰のデータかを管理する仕組みを用意した</li>
 <li>メール＋パスワードでログインできる画面を実装した</li>
 <br>
-<p>次回は名刺の登録・一覧表示画面を作ります。お疲れさまでした。」</p>
+<p>これで土台と鍵、両方揃いました。次回は名刺の登録・一覧表示画面を作ります。お疲れさまでした！」</p>
 <br>
 <hr>
 <br>

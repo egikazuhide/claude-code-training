@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第30回 | Vercelに公開してGitHub連携で自動デプロイする</title>
+<title>第30回 | 世界に公開する瞬間</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第30回 / Part7</span>
-  <span class="title">Vercelに公開してGitHub連携で自動デプロイする</span>
+  <span class="title">世界に公開する瞬間</span>
   <span class="min">⏱ 10分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第30回／10分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第30回／10分）</div>
-  <div class="intro-section"><h1>第30回｜Vercelに公開してGitHub連携で自動デプロイする</h1>
+  <div class="intro-section"><h1>第30回｜世界に公開する瞬間</h1>
 <br>
 <p><strong>尺：10分 / Part7</strong></p>
 <p><strong>ゴール：名刺管理アプリを公開し他社にも配布できる状態にする</strong></p>
@@ -132,45 +132,45 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「ここまでで名刺管理アプリの機能とセキュリティが完成しました。今日は最後のステップ、実際にインターネット上に公開して、誰でも（許可された人だけが）使える状態にします。」</p>
+<p>「機能できた。セキュリティもかけた。となれば、もうやることは1つしかないですよね——世に出す！　今日は名刺管理アプリ、ついにインターネットに公開して、誰でも（許可された人だけが、ですよ）使える状態にします。いよいよ完成編です。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：環境変数の設定】（約2分）</h3>
 <p class="stage-direction"><em>【画面：.env.localファイル】</em></p>
 <br>
-<p>「公開する前に、ローカルで使っていた<code>.env.local</code>の中身、SupabaseのURLとanonキーを確認しておきます。</p>
+<p>「公開する前に1つ確認です。ローカルで使っていた<code>.env.local</code>の中身、SupabaseのURLとanonキー、ここに改めて目を通しておきましょう。</p>
 <br>
-<p>これらの値は、Vercel側にも同じように設定する必要があります。GitHubにはこのファイル自体はアップロードされていないので、Vercelの管理画面で改めて入力します。」</p>
+<p>この値、実はVercel側にも同じように設定する必要があるんです。<code>.env.local</code>自体はGitHubにアップロードされていないので、Vercelの管理画面で改めて入力してあげる必要があります。ここ、サボれないポイントです。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編②：Vercelにデプロイ】（約3分）</h3>
 <p class="stage-direction"><em>【画面：vercel.com/new】</em></p>
 <br>
-<p>「まずClaude Codeに『現在の変更をコミットしてGitHubにpushしてください』と頼みます。</p>
+<p>「ではいきましょう。まずClaude Codeに『現在の変更をコミットしてGitHubにpushしてください』とお願いします。</p>
 <br>
-<p>次にVercelにアクセスし、『Add New Project』からこのリポジトリを選択します。</p>
+<p>次にVercelにアクセスして、『Add New Project』からこのリポジトリを選択します。</p>
 <br>
-<p>『Environment Variables』のセクションで、<code>.env.local</code>に書いていたキーと同じ名前・同じ値を入力します。これがとても重要なステップです。入力を忘れると、公開後にエラーが出てしまいます。</p>
+<p>ここで一番大事なステップ。『Environment Variables』のセクションに、<code>.env.local</code>に書いていたキーと同じ名前・同じ値を入力します。ここをサボると、公開後にエラーが出て『あれ？動かない！』ってなるので、慎重に。</p>
 <br>
-<p>入力が終わったら『Deploy』をクリックします。1〜2分待つと、公開URLが発行されます。」</p>
+<p>入力が終わったら『Deploy』をクリック。1〜2分待つと——公開URL、発行されます！」</p>
 <br>
 <hr>
 <br>
 <h3>【本編③：GitHub連携で自動デプロイの仕組み】（約2分）</h3>
 <p class="stage-direction"><em>【画面：Vercelのデプロイ履歴画面】</em></p>
 <br>
-<p>「公開URLをクリックし、ログイン画面が表示されることを確認します。実際にログインして、名刺の登録・一覧・検索が動くか確認しましょう。</p>
+<p>「公開URLをクリックして、ログイン画面が出てくるか確認します。実際にログインして、名刺の登録・一覧・検索がちゃんと動くか、ここでしっかりチェックしましょう。</p>
 <br>
-<p>ここで重要な仕組みを紹介します。今後、機能を追加してClaude Codeに『コミットしてpushしてください』と頼むと、GitHubに変更が反映されます。Vercelはそれを検知し、自動的に再デプロイ（公開し直し）してくれます。つまり、わざわざVercelの画面を開いて手動で公開し直す必要はありません。」</p>
+<p>そしてここで、地味だけどめちゃ重要な仕組みを紹介します。今後、機能を追加してClaude Codeに『コミットしてpushしてください』と頼むと、GitHubに変更が反映されます。すると、Vercelがそれを察知して、自動的に再デプロイ（公開し直し）してくれるんです。つまり、もうわざわざVercelの画面を開いて手動でポチポチ公開し直す必要、ナシ。pushするだけで世界が更新される、これがいわゆる自動デプロイの仕組みです。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編④：他社への配布の考え方】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Vercelの設定画面】</em></p>
 <br>
-<p>「もし、この名刺管理アプリを別の会社にも使ってもらいたい場合、それぞれの会社専用のSupabaseプロジェクトとVercelプロジェクトを用意し、同じコードをデプロイする、という形が基本になります。データベースを会社ごとに分けることで、データが混ざる心配がありません。」</p>
+<p>「もし、この名刺管理アプリを別の会社にも使ってもらいたい場合はどうするか。それぞれの会社専用のSupabaseプロジェクトとVercelプロジェクトを用意して、同じコードをデプロイする、というのが基本形です。データベースを会社ごとにきっちり分けることで、データが混ざる心配がなくなります。」</p>
 <br>
 <hr>
 <br>
@@ -183,7 +183,7 @@
 <li>GitHubにpushするだけで自動再デプロイされる仕組みができた</li>
 <li>他社に配布する場合は会社ごとに専用の環境を用意する</li>
 <br>
-<p>これで名刺管理アプリが完成しました！次回からはPart8、現場日報報告アプリに挑戦します。お疲れさまでした。」</p>
+<p>これで名刺管理アプリ、完成です！　お疲れさまでした、ここまで本当によく頑張りました。次回からはPart8、現場日報報告アプリに挑戦します。」</p>
 <br>
 <hr>
 <br>

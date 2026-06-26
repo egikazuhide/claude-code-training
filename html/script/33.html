@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第33回 | 写真アップロード機能を実装する</title>
+<title>第33回 | 写真、倉庫へ送る日</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第33回 / Part8</span>
-  <span class="title">写真アップロード機能を実装する</span>
+  <span class="title">写真、倉庫へ送る日</span>
   <span class="min">⏱ 12分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第33回／12分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第33回／12分）</div>
-  <div class="intro-section"><h1>第33回｜写真アップロード機能を実装する</h1>
+  <div class="intro-section"><h1>第33回｜写真、倉庫へ送る日</h1>
 <br>
 <p><strong>尺：12分 / Part8</strong></p>
 <p><strong>ゴール：日報に現場写真を添付して保存できる</strong></p>
@@ -131,44 +131,44 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「今日は日報投稿フォームに、写真を添付してアップロードできる機能を追加します。現場の様子を写真で記録できるようになる、日報アプリらしい機能です。」</p>
+<p>「今日は日報投稿フォームに、写真を添付してアップロードできる機能を追加します。現場の様子を写真で記録できる——これができたらもう、日報アプリらしさ全開です。さっそくいきましょう。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：写真アップロードの仕組み】（約2分）</h3>
 <p class="stage-direction"><em>【画面：図解：フォーム→Storage→データベースの流れ】</em></p>
 <br>
-<p>「仕組みを確認しましょう。</p>
+<p>「まず仕組みを確認しておきましょう。</p>
 <br>
-<p>ユーザーがフォームで写真を選択すると、まずその画像ファイルがSupabaseの『Storage』（第31回で作ったreport-photosバケット）にアップロードされます。</p>
+<p>ユーザーがフォームで写真を選択すると、まずその画像ファイルがSupabaseの『Storage』（第31回で作ったあのreport-photosバケットです）に送られます。倉庫に荷物を運び込むようなイメージですね。</p>
 <br>
-<p>アップロードが成功すると、その写真の保存場所を示す『URL』が発行されます。このURLをreport_photosテーブルに保存します。</p>
+<p>アップロードが成功すると、その写真の保存場所を示す『URL』が発行されます。このURLをreport_photosテーブルに保存するんです。</p>
 <br>
-<p>つまり、画像の実物はStorageに、画像の場所を示す文字列はデータベースに、という役割分担になっています。」</p>
+<p>つまり——画像の実物はStorageという倉庫に、画像の場所を示す文字列（URL）はデータベースに。きれいな役割分担、できてますね。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編②：投稿フォームに写真選択を追加する】（約5分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「実装しましょう。チャット欄に入力します。</p>
+<p>「では実装しましょう。チャット欄に入力します。</p>
 <br>
 <p>『/reports/newの投稿フォームに、写真を1〜3枚選択してアップロードできる機能を追加してください。選択した写真はSupabase Storageのreport-photosバケットにアップロードし、アップロード後のURLをreport_photosテーブルに、投稿したreportのidと紐づけて保存してください』</p>
 <br>
 <p>承認してファイルが更新されたら、フォーム画面をリロードして確認します。</p>
 <br>
-<p>ファイル選択ボタンが追加されているはずです。」</p>
+<p>ファイル選択ボタン、ちゃんと追加されてるはずです。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編③：動作確認】（約3分）</h3>
 <p class="stage-direction"><em>【画面：ブラウザ】</em></p>
 <br>
-<p>「実際にテスト用の写真を選択してみましょう。お使いのパソコンに保存されている適当な画像ファイルで構いません。</p>
+<p>「では実際にテスト用の写真を選択してみましょう。お使いのパソコンに保存されている適当な画像ファイルで構いません。</p>
 <br>
-<p>日付・現場・作業内容を入力し、写真を1枚選択して『保存』をクリックします。</p>
+<p>日付・現場・作業内容を入力して、写真を1枚選択し、『保存』をクリックします。</p>
 <br>
-<p>保存できたら、Supabaseダッシュボードの『Storage』→『report-photos』を開き、アップロードされた画像ファイルを確認します。さらに『Table Editor』のreport_photosテーブルを開き、URLが正しく保存されているかも確認しましょう。」</p>
+<p>保存できたら、Supabaseダッシュボードの『Storage』→『report-photos』を開いて、アップロードされた画像ファイルを確認します。さらに『Table Editor』のreport_photosテーブルを開いて、URLが正しく保存されているかも確認しましょう。倉庫にもデータベースにも、ちゃんと届いてますか？」</p>
 <br>
 <hr>
 <br>
@@ -181,7 +181,7 @@
 <li>写真の保存場所（URL）はreport_photosテーブルに記録される</li>
 <li>フォームから写真付きで日報を投稿できるようになった</li>
 <br>
-<p>次回は日報の一覧・カレンダー表示を作ります。お疲れさまでした。」</p>
+<p>写真、無事に倉庫まで届きました。次回は日報の一覧・カレンダー表示を作ります。お疲れさまでした！」</p>
 <br>
 <hr>
 <br>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第22回 | GitHubでコードを管理する：チーム開発の土台を作る</title>
+<title>第22回 | GitHubでコードを守り切る</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第22回 / Part6</span>
-  <span class="title">GitHubでコードを管理する：チーム開発の土台を作る</span>
+  <span class="title">GitHubでコードを守り切る</span>
   <span class="min">⏱ 12分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第22回／12分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第22回／12分）</div>
-  <div class="intro-section"><h1>第22回｜GitHubでコードを管理する：チーム開発の土台を作る</h1>
+  <div class="intro-section"><h1>第22回｜GitHubでコードを守り切る</h1>
 <br>
 <p><strong>尺：12分 / Part6</strong></p>
 <p><strong>ゴール：GitHubリポジトリを作成しClaude Codeと連携してpushできる</strong></p>
@@ -132,31 +132,31 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：github.comのトップページ】</em></p>
 <br>
-<p>「第7回でGitについて学びました。コミット＝セーブデータ、という説明をしましたね。</p>
+<p>「第7回でGitについて学びましたよね。コミット＝セーブデータ、という説明、覚えてますか？</p>
 <br>
-<p>今日学ぶGitHubは、そのセーブデータを『インターネット上に保管する場所』です。パソコンが壊れてもコードが失われず、他の人と共同で開発することもできるようになります。</p>
+<p>今日学ぶ『GitHub（ギットハブ）』は、そのセーブデータを『インターネット上に保管する場所』です。パソコンが壊れてもコードが失われない、他の人と共同で開発もできる——もう、保険に入ったようなものです。</p>
 <br>
-<p>これから作るアプリは、最終的にVercelで公開しますが、そのためにもGitHubにコードを置いておくことが前提になります。今日のうちにしっかり連携させましょう。」</p>
+<p>これから作るアプリは、最終的にVercelで公開しますが、そのためにもGitHubにコードを置いておくことが前提になります。今日のうちにガッツリ連携させちゃいましょう。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：GitHubとGitの違い】（約2分）</h3>
 <p class="stage-direction"><em>【画面：Git（ローカル）とGitHub（クラウド）の図】</em></p>
 <br>
-<p>「Gitは『自分のパソコンの中』で変更履歴を記録する仕組みでした。</p>
+<p>「Gitは『自分のパソコンの中』で変更履歴を記録する仕組みでしたよね。</p>
 <br>
 <p>GitHubは、そのGitの記録を『インターネット上のサーバー』にアップロードして保管・共有するサービスです。</p>
 <br>
-<p>たとえるなら、Gitは『自分の手元のセーブデータ』、GitHubは『クラウドに自動バックアップされたセーブデータ』です。</p>
+<p>たとえるなら——Gitは『自分の手元のセーブデータ』、GitHubは『クラウドに自動バックアップされたセーブデータ』。わかりやすいでしょ。</p>
 <br>
-<p>GitHubに置いておくことで、後でVercelと連携して『コードを更新したら自動で公開ページも更新される』という仕組みが作れます。これが今日のゴールにつながります。」</p>
+<p>GitHubに置いておくことで、後でVercelと連携して『コードを更新したら自動で公開ページも更新される』という仕組みが作れます。これが今日のゴールにつながっていきます。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編②：GitHubアカウント作成・リポジトリ作成】（約3分）</h3>
 <p class="stage-direction"><em>【画面：github.com/signup】</em></p>
 <br>
-<p>「まずGitHubのアカウントを作ります。すでにお持ちの方は次のステップに進んでください。</p>
+<p>「まずGitHubのアカウントを作ります。すでにお持ちの方は次のステップに飛んでください。</p>
 <br>
 <p>メールアドレス・パスワード・ユーザー名を入力して登録します。</p>
 <br>
@@ -164,48 +164,48 @@
 <br>
 <p class="stage-direction"><em>【画面：github.com/new（新規リポジトリ作成画面）】</em></p>
 <br>
-<p>アカウントができたら、『リポジトリ』を作ります。リポジトリとは、プロジェクトを保管する箱のようなものです。</p>
+<p>アカウントができたら、『リポジトリ』を作ります。前回もちょっと触れましたが、リポジトリとはプロジェクトを保管する箱のようなものです。</p>
 <br>
 <p>『New repository』をクリックし、名前を入力します。今回は名刺管理アプリ用に『business-card-app』という名前にしましょう。</p>
 <br>
-<p>公開・非公開（Public / Private）を選べますが、業務アプリなのでまずは『Private』を選んでおくのが安全です。」</p>
+<p>公開・非公開（Public / Private）を選べますが、業務アプリなのでまずは『Private』を選んでおくのが安全です。ここはケチらずPrivate、いっときましょう。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編③：Claude Codeでリポジトリにpushする】（約4分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「ここからはClaude Codeを使います。すでにターミナルでghコマンドというGitHub操作用のコマンドが使えるようになっていますが、それすら覚える必要はありません。Claude Codeに日本語で頼むだけです。</p>
+<p>「ここからはClaude Codeの出番です。すでにターミナルで『ghコマンド』というGitHub操作用のコマンドが使えるようになっていますが——それすら覚える必要、ありません。Claude Codeに日本語で頼むだけです。楽すぎでしょ。</p>
 <br>
 <p>新しいプロジェクトフォルダを開いた状態で、チャット欄に次のように入力します。</p>
 <br>
 <p>『GitHubにbusiness-card-appという名前のプライベートリポジトリを作成して、このプロジェクトをpushしてください』</p>
 <br>
-<p>承認ダイアログが出たら『Yes』をクリックします。Claude CodeがGitの初期化、コミット、GitHubでのリポジトリ作成、pushまでを自動でやってくれます。</p>
+<p>承認ダイアログが出たら『Yes』をクリックします。Claude CodeがGitの初期化、コミット、GitHubでのリポジトリ作成、『push（プッシュ）』——つまりクラウドへのアップロード——まで、ぜんぶ自動でやってくれます。</p>
 <br>
-<p>完了したら、ブラウザでGitHubのリポジトリページを開いて、ファイルが反映されていることを確認しましょう。」</p>
+<p>完了したら、ブラウザでGitHubのリポジトリページを開いて、ファイルが反映されているか確認しましょう。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編④：これからの運用ルール】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「今後、機能を1つ実装するたびに、Claude Codeに『コミットしてpushしてください』と頼む習慣をつけましょう。</p>
+<p>「今後、機能を1つ実装するたびに、Claude Codeに『コミットしてpushしてください』と頼む習慣をつけましょう。これだけで未来が変わります、マジで。</p>
 <br>
-<p>こまめに保存しておくことで、何か問題が起きたときにいつでも前の状態に戻せます。」</p>
+<p>こまめに保存しておけば、何か問題が起きたときにいつでも前の状態に戻せます。安心料、激安です。」</p>
 <br>
 <hr>
 <br>
 <h3>【クロージング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：GitHubのリポジトリページ】</em></p>
 <br>
-<p>「まとめます。</p>
+<p>「というわけで、まとめます。</p>
 <br>
 <li>GitHubはコードをクラウドに保管する場所</li>
 <li>リポジトリはプロジェクトを入れる箱</li>
 <li>Claude Codeに日本語で頼むだけでGitHub操作が完了する</li>
 <br>
-<p>次回はデータベースサービス『Supabase』を学びます。お疲れさまでした。」</p>
+<p>これでもう、パソコンが壊れても怖くない体になりました。次回はデータベースサービス『Supabase』を学びます。お疲れさまでした！」</p>
 <br>
 <hr>
 <br>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>第35回 | 管理者用の集計・検索機能を作る</title>
+<title>第35回 | 管理者だけの特別席</title>
 <link rel="stylesheet" href="../teleprompter.css">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -89,7 +89,7 @@
 <body>
 <div class="top-bar">
   <span class="ep">第35回 / Part8</span>
-  <span class="title">管理者用の集計・検索機能を作る</span>
+  <span class="title">管理者だけの特別席</span>
   <span class="min">⏱ 12分</span>
 </div>
 <div class="meta-bar">
@@ -105,7 +105,7 @@
 <div class="container">
   <div class="print-only-label label-script">📜 台本（読み上げ用フルスクリプト・第35回／12分）</div>
   <div class="print-only-label label-flow">🎬 操作・収録手順（第35回／12分）</div>
-  <div class="intro-section"><h1>第35回｜管理者用の集計・検索機能を作る</h1>
+  <div class="intro-section"><h1>第35回｜管理者だけの特別席</h1>
 <br>
 <p><strong>尺：12分 / Part8</strong></p>
 <p><strong>ゴール：管理者が現場別・期間別に日報を集計・検索できる</strong></p>
@@ -131,16 +131,18 @@
 <h3>【オープニング】（約1分）</h3>
 <p class="stage-direction"><em>【画面：Claude Code】</em></p>
 <br>
-<p>「今日は管理者だけが見られる、全現場の日報をまとめて確認できる画面を作ります。次回のセキュリティ設定と合わせて、管理者と現場担当者の役割の違いを実現していきます。」</p>
+<p>「みんなが同じ画面を見られたらいいってわけじゃないでしょ？　会社にも『現場担当者』と『管理者』、見える範囲って違いますよね。今日はその管理者だけが入れる特別席——全現場の日報をまとめて見られる画面を作ります。次回のセキュリティ設定と合わせて、役割の違いをガッチリ実現していきますよ。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編①：profilesテーブルにロールを設定する】（約3分）</h3>
 <p class="stage-direction"><em>【画面：Supabase Table Editor】</em></p>
 <br>
-<p>「第31回で作ったprofilesテーブルには、roleという列があり、<code>admin</code>か<code>worker</code>の値が入る設計でした。</p>
+<p>「まず言葉の説明をひとつ。『ロール（role）』というのは、ユーザーが『どういう立場の人か』を表す印のことです。今回は『管理者（admin）』か『現場担当者（worker）』、どちらかの印がつくイメージですね。</p>
 <br>
-<p>今、テスト用に作ったユーザーは、まだroleが設定されていません。Supabaseの『Table Editor』からprofilesテーブルを開き、自分のテストユーザーのroleを手動で<code>admin</code>に設定しておきましょう。これで、このユーザーは管理者として動作確認できます。」</p>
+<p>第31回で作ったprofilesテーブルには、まさにこのroleという列があり、<code>admin</code>か<code>worker</code>の値が入る設計でした。</p>
+<br>
+<p>今、テスト用に作ったユーザーは、まだroleが設定されていません。Supabaseの『Table Editor』からprofilesテーブルを開き、自分のテストユーザーのroleを手動で<code>admin</code>に設定しておきましょう。これで、このユーザーは管理者として動作確認できます。さあ、特別席の予約完了です。」</p>
 <br>
 <hr>
 <br>
@@ -151,14 +153,14 @@
 <br>
 <p>『/admin/reportsというページを作ってください。ログイン中のユーザーのprofilesテーブルのroleがadminの場合のみアクセスできるようにし、それ以外のユーザーがアクセスした場合は/reportsにリダイレクトしてください。このページでは全ユーザーの日報を、現場名での絞り込みと、日付範囲での絞り込みができる一覧表で表示してください。現場ごとの投稿件数も上部に集計して表示してください』</p>
 <br>
-<p>承認後、ファイルが生成されたら、管理者権限のあるアカウントでログインし、/admin/reportsを開いて確認します。」</p>
+<p>承認後、ファイルが生成されたら、管理者権限のあるアカウントでログインし、/admin/reportsを開いて確認します。これで管理者だけが見られる秘密の司令室、完成です。」</p>
 <br>
 <hr>
 <br>
 <h3>【本編③：動作確認】（約2分）</h3>
 <p class="stage-direction"><em>【画面：ブラウザ】</em></p>
 <br>
-<p>「現場名で絞り込み検索を試してみましょう。また、別の一般ユーザー（role=worker）でログインし直して/admin/reportsにアクセスすると、/reportsにリダイレクトされることも確認しておきます。」</p>
+<p>「現場名で絞り込み検索を試してみましょう。また、別の一般ユーザー（role=worker）でログインし直して/admin/reportsにアクセスすると、/reportsにリダイレクトされることも確認しておきます。ちゃんと"立ち入り禁止"が効いてますね。」</p>
 <br>
 <hr>
 <br>
